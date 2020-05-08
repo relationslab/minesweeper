@@ -22,6 +22,10 @@ type CellProps = {
   handleToggleFlag: (e: React.MouseEvent) => void;
 };
 
+const flag = () => {
+  return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="hgoe" />;
+};
+
 const Cell: React.FC<CellProps> = ({
   cell,
   handleOpenCell,
@@ -33,11 +37,7 @@ const Cell: React.FC<CellProps> = ({
       onContextMenu={handleToggleFlag}
       styleIsOpened={cell.isOpened}
     >
-      {cell.isFlagged ? (
-        <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="hgoe" />
-      ) : (
-        ""
-      )}
+      {cell.isFlagged ? flag() : !cell.isOpened ? "" : cell.hasMine ? "💣" : ""}
     </StyledCell>
   );
 };

@@ -8,10 +8,21 @@ const ContainerCell = () => {
   const dispatch = useDispatch();
   const cell = useSelector((state: RootState) => state.cell);
 
-  const handleOpenCell = () => dispatch(openCell());
+  const handleOpenCell = () => {
+    cell.isFlagged = false;
+    if (cell.isOpened) {
+      return;
+    } else {
+      dispatch(openCell());
+    }
+  };
   const handleToggleFlag = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(toggleFlag());
+    if (cell.isOpened) {
+      return;
+    } else {
+      dispatch(toggleFlag());
+    }
   };
 
   const _props = { cell, handleOpenCell, handleToggleFlag };
