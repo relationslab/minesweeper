@@ -6,7 +6,14 @@ const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   width: 30px;
   height: 30px;
   border: 1px solid #000;
+  text-align: center;
+  line-height: 30px;
   background: ${(props) => (props.styleIsOpened ? "#fff" : "#000")};
+`;
+
+const StyledImg = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 type CellProps = {
@@ -26,7 +33,11 @@ const Cell: React.FC<CellProps> = ({
       onContextMenu={handleToggleFlag}
       styleIsOpened={cell.isOpened}
     >
-      {cell.isFlagged ? "🚩" : ""}
+      {cell.isFlagged ? (
+        <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="hgoe" />
+      ) : (
+        ""
+      )}
     </StyledCell>
   );
 };
