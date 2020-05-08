@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Cell from "./containers/Cell";
+import { Provider } from "react-redux";
+import store from "./rootReducer";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Cell />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
