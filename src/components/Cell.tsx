@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CellState } from "../modules/Cell";
+import { CellState } from "../modules/Cell/types";
 
 const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   width: 30px;

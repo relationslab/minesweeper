@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux";
-import cellReducer from "./modules/Cell";
+import cellReducer from "./modules/Cell/Cell";
 
 const rootReducer = combineReducers({
   cell: cellReducer,
