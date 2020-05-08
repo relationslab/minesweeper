@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cell from "../components/Cell";
 import { RootState } from "../rootReducer";
-import { openCell, toggleFlag } from "../modules/Cell";
+import { openCell, toggleFlag } from "../modules/Cell/Cell";
 
 const ContainerCell = () => {
   const dispatch = useDispatch();
