@@ -6,6 +6,7 @@ export const ActionTypes = {
 export type CellState = {
   isOpened: boolean;
   isFlagged: boolean;
+  hasMine: boolean;
 };
 
 type OpenCellAction = {
