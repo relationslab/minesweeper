@@ -3,7 +3,8 @@ import { ActionTypes, CellState, CellActionTypes } from "./types";
 const initialState: CellState = {
   isOpened: false,
   isFlagged: false,
-  hasMine: true,
+  hasMine: false,
+  surrounding_mines: 0,
 };
 
 const reducer = (state = initialState, action: CellActionTypes) => {

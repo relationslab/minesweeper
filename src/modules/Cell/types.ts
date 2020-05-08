@@ -7,6 +7,7 @@ export type CellState = {
   isOpened: boolean;
   isFlagged: boolean;
   hasMine: boolean;
+  surrounding_mines: number;
 };
 
 type OpenCellAction = {

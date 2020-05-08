@@ -37,7 +37,13 @@ const Cell: React.FC<CellProps> = ({
       onContextMenu={handleToggleFlag}
       styleIsOpened={cell.isOpened}
     >
-      {cell.isFlagged ? flag() : !cell.isOpened ? "" : cell.hasMine ? "💣" : ""}
+      {cell.isFlagged
+        ? flag()
+        : !cell.isOpened
+        ? ""
+        : cell.hasMine
+        ? "💣"
+        : cell.surrounding_mines}
     </StyledCell>
   );
 };
