@@ -8,7 +8,7 @@ export type CellState = {
   isOpened: boolean;
   isFlagged: boolean;
   hasMine: boolean;
-  surrounding_mines: number;
+  surroundingMines: number;
 };
 
 export type BoardState = {
