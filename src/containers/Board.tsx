@@ -29,7 +29,7 @@ const ContainerBoard = () => {
 
   const _props = { board, handleCreateBoard, handleOpenCell, handleToggleFlag };
 
-  return <Board {..._props}></Board>;
+  return <Board {..._props} />;
 };
 
 export default ContainerBoard;
