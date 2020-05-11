@@ -24,8 +24,12 @@ type CellProps = {
   onContextMenu: (e: React.MouseEvent) => void;
 };
 
-const flag = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="hgoe" />;
+const Flag = () => {
+  return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />;
+};
+
+const Mine = () => {
+  return <StyledImg src={`${process.env.PUBLIC_URL}/mine.png`} alt="mine" />;
 };
 
 const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
@@ -35,13 +39,17 @@ const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
       onContextMenu={(e) => onContextMenu(e)}
       styleIsOpened={cell.isOpened}
     >
-      {cell.isFlagged
-        ? flag()
-        : !cell.isOpened
-        ? ""
-        : cell.hasMine
-        ? "💣"
-        : cell.surrounding_mines}
+      {cell.isFlagged ? (
+        <Flag />
+      ) : !cell.isOpened ? (
+        ""
+      ) : cell.hasMine ? (
+        <Mine />
+      ) : cell.surroundingMines === 0 ? (
+        ""
+      ) : (
+        cell.surroundingMines
+      )}
     </StyledCell>
   );
 };
