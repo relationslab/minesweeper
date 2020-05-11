@@ -11,6 +11,7 @@ export const createBoard = (
   { payload }: CreateBoardAction
 ): CellState[][] => {
   const { width, height } = payload;
+  state.cells = [];
 
   const cells: CellState[][] = state.cells;
   for (let i = 0; i < height; i++) {
