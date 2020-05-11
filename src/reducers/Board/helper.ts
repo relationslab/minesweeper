@@ -28,15 +28,47 @@ export const createBoard = (
   return cells;
 };
 
+const getBoardSize = (
+  boardSize: number,
+  currentCellNumber: number,
+  nearCellNumber: number
+) => {
+  if (currentCellNumber + nearCellNumber < 0) {
+    return 0;
+  } else if (boardSize <= currentCellNumber + nearCellNumber) {
+    return boardSize - 1;
+  } else {
+    return currentCellNumber + nearCellNumber;
+  }
+};
+
 export const openCell = (
   state: BoardState,
   { payload }: OpenCellAction
 ): CellState[][] => {
-  const { x, y } = payload;
-
+  const x = payload.y;
+  const y = payload.x;
+  const { width, height } = state;
   const newCells = [...state.cells];
-  newCells[x][y].isOpened = true;
-  newCells[x][y].isFlagged = false;
+
+  if (
+    newCells[x][y].surroundingMines === 0 &&
+    newCells[x][y].hasMine === false
+  ) {
+    for (let cols = -1; cols <= 1; cols++) {
+      for (let rows = -1; rows <= 1; rows++) {
+        newCells[getBoardSize(height, x, cols)][
+          getBoardSize(width, y, rows)
+        ].isOpened = true;
+        newCells[getBoardSize(height, x, cols)][
+          getBoardSize(width, y, rows)
+        ].isFlagged = false;
+      }
+    }
+  } else {
+    newCells[x][y].isOpened = true;
+    newCells[x][y].isFlagged = false;
+  }
   return newCells;
 };
 

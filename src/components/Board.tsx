@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BoardState } from "../modules/Board/types";
+import { BoardState } from "../reducers/Board/types";
 import Cell from "./Cell";
 
 const StyledBoard = styled.div<{ width: number; height: number }>`
@@ -28,10 +28,10 @@ const Board: React.FC<BoardProps> = ({
         start
       </button>
       <StyledBoard width={board.width} height={board.height}>
-        {board.cells.map((row, x) =>
-          row.map((cell, y) => (
+        {board.cells.map((row, y) =>
+          row.map((cell, x) => (
             <Cell
-              key={y}
+              key={x}
               cell={cell}
               x={x}
               y={y}
