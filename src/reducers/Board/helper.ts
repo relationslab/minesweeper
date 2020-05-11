@@ -25,7 +25,20 @@ export const createBoard = (
       });
     }
   }
+  putMines(cells, width, height);
   return cells;
+};
+const putMines = (cells: CellState[][], width: number, height: number) => {
+  const mines = 10;
+
+  const newCells = cells;
+  for (let i = 0; i < mines; i++) {
+    const randomX = Math.floor(Math.random() * height);
+    const randomY = Math.floor(Math.random() * width);
+    newCells[randomX][randomY].hasMine = true;
+  }
+
+  return newCells;
 };
 
 const getBoardSize = (
