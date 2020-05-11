@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Cell from "./containers/Cell";
+import Board from "./containers/Board";
 import { Provider } from "react-redux";
 import store from "./rootReducer";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Cell />
+    <Board />
   </Provider>,
   document.getElementById("root")
 );
