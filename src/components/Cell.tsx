@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CellState } from "../modules/Cell/types";
+import { CellState } from "../modules/Board/types";
 
 const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   width: 30px;
@@ -8,7 +8,7 @@ const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   border: 1px solid #000;
   text-align: center;
   line-height: 30px;
-  background: ${(props) => (props.styleIsOpened ? "#fff" : "#000")};
+  background: ${(props) => (props.styleIsOpened ? "#fff" : "#777")};
 `;
 
 const StyledImg = styled.img`
@@ -18,23 +18,21 @@ const StyledImg = styled.img`
 
 type CellProps = {
   cell: CellState;
-  handleOpenCell: () => void;
-  handleToggleFlag: (e: React.MouseEvent) => void;
+  x: number;
+  y: number;
+  onClick: (e: React.MouseEvent) => void;
+  onContextMenu: (e: React.MouseEvent) => void;
 };
 
 const flag = () => {
   return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="hgoe" />;
 };
 
-const Cell: React.FC<CellProps> = ({
-  cell,
-  handleOpenCell,
-  handleToggleFlag,
-}) => {
+const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
   return (
     <StyledCell
-      onClick={handleOpenCell}
-      onContextMenu={handleToggleFlag}
+      onClick={(e) => onClick(e)}
+      onContextMenu={(e) => onContextMenu(e)}
       styleIsOpened={cell.isOpened}
     >
       {cell.isFlagged
