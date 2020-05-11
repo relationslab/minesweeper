@@ -21,7 +21,7 @@ export const createBoard = (
         isOpened: false,
         isFlagged: false,
         hasMine: false,
-        surrounding_mines: 0,
+        surroundingMines: 0,
       });
     }
   }
