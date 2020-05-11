@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CellState } from "../modules/Board/types";
+import { CellState } from "../reducers/Board/types";
 
 const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   width: 30px;

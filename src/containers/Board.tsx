@@ -6,7 +6,7 @@ import {
   createBoardAction,
   openCellAction,
   toggleFlagAction,
-} from "../modules/Board/board";
+} from "../reducers/Board/board";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const ContainerBoard = () => {
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
+    console.log(x, y);
     e.preventDefault();
     dispatch(openCellAction(x, y));
   };
