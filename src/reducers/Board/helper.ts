@@ -30,9 +30,8 @@ export const createBoard = (
 };
 const putMines = (cells: CellState[][], width: number, height: number) => {
   const mines = 10;
-
   const newCells = cells;
-  for (let i = 0; i < mines; i++) {
+  for (let i = 0; i <= mines; i++) {
     const randomX = Math.floor(Math.random() * height);
     const randomY = Math.floor(Math.random() * width);
     newCells[randomX][randomY].hasMine = true;
@@ -70,12 +69,17 @@ export const openCell = (
   ) {
     for (let cols = -1; cols <= 1; cols++) {
       for (let rows = -1; rows <= 1; rows++) {
-        newCells[getBoardSize(height, x, cols)][
-          getBoardSize(width, y, rows)
-        ].isOpened = true;
-        newCells[getBoardSize(height, x, cols)][
-          getBoardSize(width, y, rows)
-        ].isFlagged = false;
+        if (
+          newCells[getBoardSize(height, x, cols)][getBoardSize(width, y, rows)]
+            .hasMine === false
+        ) {
+          newCells[getBoardSize(height, x, cols)][
+            getBoardSize(width, y, rows)
+          ].isOpened = true;
+          newCells[getBoardSize(height, x, cols)][
+            getBoardSize(width, y, rows)
+          ].isFlagged = false;
+        }
       }
     }
   } else {
