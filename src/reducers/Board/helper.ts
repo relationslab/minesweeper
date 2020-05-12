@@ -1,7 +1,6 @@
 import {
   CellState,
   BoardState,
-  OpenCellAction,
   ToggleFlagAction,
   CreateBoardAction,
 } from "./types";
@@ -18,7 +17,7 @@ export const createBoard = (
     cells.push([]);
     for (let j = 0; j < width; j++) {
       cells[i].push({
-        isOpened: true,
+        isOpened: false,
         isFlagged: false,
         hasMine: false,
         surroundingMines: 0,
@@ -27,7 +26,7 @@ export const createBoard = (
   }
 
   //mineとsurroundingMinesをいれる
-  const mines = 10;
+  const mines = 5;
 
   for (let i = 0; i < mines; i++) {
     const randomY = Math.floor(Math.random() * height);
@@ -56,53 +55,50 @@ export const createBoard = (
   return cells;
 };
 
-const getBoardSize = (
-  boardSize: number,
-  currentCellNumber: number,
-  nearCellNumber: number
-) => {
-  if (currentCellNumber + nearCellNumber <= 0) {
-    return 0;
-  } else if (boardSize <= currentCellNumber + nearCellNumber) {
-    return boardSize - 1;
-  } else {
-    return currentCellNumber + nearCellNumber;
-  }
-};
-
 export const openCell = (
-  state: BoardState,
-  { payload }: OpenCellAction
+  cells: CellState[][],
+  height: number,
+  width: number,
+  currentY: number,
+  currentX: number
 ): CellState[][] => {
-  const y = payload.y;
-  const x = payload.x;
-  const { width, height } = state;
-  const newCells = [...state.cells];
+  if (cells[currentY][currentX].isOpened === false) {
+    cells[currentY][currentX].isOpened = true;
+    cells[currentY][currentX].isFlagged = false;
+  }
 
   if (
-    newCells[y][x].surroundingMines === 0 &&
-    newCells[y][x].hasMine === false
+    cells[currentY][currentX].surroundingMines === 0 &&
+    cells[currentY][currentX].hasMine === false
   ) {
     for (let rows = -1; rows <= 1; rows++) {
       for (let cols = -1; cols <= 1; cols++) {
+        const surroundingY = currentY + rows;
+        const surroundingX = currentX + cols;
         if (
-          newCells[getBoardSize(height, y, rows)][getBoardSize(width, x, cols)]
-            .hasMine === false
+          0 <= surroundingY &&
+          0 <= surroundingX &&
+          surroundingY < height &&
+          surroundingX < width &&
+          cells[surroundingY][surroundingX].isOpened === false
         ) {
-          newCells[getBoardSize(height, y, rows)][
-            getBoardSize(width, x, cols)
-          ].isOpened = true;
-          newCells[getBoardSize(height, y, rows)][
-            getBoardSize(width, x, cols)
-          ].isFlagged = false;
+          cells[surroundingY][surroundingX].isOpened = true;
+          cells[surroundingY][surroundingX].isFlagged = false;
+
+          if (
+            cells[surroundingY][surroundingX].surroundingMines === 0 &&
+            cells[surroundingY][surroundingX].hasMine === false
+          ) {
+            openCell(cells, height, width, surroundingY, surroundingX);
+          }
         }
       }
     }
   } else {
-    newCells[y][x].isOpened = true;
-    newCells[y][x].isFlagged = false;
+    return cells;
   }
-  return newCells;
+
+  return cells;
 };
 
 export const toggleFlag = (
