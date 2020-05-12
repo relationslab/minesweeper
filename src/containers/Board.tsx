@@ -6,7 +6,7 @@ import {
   createBoardAction,
   openCellAction,
   toggleFlagAction,
-} from "../reducers/Board/board";
+} from "../reducers/Board";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
