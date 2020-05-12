@@ -18,7 +18,7 @@ export const createBoard = (
     cells.push([]);
     for (let j = 0; j < width; j++) {
       cells[i].push({
-        isOpened: false,
+        isOpened: true,
         isFlagged: false,
         hasMine: false,
         surroundingMines: 0,
@@ -31,10 +31,16 @@ export const createBoard = (
 const putMines = (cells: CellState[][], width: number, height: number) => {
   const mines = 10;
   const newCells = cells;
-  for (let i = 0; i <= mines; i++) {
+
+  for (let i = 0; i < mines; i++) {
     const randomX = Math.floor(Math.random() * height);
     const randomY = Math.floor(Math.random() * width);
-    newCells[randomX][randomY].hasMine = true;
+    if (newCells[randomX][randomY].hasMine === true) {
+      i--;
+      continue;
+    } else {
+      newCells[randomX][randomY].hasMine = true;
+    }
   }
 
   return newCells;
