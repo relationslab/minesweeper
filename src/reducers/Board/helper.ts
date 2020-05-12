@@ -18,32 +18,42 @@ export const createBoard = (
     cells.push([]);
     for (let j = 0; j < width; j++) {
       cells[i].push({
-        isOpened: false,
+        isOpened: true,
         isFlagged: false,
         hasMine: false,
         surroundingMines: 0,
       });
     }
   }
-  putMines(cells, width, height);
-  return cells;
-};
-const putMines = (cells: CellState[][], width: number, height: number) => {
+
+  //mineとsurroundingMinesをいれる
   const mines = 10;
-  const newCells = cells;
 
   for (let i = 0; i < mines; i++) {
     const randomY = Math.floor(Math.random() * height);
     const randomX = Math.floor(Math.random() * width);
-    if (newCells[randomY][randomX].hasMine === true) {
+    if (cells[randomY][randomX].hasMine === true) {
       i--;
       continue;
     } else {
-      newCells[randomY][randomX].hasMine = true;
+      cells[randomY][randomX].hasMine = true;
+      for (let rows = -1; rows <= 1; rows++) {
+        for (let cols = -1; cols <= 1; cols++) {
+          const surroundingY = randomY + rows;
+          const surroundingX = randomX + cols;
+          if (
+            0 <= surroundingY &&
+            0 <= surroundingX &&
+            surroundingY < height &&
+            surroundingX < width
+          ) {
+            cells[surroundingY][surroundingX].surroundingMines++;
+          }
+        }
+      }
     }
   }
-
-  return newCells;
+  return cells;
 };
 
 const getBoardSize = (
@@ -51,7 +61,7 @@ const getBoardSize = (
   currentCellNumber: number,
   nearCellNumber: number
 ) => {
-  if (currentCellNumber + nearCellNumber < 0) {
+  if (currentCellNumber + nearCellNumber <= 0) {
     return 0;
   } else if (boardSize <= currentCellNumber + nearCellNumber) {
     return boardSize - 1;
@@ -73,17 +83,17 @@ export const openCell = (
     newCells[y][x].surroundingMines === 0 &&
     newCells[y][x].hasMine === false
   ) {
-    for (let cols = -1; cols <= 1; cols++) {
-      for (let rows = -1; rows <= 1; rows++) {
+    for (let rows = -1; rows <= 1; rows++) {
+      for (let cols = -1; cols <= 1; cols++) {
         if (
-          newCells[getBoardSize(height, y, cols)][getBoardSize(width, x, rows)]
+          newCells[getBoardSize(height, y, rows)][getBoardSize(width, x, cols)]
             .hasMine === false
         ) {
-          newCells[getBoardSize(height, y, cols)][
-            getBoardSize(width, x, rows)
+          newCells[getBoardSize(height, y, rows)][
+            getBoardSize(width, x, cols)
           ].isOpened = true;
-          newCells[getBoardSize(height, y, cols)][
-            getBoardSize(width, x, rows)
+          newCells[getBoardSize(height, y, rows)][
+            getBoardSize(width, x, cols)
           ].isFlagged = false;
         }
       }
