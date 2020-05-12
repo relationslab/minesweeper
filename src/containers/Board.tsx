@@ -18,7 +18,6 @@ const ContainerBoard = () => {
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
-    console.log(x, y);
     e.preventDefault();
     dispatch(openCellAction(x, y));
   };

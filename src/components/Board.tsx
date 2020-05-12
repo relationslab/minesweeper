@@ -33,8 +33,8 @@ const Board: React.FC<BoardProps> = ({
             <Cell
               key={x}
               cell={cell}
-              x={x}
               y={y}
+              x={x}
               onClick={(e) => handleOpenCell(e, x, y)}
               onContextMenu={(e) => handleToggleFlag(e, x, y)}
             />

@@ -18,7 +18,7 @@ export const createBoard = (
     cells.push([]);
     for (let j = 0; j < width; j++) {
       cells[i].push({
-        isOpened: true,
+        isOpened: false,
         isFlagged: false,
         hasMine: false,
         surroundingMines: 0,
@@ -33,13 +33,13 @@ const putMines = (cells: CellState[][], width: number, height: number) => {
   const newCells = cells;
 
   for (let i = 0; i < mines; i++) {
-    const randomX = Math.floor(Math.random() * height);
-    const randomY = Math.floor(Math.random() * width);
-    if (newCells[randomX][randomY].hasMine === true) {
+    const randomY = Math.floor(Math.random() * height);
+    const randomX = Math.floor(Math.random() * width);
+    if (newCells[randomY][randomX].hasMine === true) {
       i--;
       continue;
     } else {
-      newCells[randomX][randomY].hasMine = true;
+      newCells[randomY][randomX].hasMine = true;
     }
   }
 
@@ -64,33 +64,33 @@ export const openCell = (
   state: BoardState,
   { payload }: OpenCellAction
 ): CellState[][] => {
-  const x = payload.y;
-  const y = payload.x;
+  const y = payload.y;
+  const x = payload.x;
   const { width, height } = state;
   const newCells = [...state.cells];
 
   if (
-    newCells[x][y].surroundingMines === 0 &&
-    newCells[x][y].hasMine === false
+    newCells[y][x].surroundingMines === 0 &&
+    newCells[y][x].hasMine === false
   ) {
     for (let cols = -1; cols <= 1; cols++) {
       for (let rows = -1; rows <= 1; rows++) {
         if (
-          newCells[getBoardSize(height, x, cols)][getBoardSize(width, y, rows)]
+          newCells[getBoardSize(height, y, cols)][getBoardSize(width, x, rows)]
             .hasMine === false
         ) {
-          newCells[getBoardSize(height, x, cols)][
-            getBoardSize(width, y, rows)
+          newCells[getBoardSize(height, y, cols)][
+            getBoardSize(width, x, rows)
           ].isOpened = true;
-          newCells[getBoardSize(height, x, cols)][
-            getBoardSize(width, y, rows)
+          newCells[getBoardSize(height, y, cols)][
+            getBoardSize(width, x, rows)
           ].isFlagged = false;
         }
       }
     }
   } else {
-    newCells[x][y].isOpened = true;
-    newCells[x][y].isFlagged = false;
+    newCells[y][x].isOpened = true;
+    newCells[y][x].isFlagged = false;
   }
   return newCells;
 };
