@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux";
-import boardReducer from "./reducers/Board/board";
+import boardReducer from "./reducers/Board";
 
 const storeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
