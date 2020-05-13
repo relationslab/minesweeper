@@ -30,12 +30,7 @@ export const createBoard = (width: number, height: number): CellState[][] => {
           for (let rows = -1; rows <= 1; rows++) {
             const surroundingX = randomX + cols;
             const surroundingY = randomY + rows;
-            if (
-              0 <= surroundingX &&
-              0 <= surroundingY &&
-              surroundingX < width &&
-              surroundingY < height
-            ) {
+            if (isInsideBoard(surroundingX, surroundingY, width, height)) {
               newCells[surroundingX][surroundingY].surroundingMines++;
             }
           }
@@ -44,6 +39,20 @@ export const createBoard = (width: number, height: number): CellState[][] => {
     }
   }
   return newCells;
+};
+
+//x座標とy座標が負の数じゃないか返す
+const isInsideBoard = (
+  x: number,
+  y: number,
+  width: number,
+  height: number
+): boolean => {
+  if (0 <= x && 0 <= y && x < width && y < height) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const openCell = (
@@ -72,10 +81,7 @@ export const openCell = (
         const surroundingX = currentX + cols;
         const surroundingY = currentY + rows;
         if (
-          0 <= surroundingX &&
-          0 <= surroundingY &&
-          surroundingX < width &&
-          surroundingY < height &&
+          isInsideBoard(surroundingX, surroundingY, width, height) &&
           currentCells[surroundingX][surroundingY].isOpened === false
         ) {
           currentCells[surroundingX][surroundingY].isOpened = true;
