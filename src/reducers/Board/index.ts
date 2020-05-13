@@ -15,15 +15,15 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
         cells: createBoard(state, action),
       };
     case ActionTypes.OPEN_CELL:
-      const { height, width } = state;
+      const { width, height } = state;
       return {
         ...state,
         cells: openCell(
           state.cells,
-          height,
           width,
-          action.payload.y,
-          action.payload.x
+          height,
+          action.payload.x,
+          action.payload.y
         ),
       };
     case ActionTypes.TOGGLE_FLAG:
