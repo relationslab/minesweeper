@@ -1,22 +1,12 @@
-import {
-  CellState,
-  BoardState,
-  ToggleFlagAction,
-  CreateBoardAction,
-} from "./types";
+import { CellState, BoardState } from "./types";
 
-export const createBoard = (
-  state: BoardState,
-  { payload }: CreateBoardAction
-): CellState[][] => {
-  const { width, height } = payload;
-  state.cells = [];
+export const createBoard = (width: number, height: number): CellState[][] => {
+  const board: CellState[][] = [];
 
-  const cells: CellState[][] = state.cells;
   for (let i = 0; i < width; i++) {
-    cells.push([]);
+    board.push([]);
     for (let j = 0; j < height; j++) {
-      cells[i].push({
+      board[i].push({
         isOpened: false,
         isFlagged: false,
         hasMine: false,
@@ -31,11 +21,11 @@ export const createBoard = (
   for (let i = 0; i < mines; i++) {
     const randomX = Math.floor(Math.random() * width);
     const randomY = Math.floor(Math.random() * height);
-    if (cells[randomX][randomY].hasMine === true) {
+    if (board[randomX][randomY].hasMine === true) {
       i--;
       continue;
     } else {
-      cells[randomX][randomY].hasMine = true;
+      board[randomX][randomY].hasMine = true;
       for (let cols = -1; cols <= 1; cols++) {
         for (let rows = -1; rows <= 1; rows++) {
           const surroundingX = randomX + cols;
@@ -46,13 +36,13 @@ export const createBoard = (
             surroundingX < width &&
             surroundingY < height
           ) {
-            cells[surroundingX][surroundingY].surroundingMines++;
+            board[surroundingX][surroundingY].surroundingMines++;
           }
         }
       }
     }
   }
-  return cells;
+  return board;
 };
 
 export const openCell = (
@@ -62,14 +52,16 @@ export const openCell = (
   currentX: number,
   currentY: number
 ): CellState[][] => {
-  if (cells[currentX][currentY].isOpened === false) {
-    cells[currentX][currentY].isOpened = true;
-    cells[currentX][currentY].isFlagged = false;
+  const currentCell = [...cells];
+
+  if (currentCell[currentX][currentY].isOpened === false) {
+    currentCell[currentX][currentY].isOpened = true;
+    currentCell[currentX][currentY].isFlagged = false;
   }
 
   if (
-    cells[currentX][currentY].surroundingMines === 0 &&
-    cells[currentX][currentY].hasMine === false
+    currentCell[currentX][currentY].surroundingMines === 0 &&
+    currentCell[currentX][currentY].hasMine === false
   ) {
     for (let cols = -1; cols <= 1; cols++) {
       for (let rows = -1; rows <= 1; rows++) {
@@ -80,22 +72,22 @@ export const openCell = (
           0 <= surroundingY &&
           surroundingX < width &&
           surroundingY < height &&
-          cells[surroundingX][surroundingY].isOpened === false
+          currentCell[surroundingX][surroundingY].isOpened === false
         ) {
-          cells[surroundingX][surroundingY].isOpened = true;
-          cells[surroundingX][surroundingY].isFlagged = false;
+          currentCell[surroundingX][surroundingY].isOpened = true;
+          currentCell[surroundingX][surroundingY].isFlagged = false;
 
           if (
-            cells[surroundingX][surroundingY].surroundingMines === 0 &&
-            cells[surroundingX][surroundingY].hasMine === false
+            currentCell[surroundingX][surroundingY].surroundingMines === 0 &&
+            currentCell[surroundingX][surroundingY].hasMine === false
           ) {
-            openCell(cells, width, height, surroundingX, surroundingY);
+            openCell(currentCell, width, height, surroundingX, surroundingY);
           }
         }
       }
     }
   } else {
-    return cells;
+    return currentCell;
   }
 
   return cells;
@@ -103,10 +95,9 @@ export const openCell = (
 
 export const toggleFlag = (
   state: BoardState,
-  { payload }: ToggleFlagAction
+  x: number,
+  y: number
 ): CellState[][] => {
-  const { x, y } = payload;
-
   const newToggleFlag = [...state.cells];
   if (newToggleFlag[x][y].isOpened === true) {
     return newToggleFlag;

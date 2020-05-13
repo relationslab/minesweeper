@@ -12,7 +12,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
     case ActionTypes.CREATE_BOARD:
       return {
         ...state,
-        cells: createBoard(state, action),
+        cells: createBoard(action.payload.width, action.payload.height),
       };
     case ActionTypes.OPEN_CELL:
       const { width, height } = state;
@@ -29,7 +29,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
     case ActionTypes.TOGGLE_FLAG:
       return {
         ...state,
-        cells: toggleFlag(state, action),
+        cells: toggleFlag(state, action.payload.x, action.payload.y),
       };
     default:
       return state;
