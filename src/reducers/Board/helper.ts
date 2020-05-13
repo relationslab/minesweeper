@@ -53,16 +53,16 @@ export const openCell = (
   currentX: number,
   currentY: number
 ): CellState[][] => {
-  const currentCell = [...cells];
+  const currentCells = [...cells];
 
-  if (currentCell[currentX][currentY].isOpened === false) {
-    currentCell[currentX][currentY].isOpened = true;
-    currentCell[currentX][currentY].isFlagged = false;
+  if (currentCells[currentX][currentY].isOpened === false) {
+    currentCells[currentX][currentY].isOpened = true;
+    currentCells[currentX][currentY].isFlagged = false;
   }
 
   if (
-    currentCell[currentX][currentY].surroundingMines === 0 &&
-    currentCell[currentX][currentY].hasMine === false
+    currentCells[currentX][currentY].surroundingMines === 0 &&
+    currentCells[currentX][currentY].hasMine === false
   ) {
     for (let cols = -1; cols <= 1; cols++) {
       for (let rows = -1; rows <= 1; rows++) {
@@ -73,25 +73,22 @@ export const openCell = (
           0 <= surroundingY &&
           surroundingX < width &&
           surroundingY < height &&
-          currentCell[surroundingX][surroundingY].isOpened === false
+          currentCells[surroundingX][surroundingY].isOpened === false
         ) {
-          currentCell[surroundingX][surroundingY].isOpened = true;
-          currentCell[surroundingX][surroundingY].isFlagged = false;
+          currentCells[surroundingX][surroundingY].isOpened = true;
+          currentCells[surroundingX][surroundingY].isFlagged = false;
 
           if (
-            currentCell[surroundingX][surroundingY].surroundingMines === 0 &&
-            currentCell[surroundingX][surroundingY].hasMine === false
+            currentCells[surroundingX][surroundingY].surroundingMines === 0 &&
+            currentCells[surroundingX][surroundingY].hasMine === false
           ) {
-            openCell(currentCell, width, height, surroundingX, surroundingY);
+            openCell(currentCells, width, height, surroundingX, surroundingY);
           }
         }
       }
     }
-  } else {
-    return currentCell;
   }
-
-  return cells;
+  return currentCells;
 };
 
 export const toggleFlag = (
