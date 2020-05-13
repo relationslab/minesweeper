@@ -1,12 +1,12 @@
 import { CellState, BoardState } from "./types";
 
 export const createBoard = (width: number, height: number): CellState[][] => {
-  const board: CellState[][] = [];
+  const newCells: CellState[][] = [];
 
   for (let i = 0; i < width; i++) {
-    board.push([]);
+    newCells.push([]);
     for (let j = 0; j < height; j++) {
-      board[i].push({
+      newCells[i].push({
         isOpened: false,
         isFlagged: false,
         hasMine: false,
@@ -21,11 +21,11 @@ export const createBoard = (width: number, height: number): CellState[][] => {
     for (let i = 0; i < mines; i++) {
       const randomX = Math.floor(Math.random() * width);
       const randomY = Math.floor(Math.random() * height);
-      if (board[randomX][randomY].hasMine === true) {
+      if (newCells[randomX][randomY].hasMine === true) {
         i--;
         continue;
       } else {
-        board[randomX][randomY].hasMine = true;
+        newCells[randomX][randomY].hasMine = true;
         for (let cols = -1; cols <= 1; cols++) {
           for (let rows = -1; rows <= 1; rows++) {
             const surroundingX = randomX + cols;
@@ -36,14 +36,14 @@ export const createBoard = (width: number, height: number): CellState[][] => {
               surroundingX < width &&
               surroundingY < height
             ) {
-              board[surroundingX][surroundingY].surroundingMines++;
+              newCells[surroundingX][surroundingY].surroundingMines++;
             }
           }
         }
       }
     }
   }
-  return board;
+  return newCells;
 };
 
 export const openCell = (
@@ -96,11 +96,11 @@ export const toggleFlag = (
   x: number,
   y: number
 ): CellState[][] => {
-  const newToggleFlag = [...state.cells];
-  if (newToggleFlag[x][y].isOpened === true) {
-    return newToggleFlag;
+  const newCells = [...state.cells];
+  if (newCells[x][y].isOpened === true) {
+    return newCells;
   } else {
-    newToggleFlag[x][y].isFlagged = !newToggleFlag[x][y].isFlagged;
+    newCells[x][y].isFlagged = !newCells[x][y].isFlagged;
   }
-  return newToggleFlag;
+  return newCells;
 };
