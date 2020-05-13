@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { BoardState } from "../reducers/Board/types";
 import Cell from "./Cell";
 
-const StyledBoard = styled.div<{ width: number; height: number }>`
+const StyledBoard = styled.span<{ width: number; height: number }>`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.width}, 30px);
+  grid-auto-flow: column;
   grid-template-rows: repeat(${(props) => props.height}, 30px);
+  grid-template-columns: repeat(${(props) => props.width}, 30px);
 `;
 
 type BoardProps = {
@@ -28,21 +29,20 @@ const Board: React.FC<BoardProps> = ({
         start
       </button>
       <StyledBoard width={board.width} height={board.height}>
-        {board.cells.map((row, y) =>
-          row.map((cell, x) => (
+        {board.cells.map((cols, x) =>
+          cols.map((cell, y) => (
             <Cell
-              key={x}
+              key={y}
               cell={cell}
-              y={y}
               x={x}
+              y={y}
               onClick={(e) => handleOpenCell(e, x, y)}
               onContextMenu={(e) => handleToggleFlag(e, x, y)}
             />
           ))
         )}
-      </StyledBoard>
+      </StyledBoard>{" "}
     </>
   );
 };
-
 export default Board;
