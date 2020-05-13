@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
 
-const StyledCell = styled.div<{ styleIsOpened: boolean }>`
+const StyledCell = styled.a<{ styleIsOpened: boolean }>`
   width: 30px;
   height: 30px;
   border: 1px solid #000;
@@ -45,9 +45,7 @@ const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
         ""
       ) : cell.hasMine ? (
         <Mine />
-      ) : cell.surroundingMines === 0 ? (
-        ""
-      ) : (
+      ) : cell.surroundingMines === 0 ? null : (
         cell.surroundingMines
       )}
     </StyledCell>
