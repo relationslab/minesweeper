@@ -55,7 +55,10 @@ export const openCell = (
 ): CellState[][] => {
   const currentCells = [...cells];
 
-  if (currentCells[currentX][currentY].isOpened === false) {
+  if (
+    currentCells[currentX][currentY].isOpened === false &&
+    currentCells[currentX][currentY].isFlagged === false
+  ) {
     currentCells[currentX][currentY].isOpened = true;
     currentCells[currentX][currentY].isFlagged = false;
   }
