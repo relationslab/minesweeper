@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
 
-const StyledCell = styled.a<{ styleIsOpened: boolean }>`
+const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   width: 30px;
   height: 30px;
   border: 1px solid #000;
