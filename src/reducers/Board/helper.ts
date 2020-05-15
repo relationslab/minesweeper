@@ -40,7 +40,10 @@ const initialBoard = (
   return currentCells;
 };
 
-export const createBoard = (width: number, height: number): CellState[][] => {
+export const initializeBoard = (
+  width: number,
+  height: number
+): CellState[][] => {
   const newCells = initialBoard(width, height);
 
   //mineとsurroundingMinesをいれる
