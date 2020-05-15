@@ -6,8 +6,8 @@ import Cell from "./Cell";
 const StyledBoard = styled.span<{ width: number; height: number }>`
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(${(props) => props.height}, 30px);
   grid-template-columns: repeat(${(props) => props.width}, 30px);
+  grid-template-rows: repeat(${(props) => props.height}, 30px);
 `;
 
 type BoardProps = {
@@ -41,7 +41,7 @@ const Board: React.FC<BoardProps> = ({
             />
           ))
         )}
-      </StyledBoard>{" "}
+      </StyledBoard>
     </>
   );
 };
