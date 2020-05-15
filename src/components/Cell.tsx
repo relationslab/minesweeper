@@ -41,9 +41,7 @@ const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
     >
       {cell.isFlagged ? (
         <Flag />
-      ) : !cell.isOpened ? (
-        ""
-      ) : cell.hasMine ? (
+      ) : !cell.isOpened ? null : cell.hasMine ? (
         <Mine />
       ) : cell.surroundingMines === 0 ? null : (
         cell.surroundingMines
