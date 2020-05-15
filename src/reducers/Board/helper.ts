@@ -17,22 +17,25 @@ export const createBoard = (width: number, height: number): CellState[][] => {
 
   //mineとsurroundingMinesをいれる
   const mines = 5;
-  if (mines < width * height + 1) {
-    for (let i = 0; i < mines; i++) {
-      const randomX = Math.floor(Math.random() * width);
-      const randomY = Math.floor(Math.random() * height);
-      if (newCells[randomX][randomY].hasMine === true) {
-        i--;
-        continue;
-      } else {
-        newCells[randomX][randomY].hasMine = true;
-        for (let cols = -1; cols <= 1; cols++) {
-          for (let rows = -1; rows <= 1; rows++) {
-            const surroundingX = randomX + cols;
-            const surroundingY = randomY + rows;
-            if (isInsideBoard(surroundingX, surroundingY, width, height)) {
-              newCells[surroundingX][surroundingY].surroundingMines++;
-            }
+
+  if (width * height < mines) {
+    return newCells;
+  }
+
+  for (let i = 0; i < mines; i++) {
+    const randomX = Math.floor(Math.random() * width);
+    const randomY = Math.floor(Math.random() * height);
+    if (newCells[randomX][randomY].hasMine === true) {
+      i--;
+      continue;
+    } else {
+      newCells[randomX][randomY].hasMine = true;
+      for (let cols = -1; cols <= 1; cols++) {
+        for (let rows = -1; rows <= 1; rows++) {
+          const surroundingX = randomX + cols;
+          const surroundingY = randomY + rows;
+          if (isInsideBoard(surroundingX, surroundingY, width, height)) {
+            newCells[surroundingX][surroundingY].surroundingMines++;
           }
         }
       }
