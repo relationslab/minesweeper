@@ -1,5 +1,5 @@
 import { ActionTypes, BoardState, BoardActionTypes } from "./types";
-import { createBoard, openCell, toggleFlag } from "./helper";
+import { initializeBoard, openCell, toggleFlag } from "./helper";
 
 const initialState: BoardState = {
   cells: [],
@@ -12,7 +12,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
     case ActionTypes.CREATE_BOARD:
       return {
         ...state,
-        cells: createBoard(action.payload.width, action.payload.height),
+        cells: initializeBoard(action.payload.width, action.payload.height),
       };
     case ActionTypes.OPEN_CELL:
       const { width, height } = state;
