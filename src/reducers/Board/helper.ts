@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { CellState, BoardState } from "./types";
 
 //x座標とy座標が負の数じゃないか返す
@@ -15,20 +14,34 @@ const isInsideBoard = (
   }
 };
 
-export const createBoard = (width: number, height: number): CellState[][] => {
-  const newCells: CellState[][] = [];
+const initialBoard = (
+  width: number,
+  height: number,
+  cells?: CellState[][]
+): CellState[][] => {
+  const currentCells: CellState[][] = [];
 
   for (let i = 0; i < width; i++) {
-    newCells.push([]);
+    const newCells: CellState[] = [];
     for (let j = 0; j < height; j++) {
-      newCells[i].push({
-        isOpened: false,
-        isFlagged: false,
-        hasMine: false,
-        surroundingMines: 0,
-      });
+      if (cells) {
+        newCells.push(cells[i][j]);
+      } else {
+        newCells.push({
+          isOpened: false,
+          isFlagged: false,
+          hasMine: false,
+          surroundingMines: 0,
+        });
+      }
     }
+    currentCells.push(newCells);
   }
+  return currentCells;
+};
+
+export const createBoard = (width: number, height: number): CellState[][] => {
+  const newCells = initialBoard(width, height);
 
   //mineとsurroundingMinesをいれる
   const mines = 5;
@@ -66,12 +79,7 @@ export const openCell = (
   currentX: number,
   currentY: number
 ): CellState[][] => {
-  const currentCells: CellState[][] = [];
-  cells.forEach((cellArray) => {
-    const newCells: CellState[] = [];
-    cellArray.forEach((cell: CellState) => newCells.push(cell));
-    currentCells.push(newCells);
-  });
+  const currentCells = initialBoard(width, height, cells);
 
   if (
     currentCells[currentX][currentY].isOpened === false &&
@@ -114,7 +122,7 @@ export const toggleFlag = (
   x: number,
   y: number
 ): CellState[][] => {
-  const newCells = _.cloneDeep(state.cells);
+  const newCells = initialBoard(state.width, state.height, state.cells);
   if (newCells[x][y].isOpened === true) {
     return newCells;
   } else {
