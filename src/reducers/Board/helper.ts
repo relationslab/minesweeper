@@ -1,6 +1,20 @@
 import _ from "lodash";
 import { CellState, BoardState } from "./types";
 
+//x座標とy座標が負の数じゃないか返す
+const isInsideBoard = (
+  x: number,
+  y: number,
+  width: number,
+  height: number
+): boolean => {
+  if (0 <= x && 0 <= y && x < width && y < height) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const createBoard = (width: number, height: number): CellState[][] => {
   const newCells: CellState[][] = [];
 
@@ -43,20 +57,6 @@ export const createBoard = (width: number, height: number): CellState[][] => {
     }
   }
   return newCells;
-};
-
-//x座標とy座標が負の数じゃないか返す
-const isInsideBoard = (
-  x: number,
-  y: number,
-  width: number,
-  height: number
-): boolean => {
-  if (0 <= x && 0 <= y && x < width && y < height) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 export const openCell = (
