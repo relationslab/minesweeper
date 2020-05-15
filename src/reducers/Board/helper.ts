@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { CellState, BoardState } from "./types";
 
 export const createBoard = (width: number, height: number): CellState[][] => {
@@ -65,7 +66,12 @@ export const openCell = (
   currentX: number,
   currentY: number
 ): CellState[][] => {
-  const currentCells = [...cells];
+  const currentCells: CellState[][] = [];
+  cells.forEach((cellArray) => {
+    const newCells: CellState[] = [];
+    cellArray.forEach((cell: CellState) => newCells.push(cell));
+    currentCells.push(newCells);
+  });
 
   if (
     currentCells[currentX][currentY].isOpened === false &&
@@ -108,7 +114,7 @@ export const toggleFlag = (
   x: number,
   y: number
 ): CellState[][] => {
-  const newCells = [...state.cells];
+  const newCells = _.cloneDeep(state.cells);
   if (newCells[x][y].isOpened === true) {
     return newCells;
   } else {
