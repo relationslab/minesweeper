@@ -7,7 +7,7 @@ import {
   openCellAction,
   toggleFlagAction,
 } from "../reducers/Board";
-import { GameStartAction } from "../reducers/Game";
+import { GameStartAction, GameOverAction } from "../reducers/Game";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,16 @@ const ContainerBoard = () => {
     dispatch(openCellAction(x, y));
     if (game.isStarted === false) {
       dispatch(GameStartAction());
+    }
+
+    for (let i = 0; i < board.cells.length; i++) {
+      if (
+        board.cells[i].some(
+          (cell) => cell.hasMine === true && cell.isOpened === true
+        )
+      ) {
+        dispatch(GameOverAction());
+      }
     }
   };
 
