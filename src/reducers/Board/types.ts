@@ -27,11 +27,11 @@ export type LevelState = {
 
 export type Level = {
   easy: LevelState;
-  normal: LevelState;
+  medium: LevelState;
   hard: LevelState;
 };
 
-export type LevelKey = "easy" | "normal" | "hard";
+export type LevelKey = "easy" | "medium" | "hard";
 
 export type OpenCellAction = {
   type: typeof ActionTypes.OPEN_CELL;

@@ -13,7 +13,7 @@ const level: Level = {
     height: 8,
     mines: 10,
   },
-  normal: {
+  medium: {
     width: 18,
     height: 14,
     mines: 40,
@@ -25,7 +25,7 @@ const level: Level = {
   },
 };
 
-const { width, height, mines } = level.normal;
+const { width, height, mines } = level.medium;
 const initialState: BoardState = {
   cells: initializeBoard(width, height, mines),
   width: width,
