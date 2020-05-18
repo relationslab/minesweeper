@@ -12,7 +12,7 @@ const StyledBoard = styled.span<{ width: number; height: number }>`
 
 type BoardProps = {
   board: BoardState;
-  handleCreateBoard: (width: number, height: number) => void;
+  handleCreateBoard: (width: number, height: number, mines: number) => void;
   handleOpenCell: (e: React.MouseEvent, x: number, height: number) => void;
   handleToggleFlag: (e: React.MouseEvent, x: number, height: number) => void;
 };
@@ -25,7 +25,11 @@ const Board: React.FC<BoardProps> = ({
 }) => {
   return (
     <>
-      <button onClick={() => handleCreateBoard(board.width, board.height)}>
+      <button
+        onClick={() =>
+          handleCreateBoard(board.width, board.height, board.mines)
+        }
+      >
         start
       </button>
       <StyledBoard width={board.width} height={board.height}>

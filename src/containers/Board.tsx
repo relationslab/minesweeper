@@ -13,8 +13,8 @@ const ContainerBoard = () => {
 
   const board = useSelector((state: RootState) => state.board);
 
-  const handleCreateBoard = (width: number, height: number) => {
-    dispatch(createBoardAction(width, height));
+  const handleCreateBoard = (width: number, height: number, mines: number) => {
+    dispatch(createBoardAction(width, height, mines));
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
