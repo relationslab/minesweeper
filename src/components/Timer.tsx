@@ -21,13 +21,15 @@ const Timer: React.FC<TimerProps> = ({ game }) => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      if (game.isStarted) {
+    let interval: any;
+    if (game.isStarted === true) {
+      interval = setInterval(() => {
         setSeconds((seconds) => seconds + 1);
-      } else {
-        clearInterval(interval);
-      }
-    }, 1000);
+      }, 1000);
+      // } else if (game.isStarted === false && game.isEnded === true) {
+      // clearInterval(interval);
+    }
+    return () => clearInterval(interval);
   }, [game]);
 
   return (
