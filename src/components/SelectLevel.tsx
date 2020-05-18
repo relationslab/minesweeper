@@ -19,10 +19,10 @@ type SelectLevelProps = {
 };
 
 const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
-  const [level, setLevel] = useState("medium");
+  const [level, setLevel] = useState<LevelKey>("medium");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLevel(e.target.value);
+    setLevel(e.target.value as LevelKey);
     handleSelectLevel(e.target.value as LevelKey);
   };
 
