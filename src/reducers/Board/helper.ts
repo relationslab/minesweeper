@@ -42,13 +42,12 @@ const initialBoard = (
 
 export const initializeBoard = (
   width: number,
-  height: number
+  height: number,
+  mines: number
 ): CellState[][] => {
   const newCells = initialBoard(width, height);
 
   //mineとsurroundingMinesをいれる
-  const mines = 5;
-
   if (width * height < mines) {
     return newCells;
   }
