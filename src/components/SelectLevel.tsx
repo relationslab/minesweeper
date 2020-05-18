@@ -2,7 +2,17 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { LevelKey } from "../reducers/Board/types";
 
-const StyledSelectLevel = styled.select``;
+const StyledSelectLevel = styled.select`
+  height: 30px;
+  font-size: 15px;
+  line-height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+  :focus {
+    outline: none;
+  }
+`;
 
 type SelectLevelProps = {
   handleSelectLevel: (level: LevelKey) => void;
