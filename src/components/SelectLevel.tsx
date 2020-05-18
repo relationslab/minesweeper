@@ -19,7 +19,7 @@ type SelectLevelProps = {
 };
 
 const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
-  const [level, setLevel] = useState("normal");
+  const [level, setLevel] = useState("medium");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLevel(e.target.value);
@@ -29,7 +29,7 @@ const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
   return (
     <StyledSelectLevel value={level} onChange={handleOnChange}>
       <option value="easy">難易度:低</option>
-      <option value="normal">難易度:中</option>
+      <option value="medium">難易度:中</option>
       <option value="hard">難易度:高</option>
     </StyledSelectLevel>
   );
