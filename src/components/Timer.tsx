@@ -8,11 +8,11 @@ const StyledTimer = styled.div`
   justify-items: center;
   align-items: center;
   color: white;
-  font-size: 20px;
+  font-size: 22px;
 `;
 const StyledImg = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 `;
 
 type TimerProps = {
@@ -23,7 +23,7 @@ const Timer: React.FC<TimerProps> = ({ game }) => {
   return (
     <StyledTimer>
       <StyledImg src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
-      {game.time}
+      <span>{game.time}</span>
     </StyledTimer>
   );
 };
