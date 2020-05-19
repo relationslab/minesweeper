@@ -9,9 +9,9 @@ import {
   countFlagAction,
 } from "../reducers/Board";
 import {
-  GameStartAction,
-  GameOverAction,
-  GameRetryAction,
+  gameStartAction,
+  gameOverAction,
+  gameRetryAction,
 } from "../reducers/Game";
 
 const ContainerBoard = () => {
@@ -22,7 +22,7 @@ const ContainerBoard = () => {
   const game = useSelector((state: RootState) => state.game);
 
   const handleCreateBoard = (width: number, height: number, mines: number) => {
-    dispatch(GameRetryAction());
+    dispatch(gameRetryAction());
     dispatch(createBoardAction(width, height, mines));
   };
 
@@ -31,13 +31,13 @@ const ContainerBoard = () => {
     if (game.isEnded) {
       return;
     } else if (!game.isStarted) {
-      dispatch(GameStartAction());
+      dispatch(gameStartAction());
     }
     dispatch(openCellAction(x, y));
     dispatch(countFlagAction());
 
     if (board.cells[x][y].hasMine && board.cells[x][y].isOpened) {
-      dispatch(GameOverAction());
+      dispatch(gameOverAction());
     }
   };
 
