@@ -1,6 +1,7 @@
 export const ActionTypes = {
   OPEN_CELL: "minesweeper/board/OPEN_CELL",
   TOGGLE_FLAG: "minesweeper/board/TOGGLE_FLAG",
+  COUNT_FLAG: "minesweeper/board/COUNT_FLAG",
   CREATE_BOARD: "minesweeper/board/CREATE_BOARD",
   SELECT_LEVEL: "minesweeper/board/SELECT_LEVEL",
 } as const;
@@ -17,6 +18,7 @@ export type BoardState = {
   width: number;
   height: number;
   mines: number;
+  flags: number;
 };
 
 export type LevelState = {
@@ -49,6 +51,10 @@ export type ToggleFlagAction = {
   };
 };
 
+export type CountFlagAction = {
+  type: typeof ActionTypes.COUNT_FLAG;
+};
+
 export type CreateBoardAction = {
   type: typeof ActionTypes.CREATE_BOARD;
   payload: {
@@ -68,5 +74,6 @@ export type SelectLevelAction = {
 export type BoardActionTypes =
   | OpenCellAction
   | ToggleFlagAction
+  | CountFlagAction
   | CreateBoardAction
   | SelectLevelAction;
