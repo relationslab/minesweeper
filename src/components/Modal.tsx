@@ -34,16 +34,14 @@ const ModalDialog: React.FC<ModalProps> = ({
   handleCreateBoard,
 }) => {
   return (
-    <>
-      <Modal isOpen={game.isEnded} style={customStyles} ariaHideApp={false}>
-        <Timer />
-        <RetryButton
-          onClick={() =>
-            handleCreateBoard(board.width, board.height, board.mines)
-          }
-        />
-      </Modal>
-    </>
+    <Modal isOpen={game.isEnded} style={customStyles} ariaHideApp={false}>
+      <Timer />
+      <RetryButton
+        onClick={() =>
+          handleCreateBoard(board.width, board.height, board.mines)
+        }
+      />
+    </Modal>
   );
 };
 

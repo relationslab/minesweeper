@@ -102,6 +102,7 @@ export const openCell = (
     currentCells[currentX][currentY].isFlagged = false;
   }
 
+  //隣接したマスも空マスだったら開く
   if (
     currentCells[currentX][currentY].surroundingMines === 0 &&
     currentCells[currentX][currentY].hasMine === false
