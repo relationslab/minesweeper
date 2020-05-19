@@ -17,15 +17,22 @@ const Clock = () => {
 type TimerProps = {
   game: GameState;
 };
+
 const Timer: React.FC<TimerProps> = ({ game }) => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    let interval: number;
+    let interval: number = 0;
     if (game.isStarted) {
       interval = setInterval(() => {
         setSeconds((seconds) => seconds + 1);
       }, 1000);
+    } else if (game.isEnded) {
+      clearInterval(interval);
+    }
+
+    if (!game.isStarted && !game.isEnded) {
+      setSeconds(0);
     }
     return () => clearInterval(interval);
   }, [game]);

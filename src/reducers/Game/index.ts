@@ -19,6 +19,12 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         isStarted: false,
         isEnded: true,
       };
+    case ActionTypes.GAME_RETRY:
+      return {
+        isStarted: false,
+        isClearded: false,
+        isEnded: false,
+      };
     default:
       return state;
   }
@@ -33,6 +39,12 @@ export const GameStartAction = () => {
 export const GameOverAction = () => {
   return {
     type: ActionTypes.GAME_OVER,
+  };
+};
+
+export const GameRetryAction = () => {
+  return {
+    type: ActionTypes.GAME_RETRY,
   };
 };
 

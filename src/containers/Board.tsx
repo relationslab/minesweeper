@@ -7,7 +7,11 @@ import {
   openCellAction,
   toggleFlagAction,
 } from "../reducers/Board";
-import { GameStartAction, GameOverAction } from "../reducers/Game";
+import {
+  GameStartAction,
+  GameOverAction,
+  GameRetryAction,
+} from "../reducers/Game";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
@@ -17,13 +21,14 @@ const ContainerBoard = () => {
   const game = useSelector((state: RootState) => state.game);
 
   const handleCreateBoard = (width: number, height: number, mines: number) => {
+    dispatch(GameRetryAction());
     dispatch(createBoardAction(width, height, mines));
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
     e.preventDefault();
     dispatch(openCellAction(x, y));
-    if (game.isStarted === false) {
+    if (!game.isStarted) {
       dispatch(GameStartAction());
     }
 
