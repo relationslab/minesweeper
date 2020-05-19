@@ -3,7 +3,8 @@ import { ActionTypes, GameActionTypes, GameState } from "./types";
 const initialState: GameState = {
   isStarted: false,
   isClearded: false,
-  isEnded: false,
+  isEnded: true,
+  time: 0,
 };
 
 const reducer = (state = initialState, action: GameActionTypes) => {
@@ -24,27 +25,39 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         isStarted: false,
         isClearded: false,
         isEnded: false,
+        time: 0,
+      };
+    case ActionTypes.START_TIME:
+      return {
+        ...state,
+        time: state.time + 1,
       };
     default:
       return state;
   }
 };
 
-export const GameStartAction = () => {
+export const gameStartAction = () => {
   return {
     type: ActionTypes.GAME_START,
   };
 };
 
-export const GameOverAction = () => {
+export const gameOverAction = () => {
   return {
     type: ActionTypes.GAME_OVER,
   };
 };
 
-export const GameRetryAction = () => {
+export const gameRetryAction = () => {
   return {
     type: ActionTypes.GAME_RETRY,
+  };
+};
+
+export const startTimeAction = () => {
+  return {
+    type: ActionTypes.START_TIME,
   };
 };
 

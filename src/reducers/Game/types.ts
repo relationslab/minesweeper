@@ -3,12 +3,14 @@ export const ActionTypes = {
   GAME_CLEAR: "minesweeper/game/GAME_CLEAR",
   GAME_OVER: "minesweeper/game/GAME_OVER",
   GAME_RETRY: "minesweeper/game/GAME_RETRY",
+  START_TIME: "minesweeper/game/START_TIME",
 } as const;
 
 export type GameState = {
   isStarted: boolean;
   isClearded: boolean;
   isEnded: boolean;
+  time: number;
 };
 
 type GameStartAction = {
@@ -27,8 +29,13 @@ type GameRetryAction = {
   type: typeof ActionTypes.GAME_RETRY;
 };
 
+type StartTimeAction = {
+  type: typeof ActionTypes.START_TIME;
+};
+
 export type GameActionTypes =
   | GameStartAction
   | GameClearAction
   | GameOverAction
-  | GameRetryAction;
+  | GameRetryAction
+  | StartTimeAction;
