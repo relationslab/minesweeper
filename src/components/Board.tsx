@@ -24,29 +24,20 @@ const Board: React.FC<BoardProps> = ({
   handleToggleFlag,
 }) => {
   return (
-    <>
-      {/* <button
-        onClick={() =>
-          handleCreateBoard(board.width, board.height, board.mines)
-        }
-      >
-        start
-      </button> */}
-      <StyledBoard width={board.width} height={board.height}>
-        {board.cells.map((cols, x) =>
-          cols.map((cell, y) => (
-            <Cell
-              key={y}
-              cell={cell}
-              x={x}
-              y={y}
-              onClick={(e) => handleOpenCell(e, x, y)}
-              onContextMenu={(e) => handleToggleFlag(e, x, y)}
-            />
-          ))
-        )}
-      </StyledBoard>
-    </>
+    <StyledBoard width={board.width} height={board.height}>
+      {board.cells.map((cols, x) =>
+        cols.map((cell, y) => (
+          <Cell
+            key={y}
+            cell={cell}
+            x={x}
+            y={y}
+            onClick={(e) => handleOpenCell(e, x, y)}
+            onContextMenu={(e) => handleToggleFlag(e, x, y)}
+          />
+        ))
+      )}
+    </StyledBoard>
   );
 };
 export default Board;

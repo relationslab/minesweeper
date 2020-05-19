@@ -14,6 +14,11 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         ...state,
         isStarted: true,
       };
+    case ActionTypes.GAME_CLEAR:
+      return {
+        ...state,
+        isClearded: true,
+      };
     case ActionTypes.GAME_OVER:
       return {
         ...state,
@@ -40,6 +45,12 @@ const reducer = (state = initialState, action: GameActionTypes) => {
 export const gameStartAction = () => {
   return {
     type: ActionTypes.GAME_START,
+  };
+};
+
+export const gameClearAction = () => {
+  return {
+    type: ActionTypes.GAME_CLEAR,
   };
 };
 

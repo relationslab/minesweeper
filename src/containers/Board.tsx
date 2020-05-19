@@ -28,6 +28,7 @@ const ContainerBoard = () => {
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
     e.preventDefault();
+
     if (game.isEnded) {
       return;
     } else if (!game.isStarted) {
