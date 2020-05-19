@@ -25,13 +25,13 @@ const Board: React.FC<BoardProps> = ({
 }) => {
   return (
     <>
-      <button
+      {/* <button
         onClick={() =>
           handleCreateBoard(board.width, board.height, board.mines)
         }
       >
         start
-      </button>
+      </button> */}
       <StyledBoard width={board.width} height={board.height}>
         {board.cells.map((cols, x) =>
           cols.map((cell, y) => (
