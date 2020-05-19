@@ -6,6 +6,7 @@ import {
   createBoardAction,
   openCellAction,
   toggleFlagAction,
+  countFlagAction,
 } from "../reducers/Board";
 import {
   GameStartAction,
@@ -33,6 +34,7 @@ const ContainerBoard = () => {
       dispatch(GameStartAction());
     }
     dispatch(openCellAction(x, y));
+    dispatch(countFlagAction());
 
     if (board.cells[x][y].hasMine && board.cells[x][y].isOpened) {
       dispatch(GameOverAction());
@@ -44,8 +46,8 @@ const ContainerBoard = () => {
     if (game.isEnded) {
       return;
     }
-    const isFlagged = board.cells[x][y].isFlagged;
-    dispatch(toggleFlagAction(x, y, isFlagged));
+    dispatch(toggleFlagAction(x, y));
+    dispatch(countFlagAction());
   };
 
   const _props = { board, handleCreateBoard, handleOpenCell, handleToggleFlag };
