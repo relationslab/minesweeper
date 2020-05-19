@@ -7,6 +7,8 @@ import { BoardState } from "../reducers/Board/types";
 
 const customStyles = {
   content: {
+    width: "300px",
+    height: "225px",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -33,7 +35,7 @@ const ModalDialog: React.FC<ModalProps> = ({
 }) => {
   return (
     <>
-      <Modal isOpen={game.isEnded} style={customStyles}>
+      <Modal isOpen={game.isEnded} style={customStyles} ariaHideApp={false}>
         <Timer />
         <RetryButton
           onClick={() =>
