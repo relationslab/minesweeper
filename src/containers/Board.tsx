@@ -12,6 +12,7 @@ import {
   GameOverAction,
   GameRetryAction,
 } from "../reducers/Game";
+import { isRegExp } from "util";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
@@ -26,20 +27,16 @@ const ContainerBoard = () => {
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
-    e.preventDefault();
-    dispatch(openCellAction(x, y));
-    if (!game.isStarted) {
+    if (game.isEnded) {
+      return;
+    } else if (!game.isStarted) {
       dispatch(GameStartAction());
     }
+    e.preventDefault();
+    dispatch(openCellAction(x, y));
 
-    for (let i = 0; i < board.cells.length; i++) {
-      if (
-        board.cells[i].some(
-          (cell) => cell.hasMine === true && cell.isOpened === true
-        )
-      ) {
-        dispatch(GameOverAction());
-      }
+    if (board.cells[x][y].hasMine && board.cells[x][y].isOpened) {
+      dispatch(GameOverAction());
     }
   };
 
