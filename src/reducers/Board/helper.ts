@@ -83,6 +83,17 @@ export const openCell = (
 ): CellState[][] => {
   const currentCells = initialBoard(width, height, cells);
 
+  if (currentCells[currentX][currentY].hasMine) {
+    currentCells.forEach((cellArray) => {
+      cellArray.forEach((cell) => {
+        if (cell.hasMine) {
+          cell.isOpened = true;
+        }
+      });
+    });
+    return currentCells;
+  }
+
   if (
     currentCells[currentX][currentY].isOpened === false &&
     currentCells[currentX][currentY].isFlagged === false
