@@ -3,16 +3,10 @@ import styled from "styled-components";
 import { GameState } from "../reducers/Game/types";
 
 const StyledTimer = styled.div``;
-const StyledClock = styled.img`
+const StyledImg = styled.img`
   width: 40px;
   height: 40px;
 `;
-
-const Clock = () => {
-  return (
-    <StyledClock src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
-  );
-};
 
 type TimerProps = {
   game: GameState;
@@ -39,7 +33,7 @@ const Timer: React.FC<TimerProps> = ({ game }) => {
 
   return (
     <StyledTimer>
-      <Clock />
+      <StyledImg src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
       {seconds}
     </StyledTimer>
   );

@@ -17,6 +17,7 @@ export type BoardState = {
   width: number;
   height: number;
   mines: number;
+  flags: number;
 };
 
 export type LevelState = {
@@ -46,6 +47,7 @@ export type ToggleFlagAction = {
   payload: {
     x: number;
     y: number;
+    isFlagged: boolean;
   };
 };
 

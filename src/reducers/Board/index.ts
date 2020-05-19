@@ -31,6 +31,7 @@ const initialState: BoardState = {
   width: width,
   height: height,
   mines: mines,
+  flags: mines,
 };
 
 const reducer = (state = initialState, action: BoardActionTypes) => {
@@ -42,6 +43,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
         width: width,
         height: height,
         mines: mines,
+        flags: mines,
       };
     case ActionTypes.CREATE_BOARD:
       return {
@@ -67,6 +69,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
       return {
         ...state,
         cells: toggleFlag(state, action.payload.x, action.payload.y),
+        flags: action.payload.isFlagged ? state.flags + 1 : state.flags - 1,
       };
     default:
       return state;
@@ -107,12 +110,17 @@ export const openCellAction = (x: number, y: number): BoardActionTypes => {
   };
 };
 
-export const toggleFlagAction = (x: number, y: number): BoardActionTypes => {
+export const toggleFlagAction = (
+  x: number,
+  y: number,
+  isFlagged: boolean
+): BoardActionTypes => {
   return {
     type: ActionTypes.TOGGLE_FLAG,
     payload: {
       x: x,
       y: y,
+      isFlagged: isFlagged,
     },
   };
 };
