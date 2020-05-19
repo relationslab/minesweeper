@@ -55,7 +55,7 @@ export const initializeBoard = (
   for (let i = 0; i < mines; i++) {
     const randomX = Math.floor(Math.random() * width);
     const randomY = Math.floor(Math.random() * height);
-    if (newCells[randomX][randomY].hasMine === true) {
+    if (newCells[randomX][randomY].hasMine) {
       i--;
       continue;
     } else {
@@ -125,7 +125,7 @@ export const toggleFlag = (
   y: number
 ): CellState[][] => {
   const newCells = initialBoard(state.width, state.height, state.cells);
-  if (newCells[x][y].isOpened === true) {
+  if (newCells[x][y].isOpened) {
     return newCells;
   } else {
     newCells[x][y].isFlagged = !newCells[x][y].isFlagged;
@@ -137,7 +137,7 @@ export const countFlag = (cells: CellState[][]): number => {
   let flags = 0;
   cells.forEach((cellArray) => {
     cellArray.forEach((cell) => {
-      if (cell.hasMine === true) {
+      if (cell.hasMine) {
         flags++;
       }
       if (cell.isFlagged) {
