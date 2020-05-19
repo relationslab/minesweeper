@@ -26,12 +26,12 @@ const ContainerBoard = () => {
   };
 
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
+    e.preventDefault();
     if (game.isEnded) {
       return;
     } else if (!game.isStarted) {
       dispatch(GameStartAction());
     }
-    e.preventDefault();
     dispatch(openCellAction(x, y));
 
     if (board.cells[x][y].hasMine && board.cells[x][y].isOpened) {
@@ -40,12 +40,12 @@ const ContainerBoard = () => {
   };
 
   const handleToggleFlag = (e: React.MouseEvent, x: number, y: number) => {
-    if (board.cells[x][y].isFlagged) {
-      dispatch(toggleFlagAction(x, y, true));
-    } else {
-      dispatch(toggleFlagAction(x, y, false));
-    }
     e.preventDefault();
+    if (game.isEnded) {
+      return;
+    }
+    const isFlagged = board.cells[x][y].isFlagged;
+    dispatch(toggleFlagAction(x, y, isFlagged));
   };
 
   const _props = { board, handleCreateBoard, handleOpenCell, handleToggleFlag };
