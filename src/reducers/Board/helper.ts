@@ -132,3 +132,18 @@ export const toggleFlag = (
   }
   return newCells;
 };
+
+export const countFlag = (cells: CellState[][]): number => {
+  let flags = 0;
+  cells.forEach((cellArray) => {
+    cellArray.forEach((cell) => {
+      if (cell.hasMine === true) {
+        flags++;
+      }
+      if (cell.isFlagged) {
+        flags--;
+      }
+    });
+  });
+  return flags;
+};
