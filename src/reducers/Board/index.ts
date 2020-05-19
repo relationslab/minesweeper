@@ -5,7 +5,7 @@ import {
   LevelKey,
   BoardActionTypes,
 } from "./types";
-import { initializeBoard, openCell, toggleFlag } from "./helper";
+import { initializeBoard, openCell, toggleFlag, countFlag } from "./helper";
 
 const level: Level = {
   easy: {
@@ -28,9 +28,10 @@ const level: Level = {
 const { width, height, mines } = level.medium;
 const initialState: BoardState = {
   cells: initializeBoard(width, height, mines),
-  width: width,
-  height: height,
-  mines: mines,
+  width,
+  height,
+  mines,
+  flags: mines,
 };
 
 const reducer = (state = initialState, action: BoardActionTypes) => {
@@ -39,9 +40,10 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
       const { width, height, mines } = level[action.payload.level];
       return {
         cells: initializeBoard(width, height, mines),
-        width: width,
-        height: height,
-        mines: mines,
+        width,
+        height,
+        mines,
+        flags: mines,
       };
     case ActionTypes.CREATE_BOARD:
       return {
@@ -51,6 +53,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
           action.payload.height,
           action.payload.mines
         ),
+        flags: action.payload.mines,
       };
     case ActionTypes.OPEN_CELL:
       return {
@@ -68,6 +71,11 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
         ...state,
         cells: toggleFlag(state, action.payload.x, action.payload.y),
       };
+    case ActionTypes.COUNT_FLAG:
+      return {
+        ...state,
+        flags: countFlag(state.cells),
+      };
     default:
       return state;
   }
@@ -77,7 +85,7 @@ export const SelectLevelAction = (level: LevelKey): BoardActionTypes => {
   return {
     type: ActionTypes.SELECT_LEVEL,
     payload: {
-      level: level,
+      level,
     },
   };
 };
@@ -90,9 +98,9 @@ export const createBoardAction = (
   return {
     type: ActionTypes.CREATE_BOARD,
     payload: {
-      width: width,
-      height: height,
-      mines: mines,
+      width,
+      height,
+      mines,
     },
   };
 };
@@ -101,8 +109,8 @@ export const openCellAction = (x: number, y: number): BoardActionTypes => {
   return {
     type: ActionTypes.OPEN_CELL,
     payload: {
-      x: x,
-      y: y,
+      x,
+      y,
     },
   };
 };
@@ -111,9 +119,15 @@ export const toggleFlagAction = (x: number, y: number): BoardActionTypes => {
   return {
     type: ActionTypes.TOGGLE_FLAG,
     payload: {
-      x: x,
-      y: y,
+      x,
+      y,
     },
+  };
+};
+
+export const countFlagAction = (): BoardActionTypes => {
+  return {
+    type: ActionTypes.COUNT_FLAG,
   };
 };
 
