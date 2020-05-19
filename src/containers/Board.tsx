@@ -40,8 +40,12 @@ const ContainerBoard = () => {
   };
 
   const handleToggleFlag = (e: React.MouseEvent, x: number, y: number) => {
+    if (board.cells[x][y].isFlagged) {
+      dispatch(toggleFlagAction(x, y, true));
+    } else {
+      dispatch(toggleFlagAction(x, y, false));
+    }
     e.preventDefault();
-    dispatch(toggleFlagAction(x, y));
   };
 
   const _props = { board, handleCreateBoard, handleOpenCell, handleToggleFlag };
