@@ -12,7 +12,6 @@ import {
   GameOverAction,
   GameRetryAction,
 } from "../reducers/Game";
-import { isRegExp } from "util";
 
 const ContainerBoard = () => {
   const dispatch = useDispatch();
