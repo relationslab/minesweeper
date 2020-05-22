@@ -57,7 +57,7 @@ const ContainerBoard = () => {
       dispatch(gameOverAction());
     }
 
-    if (openCellCount() === board.width * board.height * board.mines) {
+    if (openCellCount() === board.width * board.height - board.mines) {
       dispatch(gameClearAction());
     }
   };
