@@ -4,8 +4,9 @@ import { BoardState } from "../reducers/Board/types";
 
 const StyledFlagCount = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50px 50px;
   justify-items: center;
+  justify-self: right;
   align-items: center;
   color: white;
   font-size: 20px;
