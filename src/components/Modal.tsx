@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import Timer from "../containers/Timer";
+import TimeHistory from "../components/TimeHistory";
 import RetryButton from "../components/RetryButton";
 import { GameState } from "../reducers/Game/types";
 import { BoardState } from "../reducers/Board/types";
@@ -16,6 +17,8 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     backgroundColor: "#4dc1f9",
+    padding: "0",
+    overflow: "visible",
   },
   overlay: {
     backgroundColor: "rgba(0,0,0,0.8)",
@@ -40,6 +43,7 @@ const ModalDialog: React.FC<ModalProps> = ({
       ariaHideApp={false}
     >
       <Timer />
+      <TimeHistory />
       <RetryButton
         game={game}
         onClick={() =>

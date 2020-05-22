@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   color: #fff;
   font-size: 20px;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 138px;
   cursor: pointer;
 `;
 

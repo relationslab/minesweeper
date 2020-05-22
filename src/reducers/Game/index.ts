@@ -5,6 +5,7 @@ const initialState: GameState = {
   isClearded: false,
   isEnded: false,
   time: 0,
+  timeHistory: 0,
 };
 
 const reducer = (state = initialState, action: GameActionTypes) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action: GameActionTypes) => {
       return {
         ...state,
         isClearded: true,
+        timeHistory: state.time,
       };
     case ActionTypes.GAME_OVER:
       return {
@@ -25,7 +27,10 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         isEnded: true,
       };
     case ActionTypes.GAME_RETRY:
-      return initialState;
+      return {
+        ...initialState,
+        timeHistory: state.timeHistory,
+      };
     case ActionTypes.START_TIME:
       return {
         ...state,
