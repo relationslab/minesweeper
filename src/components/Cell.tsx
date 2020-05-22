@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
+import { RootState } from "../rootReducer";
 
 const StyledCell = styled.div<{ styleIsOpened: boolean; cellColor: number }>`
   width: 30px;
@@ -39,12 +41,18 @@ const Mine = () => {
   return <StyledImg src={`${process.env.PUBLIC_URL}/mine.png`} alt="mine" />;
 };
 
+const Batsu = () => {
+  return (
+    <StyledImg src={`${process.env.PUBLIC_URL}/batsu_red.png`} alt="batsu" />
+  );
+};
 const Cell: React.FC<CellProps> = ({
   cell,
   colorNumber,
   onClick,
   onContextMenu,
 }) => {
+  const game = useSelector((state: RootState) => state.game);
   return (
     <StyledCell
       onClick={(e) => onClick(e)}
@@ -52,13 +60,17 @@ const Cell: React.FC<CellProps> = ({
       styleIsOpened={cell.isOpened}
       cellColor={colorNumber}
     >
-      {cell.isFlagged ? (
+      {cell.isOpened ? (
+        cell.hasMine ? (
+          <Mine />
+        ) : cell.surroundingMines !== 0 ? (
+          cell.surroundingMines
+        ) : null
+      ) : cell.isFlagged && !cell.hasMine && !cell.isOpened && game.isEnded ? (
+        <Batsu />
+      ) : cell.isFlagged ? (
         <Flag />
-      ) : !cell.isOpened ? null : cell.hasMine ? (
-        <Mine />
-      ) : cell.surroundingMines === 0 ? null : (
-        cell.surroundingMines
-      )}
+      ) : null}
     </StyledCell>
   );
 };
