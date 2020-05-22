@@ -11,6 +11,7 @@ export type GameState = {
   isClearded: boolean;
   isEnded: boolean;
   time: number;
+  timeHistory: number;
 };
 
 type GameStartAction = {
