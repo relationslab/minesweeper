@@ -68,6 +68,10 @@ const ContainerBoard = () => {
     if (!game.isStarted || game.isEnded) {
       return;
     }
+    if (board.flags === 0 && !board.cells[x][y].isFlagged) {
+      return;
+    }
+
     dispatch(toggleFlagAction(x, y));
     dispatch(countFlagAction());
   };
