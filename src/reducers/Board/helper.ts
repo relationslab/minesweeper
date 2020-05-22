@@ -88,7 +88,6 @@ export const openCell = (
     currentCells.forEach((cellArray) => {
       cellArray.forEach((cell) => {
         if (cell.hasMine) {
-          cell.isFlagged = false;
           cell.isOpened = true;
         }
       });
