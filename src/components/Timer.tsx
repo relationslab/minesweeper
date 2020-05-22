@@ -12,8 +12,8 @@ const StyledTimer = styled.div`
 `;
 
 const StyledImg = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 `;
 
 type TimerProps = {
