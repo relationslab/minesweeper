@@ -3,7 +3,7 @@ import { ActionTypes, GameActionTypes, GameState } from "./types";
 const initialState: GameState = {
   isStarted: false,
   isClearded: false,
-  isEnded: true,
+  isEnded: false,
   time: 0,
 };
 
@@ -22,16 +22,10 @@ const reducer = (state = initialState, action: GameActionTypes) => {
     case ActionTypes.GAME_OVER:
       return {
         ...state,
-        isStarted: false,
         isEnded: true,
       };
     case ActionTypes.GAME_RETRY:
-      return {
-        isStarted: false,
-        isClearded: false,
-        isEnded: false,
-        time: 0,
-      };
+      return initialState;
     case ActionTypes.START_TIME:
       return {
         ...state,

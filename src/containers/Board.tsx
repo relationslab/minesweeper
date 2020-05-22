@@ -10,6 +10,7 @@ import {
 } from "../reducers/Board";
 import {
   gameStartAction,
+  gameClearAction,
   gameOverAction,
   gameRetryAction,
 } from "../reducers/Game";
@@ -26,25 +27,45 @@ const ContainerBoard = () => {
     dispatch(createBoardAction(width, height, mines));
   };
 
+  const openCellCount = () => {
+    let openCells: number = 0;
+    board.cells.forEach((cellArray) => {
+      cellArray.forEach((cell) => {
+        if (cell.isOpened) {
+          openCells++;
+        }
+      });
+    });
+    return openCells;
+  };
+
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
     e.preventDefault();
 
     if (game.isEnded) {
       return;
-    } else if (!game.isStarted) {
+    }
+
+    if (!game.isStarted) {
       dispatch(gameStartAction());
     }
+
     dispatch(openCellAction(x, y));
     dispatch(countFlagAction());
 
-    if (board.cells[x][y].hasMine && board.cells[x][y].isOpened) {
+    if (board.cells[x][y].hasMine) {
       dispatch(gameOverAction());
+    }
+
+    if (openCellCount() === board.width * board.height * board.mines) {
+      dispatch(gameClearAction());
     }
   };
 
   const handleToggleFlag = (e: React.MouseEvent, x: number, y: number) => {
     e.preventDefault();
-    if (game.isEnded) {
+
+    if (!game.isStarted || game.isEnded) {
       return;
     }
     dispatch(toggleFlagAction(x, y));
