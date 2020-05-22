@@ -83,10 +83,12 @@ export const openCell = (
 ): CellState[][] => {
   const currentCells = initialBoard(width, height, cells);
 
+  //GameOver時にmineマスをすべてオープン
   if (currentCells[currentX][currentY].hasMine) {
     currentCells.forEach((cellArray) => {
       cellArray.forEach((cell) => {
         if (cell.hasMine) {
+          cell.isFlagged = false;
           cell.isOpened = true;
         }
       });
