@@ -9,6 +9,12 @@ const StyledCell = styled.div<{ styleIsOpened: boolean }>`
   text-align: center;
   line-height: 30px;
   background: ${(props) => (props.styleIsOpened ? "#fff" : "#777")};
+  /* :nth-child(2n) {
+    background: red;
+  }
+  :nth-child(2n-1) {
+    background: green;
+  } */
 `;
 
 const StyledImg = styled.img`
