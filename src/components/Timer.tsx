@@ -10,6 +10,7 @@ const StyledTimer = styled.div`
   color: white;
   font-size: 22px;
 `;
+
 const StyledImg = styled.img`
   width: 60px;
   height: 60px;

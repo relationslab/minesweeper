@@ -11,8 +11,8 @@ const StyledFlagCount = styled.div`
   font-size: 20px;
 `;
 const StyledImg = styled.img`
-  width: 60%;
-  height: 60%;
+  width: 60px;
+  height: 60px;
 `;
 
 type FlagCountProps = {
