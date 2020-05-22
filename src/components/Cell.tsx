@@ -2,19 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
 
-const StyledCell = styled.div<{ styleIsOpened: boolean }>`
+const StyledCell = styled.div<{ styleIsOpened: boolean; cellColor: number }>`
   width: 30px;
   height: 30px;
-  border: 1px solid #000;
   text-align: center;
   line-height: 30px;
-  background: ${(props) => (props.styleIsOpened ? "#fff" : "#777")};
-  /* :nth-child(2n) {
-    background: red;
-  }
-  :nth-child(2n-1) {
-    background: green;
-  } */
+  background: ${(props) =>
+    props.styleIsOpened
+      ? props.styleIsOpened && props.cellColor % 2 === 0
+        ? "#E5C29F"
+        : "#D7B899"
+      : props.cellColor % 2 === 0
+      ? "#A7D948"
+      : "#8ECC39"};
 `;
 
 const StyledImg = styled.img`
@@ -24,6 +24,7 @@ const StyledImg = styled.img`
 
 type CellProps = {
   cell: CellState;
+  colorNumber: number;
   x: number;
   y: number;
   onClick: (e: React.MouseEvent) => void;
@@ -38,12 +39,18 @@ const Mine = () => {
   return <StyledImg src={`${process.env.PUBLIC_URL}/mine.png`} alt="mine" />;
 };
 
-const Cell: React.FC<CellProps> = ({ cell, onClick, onContextMenu }) => {
+const Cell: React.FC<CellProps> = ({
+  cell,
+  colorNumber,
+  onClick,
+  onContextMenu,
+}) => {
   return (
     <StyledCell
       onClick={(e) => onClick(e)}
       onContextMenu={(e) => onContextMenu(e)}
       styleIsOpened={cell.isOpened}
+      cellColor={colorNumber}
     >
       {cell.isFlagged ? (
         <Flag />
