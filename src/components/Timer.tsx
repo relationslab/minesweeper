@@ -6,6 +6,7 @@ const StyledTimer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
+  justify-self: left;
   align-items: center;
   color: white;
   font-size: 22px;

@@ -4,11 +4,25 @@ import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
 import { RootState } from "../rootReducer";
 
-const StyledCell = styled.div<{ styleIsOpened: boolean; cellColor: number }>`
-  width: 30px;
-  height: 30px;
+const cellSize = (boardWidth: number) => {
+  return boardWidth === 10
+    ? 45
+    : boardWidth === 18
+    ? 30
+    : boardWidth === 24
+    ? 25
+    : 0;
+};
+
+const StyledCell = styled.div<{
+  boardWidth: number;
+  styleIsOpened: boolean;
+  cellColor: number;
+}>`
+  width: ${({ boardWidth }) => cellSize(boardWidth)}px;
+  height: ${({ boardWidth }) => cellSize(boardWidth)}px;
+  line-height: ${({ boardWidth }) => cellSize(boardWidth)}px;
   text-align: center;
-  line-height: 30px;
   background: ${(props) =>
     props.styleIsOpened
       ? props.styleIsOpened && props.cellColor % 2 === 0
@@ -19,19 +33,29 @@ const StyledCell = styled.div<{ styleIsOpened: boolean; cellColor: number }>`
       : "#8ECC39"};
 `;
 
-const StyledImg = styled.img`
-  width: 30px;
-  height: 30px;
+const StyledNumber = styled.span<{
+  number: number;
+}>`
+  font-weight: bold;
+  font-size: 20px;
+  color: ${({ number }) =>
+    number === 1
+      ? "blue"
+      : number === 2
+      ? "green"
+      : number === 3
+      ? "red"
+      : number === 4
+      ? "purple"
+      : number === 5
+      ? "orange"
+      : "red"};
 `;
 
-type CellProps = {
-  cell: CellState;
-  colorNumber: number;
-  x: number;
-  y: number;
-  onClick: (e: React.MouseEvent) => void;
-  onContextMenu: (e: React.MouseEvent) => void;
-};
+const StyledImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 
 const Flag = () => {
   return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />;
@@ -46,6 +70,16 @@ const Batsu = () => {
     <StyledImg src={`${process.env.PUBLIC_URL}/batsu_red.png`} alt="batsu" />
   );
 };
+
+type CellProps = {
+  cell: CellState;
+  colorNumber: number;
+  x: number;
+  y: number;
+  onClick: (e: React.MouseEvent) => void;
+  onContextMenu: (e: React.MouseEvent) => void;
+};
+
 const Cell: React.FC<CellProps> = ({
   cell,
   colorNumber,
@@ -53,18 +87,22 @@ const Cell: React.FC<CellProps> = ({
   onContextMenu,
 }) => {
   const game = useSelector((state: RootState) => state.game);
+  const board = useSelector((state: RootState) => state.board);
   return (
     <StyledCell
       onClick={(e) => onClick(e)}
       onContextMenu={(e) => onContextMenu(e)}
       styleIsOpened={cell.isOpened}
       cellColor={colorNumber}
+      boardWidth={board.width}
     >
       {cell.isOpened ? (
         cell.hasMine ? (
           <Mine />
         ) : cell.surroundingMines !== 0 ? (
-          cell.surroundingMines
+          <StyledNumber number={cell.surroundingMines}>
+            {cell.surroundingMines}
+          </StyledNumber>
         ) : null
       ) : cell.isFlagged && !cell.hasMine && !cell.isOpened && game.isEnded ? (
         <Batsu />

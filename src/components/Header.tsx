@@ -6,14 +6,43 @@ import FlagCount from "../containers/FlagCount";
 import Timer from "../containers/Timer";
 import { RootState } from "../rootReducer";
 
+const cellSize = (boardWidth: number) => {
+  return boardWidth === 10
+    ? 45
+    : boardWidth === 18
+    ? 30
+    : boardWidth === 24
+    ? 25
+    : 0;
+};
+
 const StyledHeader = styled.header<{ boardWidth: number }>`
-  width: ${(props) => props.boardWidth * 30}px;
+  width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
   height: 60px;
   background-color: #4a752c;
   display: grid;
   grid-template-rows: 60px;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  /* grid-template-columns: 120px 120px 100px 80px 80px; */
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  justify-content: center;
 `;
+
+const StyledImg = styled.img<{ right?: boolean }>`
+  width: 25px;
+  height: 25px;
+  align-self: center;
+  justify-self: ${({ right }) => (right ? "right" : "center")};
+`;
+
+const CloseButton = () => {
+  return <StyledImg src={`${process.env.PUBLIC_URL}/batsu.png`} alt="close" />;
+};
+
+const SoundButton = () => {
+  return (
+    <StyledImg right src={`${process.env.PUBLIC_URL}/sound.png`} alt="sound" />
+  );
+};
 
 const Header: React.FC = () => {
   const board = useSelector((state: RootState) => state.board);
@@ -22,6 +51,8 @@ const Header: React.FC = () => {
       <SelectLevel />
       <FlagCount />
       <Timer />
+      <SoundButton />
+      <CloseButton />
     </StyledHeader>
   );
 };

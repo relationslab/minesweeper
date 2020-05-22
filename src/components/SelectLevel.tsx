@@ -4,7 +4,7 @@ import { LevelKey } from "../reducers/Board/types";
 
 const StyledSelectLevel = styled.select`
   width: 100px;
-  margin: 10px 5px;
+  margin: 15px 10px;
   font-size: 15px;
   line-height: 30px;
   border-radius: 10px;
