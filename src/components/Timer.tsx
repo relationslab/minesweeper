@@ -6,15 +6,17 @@ const StyledTimer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  justify-self: left;
   align-items: center;
+  justify-self: left;
+`;
+const StyledSpan = styled.span`
+  font-size: 20px;
   color: white;
-  font-size: 22px;
 `;
 
 const StyledImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 `;
 
 type TimerProps = {
@@ -22,10 +24,22 @@ type TimerProps = {
 };
 
 const Timer: React.FC<TimerProps> = ({ game }) => {
+  const time = game.time;
+  const defaultDigit = "000";
+  const doubleDigit = "00";
+  const digit = "0";
   return (
     <StyledTimer>
       <StyledImg src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
-      <span>{game.time}</span>
+      <StyledSpan>
+        {time === 0
+          ? defaultDigit
+          : time < 10
+          ? doubleDigit + time
+          : time < 100
+          ? digit + time
+          : time}
+      </StyledSpan>
     </StyledTimer>
   );
 };

@@ -4,16 +4,21 @@ import { BoardState } from "../reducers/Board/types";
 
 const StyledFlagCount = styled.div`
   display: grid;
-  grid-template-columns: 50px 50px;
+  grid-template-columns: 1fr 1fr;
   justify-items: center;
-  justify-self: right;
   align-items: center;
-  color: white;
-  font-size: 20px;
+  justify-self: right;
 `;
+
+const StyledSpan = styled.span`
+  font-size: 20px;
+  color: white;
+  justify-self: left;
+`;
+
 const StyledImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 `;
 
 type FlagCountProps = {
@@ -24,7 +29,7 @@ const FlagCount: React.FC<FlagCountProps> = ({ board }) => {
   return (
     <StyledFlagCount>
       <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />
-      <span>{board.flags}</span>
+      <StyledSpan>{board.flags}</StyledSpan>
     </StyledFlagCount>
   );
 };
