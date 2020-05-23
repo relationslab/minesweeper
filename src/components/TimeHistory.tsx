@@ -21,7 +21,7 @@ const TimeHistory = () => {
 
   return (
     <StyledTimeHistory>
-      <StyledImg src={`${process.env.PUBLIC_URL}/trophy.png`} alt="trophy" />
+      <StyledImg src="/images/trophy.png" alt="trophy" />
       {game.isEnded && game.timeHistory === 0 ? "---" : game.timeHistory}
     </StyledTimeHistory>
   );
