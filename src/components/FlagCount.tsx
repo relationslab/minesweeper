@@ -28,7 +28,7 @@ type FlagCountProps = {
 const FlagCount: React.FC<FlagCountProps> = ({ board }) => {
   return (
     <StyledFlagCount>
-      <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />
+      <StyledImg src="/images/flag.png" alt="flag" />
       <StyledSpan>{board.flags}</StyledSpan>
     </StyledFlagCount>
   );

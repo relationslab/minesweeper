@@ -58,15 +58,15 @@ const StyledImg = styled.img`
 `;
 
 const Flag = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />;
+  return <StyledImg src="/images/flag.png" alt="flag" />;
 };
 
 const Mine = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/mine.png`} alt="mine" />;
+  return <StyledImg src="/images/mine.png" alt="mine" />;
 };
 
 const Batsu = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/batsu.png`} alt="batsu" />;
+  return <StyledImg src="/images/batsu.png" alt="batsu" />;
 };
 
 type CellProps = {

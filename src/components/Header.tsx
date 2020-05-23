@@ -33,13 +33,11 @@ const StyledImg = styled.img<{ right?: boolean }>`
 `;
 
 const CloseButton = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/close.png`} alt="close" />;
+  return <StyledImg src="/images/close.png" alt="close" />;
 };
 
 const SoundButton = () => {
-  return (
-    <StyledImg right src={`${process.env.PUBLIC_URL}/sound.png`} alt="sound" />
-  );
+  return <StyledImg right src="/images/sound.png" alt="sound" />;
 };
 
 const Header: React.FC = () => {

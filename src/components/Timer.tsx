@@ -30,7 +30,7 @@ const Timer: React.FC<TimerProps> = ({ game }) => {
   const digit = "0";
   return (
     <StyledTimer>
-      <StyledImg src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
+      <StyledImg src="/images/clock.png" alt="timer" />
       <StyledSpan>
         {time === 0
           ? defaultDigit
