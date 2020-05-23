@@ -66,9 +66,7 @@ const Mine = () => {
 };
 
 const Batsu = () => {
-  return (
-    <StyledImg src={`${process.env.PUBLIC_URL}/batsu_red.png`} alt="batsu" />
-  );
+  return <StyledImg src={`${process.env.PUBLIC_URL}/batsu.png`} alt="batsu" />;
 };
 
 type CellProps = {
