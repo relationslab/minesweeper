@@ -18,11 +18,9 @@ const cellSize = (boardWidth: number) => {
 
 const StyledHeader = styled.header<{ boardWidth: number }>`
   width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
-  height: 60px;
   background-color: #4a752c;
   display: grid;
   grid-template-rows: 60px;
-  /* grid-template-columns: 120px 120px 100px 80px 80px; */
   grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
   justify-content: center;
 `;
@@ -35,7 +33,7 @@ const StyledImg = styled.img<{ right?: boolean }>`
 `;
 
 const CloseButton = () => {
-  return <StyledImg src={`${process.env.PUBLIC_URL}/batsu.png`} alt="close" />;
+  return <StyledImg src={`${process.env.PUBLIC_URL}/close.png`} alt="close" />;
 };
 
 const SoundButton = () => {
