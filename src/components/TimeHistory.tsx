@@ -9,12 +9,17 @@ const StyledTimeHistory = styled.div`
   justify-items: center;
   align-items: center;
   color: white;
-  font-size: 22px;
+  span {
+    align-self: flex-start;
+    margin-left: 5px;
+    font-size: 30px;
+    letter-spacing: 5px;
+  }
 `;
 
 const StyledImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 `;
 const TimeHistory = () => {
   const game = useSelector((state: RootState) => state.game);
@@ -22,9 +27,13 @@ const TimeHistory = () => {
   return (
     <StyledTimeHistory>
       <StyledImg src="/images/trophy.png" alt="trophy" />
-      {game.isEnded && game.timeHistory === 0 ? "---" : game.timeHistory}
+      <span>
+        {game.isEnded && game.timeHistory === 0 ? "–––" : game.timeHistory}
+      </span>
     </StyledTimeHistory>
   );
 };
 
 export default TimeHistory;
+
+//再チャレンジの画像から

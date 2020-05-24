@@ -4,7 +4,11 @@ import Timer from "../components/Timer";
 import { RootState } from "../rootReducer";
 import { startTimeAction } from "../reducers/Game";
 
-const ContainerTimer = () => {
+type props = {
+  isResult?: boolean;
+};
+
+const ContainerTimer: React.FC<props> = ({ isResult }) => {
   const dispatch = useDispatch();
   const game = useSelector((state: RootState) => state.game);
 
@@ -24,7 +28,7 @@ const ContainerTimer = () => {
     };
   }, [dispatch, game]);
 
-  const _props = { game };
+  const _props = { game, isResult };
   return <Timer {..._props} />;
 };
 
