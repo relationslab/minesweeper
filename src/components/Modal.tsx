@@ -22,7 +22,7 @@ const customStyles = {
     border: "none",
     borderRadius: "8px",
     backgroundColor: "#4dc1f9",
-    backgroundImage: "url('/images/gameOver.png')",
+    backgroundImage: "url('/images/gameClear.png')",
     backgroundSize: "contain",
     backgroundPosition: "center bottom",
     backgroundRepeat: "no-repeat",
@@ -51,6 +51,10 @@ const ModalDialog: React.FC<ModalProps> = ({
   board,
   handleCreateBoard,
 }) => {
+  if (game.isEnded) {
+    customStyles.content.backgroundImage = "url('/images/gameOver.png')";
+  }
+
   return (
     <Modal
       isOpen={game.isEnded || game.isClearded}
