@@ -2,16 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BoardState } from "../reducers/Board/types";
 import Cell from "./Cell";
-
-const cellSize = (boardWidth: number) => {
-  return boardWidth === 10
-    ? 45
-    : boardWidth === 18
-    ? 30
-    : boardWidth === 24
-    ? 25
-    : 0;
-};
+import { cellSize } from "../config";
 
 const StyledBoard = styled.span<{ width: number; height: number }>`
   display: grid;

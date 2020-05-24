@@ -5,16 +5,7 @@ import SelectLevel from "../containers/SelectLevel";
 import FlagCount from "../containers/FlagCount";
 import Timer from "../containers/Timer";
 import { RootState } from "../rootReducer";
-
-const cellSize = (boardWidth: number) => {
-  return boardWidth === 10
-    ? 45
-    : boardWidth === 18
-    ? 30
-    : boardWidth === 24
-    ? 25
-    : 0;
-};
+import { cellSize } from "../config";
 
 const StyledHeader = styled.header<{ boardWidth: number }>`
   width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
