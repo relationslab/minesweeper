@@ -30,6 +30,7 @@ const StyledImg = styled.img<{ right?: boolean }>`
   height: 25px;
   align-self: center;
   justify-self: ${({ right }) => (right ? "right" : "center")};
+  z-index: 999;
 `;
 
 const CloseButton = () => {
