@@ -11,11 +11,10 @@ const customStyles = {
   content: {
     width: "300px",
     height: "225px",
-    top: "25%",
+    top: "35%",
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "0",
     overflow: "visible",
