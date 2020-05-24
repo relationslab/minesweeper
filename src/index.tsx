@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import Board from "./containers/Board";
 import { Provider } from "react-redux";
 import store from "./rootReducer";
 import Modal from "./containers/Modal";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin:0
+  }
+`;
 
 const Game = styled.div`
   min-width: 540px;
@@ -17,6 +23,7 @@ const Game = styled.div`
 
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <Game>
       <Header />
       <Board />
