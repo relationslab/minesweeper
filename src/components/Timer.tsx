@@ -1,45 +1,68 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { GameState } from "../reducers/Game/types";
 
-const StyledTimer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  justify-self: left;
-`;
-const StyledSpan = styled.span`
-  font-size: 20px;
-  color: white;
-`;
-
-const StyledImg = styled.img`
-  width: 40px;
-  height: 40px;
+const StyledTimer = styled.div<{ isResult?: boolean }>`
+  ${({ isResult }) =>
+    isResult
+      ? css`
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          justify-items: center;
+          align-items: center;
+          color: white;
+          img {
+            width: 60px;
+            height: 60px;
+          }
+          span {
+            align-self: flex-start;
+            margin-left: 5px;
+            font-size: 30px;
+            letter-spacing: 5px;
+          }
+        `
+      : css`
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          justify-items: center;
+          align-items: center;
+          justify-self: left;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+          span {
+            font-size: 20px;
+            color: white;
+          }
+        `}
 `;
 
 type TimerProps = {
   game: GameState;
+  isResult?: boolean;
 };
 
-const Timer: React.FC<TimerProps> = ({ game }) => {
+const Timer: React.FC<TimerProps> = ({ game, isResult }) => {
   const time = game.time;
   const defaultDigit = "000";
   const doubleDigit = "00";
   const digit = "0";
   return (
-    <StyledTimer>
-      <StyledImg src="/images/clock.png" alt="timer" />
-      <StyledSpan>
-        {time === 0
+    <StyledTimer isResult={isResult}>
+      <img src="/images/clock.png" alt="timer" />
+      <span>
+        {game.isEnded && isResult
+          ? "–––"
+          : time === 0
           ? defaultDigit
           : time < 10
           ? doubleDigit + time
           : time < 100
           ? digit + time
           : time}
-      </StyledSpan>
+      </span>
     </StyledTimer>
   );
 };
