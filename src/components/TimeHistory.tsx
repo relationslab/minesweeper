@@ -13,7 +13,7 @@ const StyledTimeHistory = styled.div`
     align-self: flex-start;
     margin-left: 5px;
     font-size: 30px;
-    letter-spacing: 5px;
+    /* letter-spacing: 5px; */
   }
 `;
 

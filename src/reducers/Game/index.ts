@@ -3,7 +3,7 @@ import { ActionTypes, GameActionTypes, GameState } from "./types";
 const initialState: GameState = {
   isStarted: false,
   isClearded: false,
-  isEnded: false,
+  isEnded: true,
   time: 0,
   timeHistory: 0,
 };
