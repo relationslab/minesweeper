@@ -31,7 +31,7 @@ const RetryButton: React.FC<RetryButtonProps> = ({ game, onClick }) => {
   return (
     <StyledButton onClick={onClick}>
       <StyledImg src="/images/retry.png" alt="retry" />
-      <span>{game.isClearded ? "clear!" : "再チャレンジ"}</span>
+      <span>{game.isClearded ? "もう一度プレイ" : "再チャレンジ"}</span>
     </StyledButton>
   );
 };

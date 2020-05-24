@@ -35,5 +35,3 @@ const TimeHistory = () => {
 };
 
 export default TimeHistory;
-
-//再チャレンジの画像から
