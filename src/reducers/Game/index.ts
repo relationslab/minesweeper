@@ -1,12 +1,7 @@
 import { ActionTypes, GameActionTypes, GameState } from "./types";
+import { initialGameState } from "../../config";
 
-const initialState: GameState = {
-  isStarted: false,
-  isClearded: false,
-  isEnded: true,
-  time: 0,
-  timeHistory: 0,
-};
+const initialState: GameState = initialGameState;
 
 const reducer = (state = initialState, action: GameActionTypes) => {
   switch (action.type) {

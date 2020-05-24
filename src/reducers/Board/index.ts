@@ -1,29 +1,6 @@
-import {
-  ActionTypes,
-  BoardState,
-  Level,
-  LevelKey,
-  BoardActionTypes,
-} from "./types";
+import { ActionTypes, BoardState, LevelKey, BoardActionTypes } from "./types";
 import { initializeBoard, openCell, toggleFlag, countFlag } from "./helper";
-
-const level: Level = {
-  easy: {
-    width: 10,
-    height: 8,
-    mines: 10,
-  },
-  medium: {
-    width: 18,
-    height: 14,
-    mines: 40,
-  },
-  hard: {
-    width: 24,
-    height: 20,
-    mines: 99,
-  },
-};
+import { level } from "../../config";
 
 const { width, height, mines } = level.medium;
 const initialState: BoardState = {

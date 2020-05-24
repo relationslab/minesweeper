@@ -3,16 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { CellState } from "../reducers/Board/types";
 import { RootState } from "../rootReducer";
-
-const cellSize = (boardWidth: number) => {
-  return boardWidth === 10
-    ? 45
-    : boardWidth === 18
-    ? 30
-    : boardWidth === 24
-    ? 25
-    : 0;
-};
+import { cellSize } from "../config";
 
 const StyledCell = styled.div<{
   boardWidth: number;
