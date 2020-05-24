@@ -3,14 +3,16 @@ import styled, { css } from "styled-components";
 import { GameState } from "../reducers/Game/types";
 
 const StyledTimer = styled.div<{ isResult?: boolean }>`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  span {
+    color: white;
+  }
   ${({ isResult }) =>
     isResult
       ? css`
-          display: grid;
           grid-template-rows: 1fr 1fr;
-          justify-items: center;
-          align-items: center;
-          color: white;
           img {
             width: 60px;
             height: 60px;
@@ -23,10 +25,7 @@ const StyledTimer = styled.div<{ isResult?: boolean }>`
           }
         `
       : css`
-          display: grid;
           grid-template-columns: 1fr 1fr;
-          justify-items: center;
-          align-items: center;
           justify-self: left;
           img {
             width: 40px;
@@ -34,7 +33,6 @@ const StyledTimer = styled.div<{ isResult?: boolean }>`
           }
           span {
             font-size: 20px;
-            color: white;
           }
         `}
 `;
