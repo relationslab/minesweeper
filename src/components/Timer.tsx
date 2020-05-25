@@ -42,24 +42,12 @@ type TimerProps = {
 };
 
 const Timer: React.FC<TimerProps> = ({ game, isResult }) => {
-  const time = game.time;
-  const defaultDigit = "000";
-  const doubleDigit = "00";
-  const digit = "0";
+  const time = game.time.toString().padStart(3, "0");
+
   return (
     <StyledTimer isResult={isResult}>
       <img src="/images/clock.png" alt="timer" />
-      <span>
-        {game.isEnded && isResult
-          ? "–––"
-          : time === 0
-          ? defaultDigit
-          : time < 10
-          ? doubleDigit + time
-          : time < 100
-          ? digit + time
-          : time}
-      </span>
+      <span>{game.isEnded && isResult ? "–––" : time}</span>
     </StyledTimer>
   );
 };

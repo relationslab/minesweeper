@@ -14,7 +14,7 @@ const ContainerTimer: React.FC<props> = ({ isResult }) => {
 
   useEffect(() => {
     let interval: number = 0;
-    if (game.isStarted) {
+    if (game.isStarted && game.time < 999) {
       interval = setInterval(() => {
         dispatch(startTimeAction());
       }, 1000);

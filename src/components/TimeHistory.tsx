@@ -22,13 +22,12 @@ const StyledImg = styled.img`
 `;
 const TimeHistory = () => {
   const game = useSelector((state: RootState) => state.game);
+  const time = game.timeHistory.toString().padStart(3, "0");
 
   return (
     <StyledTimeHistory>
       <StyledImg src="/images/trophy.png" alt="trophy" />
-      <span>
-        {game.isEnded && game.timeHistory === 0 ? "–––" : game.timeHistory}
-      </span>
+      <span>{game.isEnded && game.timeHistory === 0 ? "–––" : time}</span>
     </StyledTimeHistory>
   );
 };
