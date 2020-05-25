@@ -7,9 +7,15 @@ const StyledFlagCount = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
-  color: white;
-  font-size: 20px;
+  justify-self: right;
 `;
+
+const StyledSpan = styled.span`
+  font-size: 20px;
+  color: white;
+  justify-self: left;
+`;
+
 const StyledImg = styled.img`
   width: 40px;
   height: 40px;
@@ -22,8 +28,8 @@ type FlagCountProps = {
 const FlagCount: React.FC<FlagCountProps> = ({ board }) => {
   return (
     <StyledFlagCount>
-      <StyledImg src={`${process.env.PUBLIC_URL}/flag.png`} alt="flag" />
-      <span>{board.flags}</span>
+      <StyledImg src="/images/flag.png" alt="flag" />
+      <StyledSpan>{board.flags}</StyledSpan>
     </StyledFlagCount>
   );
 };

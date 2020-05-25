@@ -1,47 +1,53 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 import { GameState } from "../reducers/Game/types";
 
-const StyledTimer = styled.div`
+const StyledTimer = styled.div<{ isResult?: boolean }>`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
-  color: white;
-  font-size: 20px;
-`;
-const StyledImg = styled.img`
-  width: 40px;
-  height: 40px;
+  span {
+    color: white;
+  }
+  ${({ isResult }) =>
+    isResult
+      ? css`
+          grid-template-rows: 1fr 1fr;
+          img {
+            width: 60px;
+            height: 60px;
+          }
+          span {
+            align-self: flex-start;
+            margin-left: 5px;
+            font-size: 30px;
+          }
+        `
+      : css`
+          grid-template-columns: 1fr 1fr;
+          justify-self: left;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+          span {
+            font-size: 20px;
+          }
+        `}
 `;
 
 type TimerProps = {
   game: GameState;
+  isResult?: boolean;
 };
 
-const Timer: React.FC<TimerProps> = ({ game }) => {
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    let interval: number = 0;
-    if (game.isStarted) {
-      interval = setInterval(() => {
-        setSeconds((seconds) => seconds + 1);
-      }, 1000);
-    } else if (game.isEnded) {
-      clearInterval(interval);
-    }
-
-    if (!game.isStarted && !game.isEnded) {
-      setSeconds(0);
-    }
-    return () => clearInterval(interval);
-  }, [game]);
+const Timer: React.FC<TimerProps> = ({ game, isResult }) => {
+  const time = game.time.toString().padStart(3, "0");
 
   return (
-    <StyledTimer>
-      <StyledImg src={`${process.env.PUBLIC_URL}/clock.png`} alt="timer" />
-      {seconds}
+    <StyledTimer isResult={isResult}>
+      <img src="/images/clock.png" alt="timer" />
+      <span>{game.isEnded && isResult ? "–––" : time}</span>
     </StyledTimer>
   );
 };
