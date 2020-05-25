@@ -11,7 +11,10 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         isStarted: true,
       };
     case ActionTypes.GAME_CLEAR:
-      const bestTime = Math.min(state.time, state.timeHistory);
+      const bestTime =
+        state.timeHistory === 0
+          ? state.time
+          : Math.min(state.time, state.timeHistory);
       return {
         ...state,
         isClearded: true,
