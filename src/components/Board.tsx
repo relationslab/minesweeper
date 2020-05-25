@@ -19,14 +19,12 @@ const StyledBoard = styled.span<{ width: number; height: number }>`
 
 type BoardProps = {
   board: BoardState;
-  handleCreateBoard: (width: number, height: number, mines: number) => void;
   handleOpenCell: (e: React.MouseEvent, x: number, height: number) => void;
   handleToggleFlag: (e: React.MouseEvent, x: number, height: number) => void;
 };
 
 const Board: React.FC<BoardProps> = ({
   board,
-  handleCreateBoard,
   handleOpenCell,
   handleToggleFlag,
 }) => {

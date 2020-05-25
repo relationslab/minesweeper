@@ -3,12 +3,14 @@ import { initializeBoard, openCell, toggleFlag, countFlag } from "./helper";
 import { level } from "../../config";
 
 const { width, height, mines } = level.medium;
+
 const initialState: BoardState = {
   cells: initializeBoard(width, height, mines),
   width,
   height,
   mines,
   flags: mines,
+  isFirst: true,
 };
 
 const reducer = (state = initialState, action: BoardActionTypes) => {
@@ -21,6 +23,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
         height,
         mines,
         flags: mines,
+        isFirst: true,
       };
     case ActionTypes.CREATE_BOARD:
       return {
@@ -31,6 +34,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
           action.payload.mines
         ),
         flags: action.payload.mines,
+        isFirst: true,
       };
     case ActionTypes.OPEN_CELL:
       return {
@@ -39,9 +43,12 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
           state.cells,
           state.width,
           state.height,
+          state.mines,
           action.payload.x,
-          action.payload.y
+          action.payload.y,
+          state.isFirst
         ),
+        isFirst: false,
       };
     case ActionTypes.TOGGLE_FLAG:
       return {

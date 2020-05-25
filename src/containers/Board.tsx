@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Board from "../components/Board";
 import { RootState } from "../rootReducer";
 import {
-  createBoardAction,
   openCellAction,
   toggleFlagAction,
   countFlagAction,
@@ -12,7 +11,6 @@ import {
   gameStartAction,
   gameClearAction,
   gameOverAction,
-  gameRetryAction,
 } from "../reducers/Game";
 
 const ContainerBoard = () => {
@@ -21,11 +19,6 @@ const ContainerBoard = () => {
   const board = useSelector((state: RootState) => state.board);
 
   const game = useSelector((state: RootState) => state.game);
-
-  const handleCreateBoard = (width: number, height: number, mines: number) => {
-    dispatch(gameRetryAction());
-    dispatch(createBoardAction(width, height, mines));
-  };
 
   const openCellCount = () => {
     let openCells: number = 0;
@@ -53,7 +46,7 @@ const ContainerBoard = () => {
     dispatch(openCellAction(x, y));
     dispatch(countFlagAction());
 
-    if (board.cells[x][y].hasMine) {
+    if (!board.isFirst && board.cells[x][y].hasMine) {
       dispatch(gameOverAction());
     }
 
@@ -73,7 +66,7 @@ const ContainerBoard = () => {
     dispatch(countFlagAction());
   };
 
-  const _props = { board, handleCreateBoard, handleOpenCell, handleToggleFlag };
+  const _props = { board, handleOpenCell, handleToggleFlag };
 
   return <Board {..._props} />;
 };
