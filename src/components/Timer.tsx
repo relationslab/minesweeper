@@ -21,7 +21,6 @@ const StyledTimer = styled.div<{ isResult?: boolean }>`
             align-self: flex-start;
             margin-left: 5px;
             font-size: 30px;
-            /* letter-spacing: 5px; */
           }
         `
       : css`
