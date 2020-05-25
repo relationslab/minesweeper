@@ -1,10 +1,7 @@
 import { ActionTypes, GameActionTypes, GameState } from "./types";
+import { initialGameState } from "../../config";
 
-const initialState: GameState = {
-  isStarted: false,
-  isClearded: false,
-  isEnded: false,
-};
+const initialState: GameState = initialGameState;
 
 const reducer = (state = initialState, action: GameActionTypes) => {
   switch (action.type) {
@@ -13,38 +10,63 @@ const reducer = (state = initialState, action: GameActionTypes) => {
         ...state,
         isStarted: true,
       };
+    case ActionTypes.GAME_CLEAR:
+      const bestTime =
+        state.timeHistory === 0
+          ? state.time
+          : Math.min(state.time, state.timeHistory);
+      return {
+        ...state,
+        isClearded: true,
+        timeHistory: bestTime,
+      };
     case ActionTypes.GAME_OVER:
       return {
         ...state,
-        isStarted: false,
         isEnded: true,
       };
     case ActionTypes.GAME_RETRY:
       return {
-        isStarted: false,
-        isClearded: false,
-        isEnded: false,
+        ...initialState,
+        timeHistory: state.timeHistory,
+      };
+    case ActionTypes.START_TIME:
+      return {
+        ...state,
+        time: state.time + 1,
       };
     default:
       return state;
   }
 };
 
-export const GameStartAction = () => {
+export const gameStartAction = () => {
   return {
     type: ActionTypes.GAME_START,
   };
 };
 
-export const GameOverAction = () => {
+export const gameClearAction = () => {
+  return {
+    type: ActionTypes.GAME_CLEAR,
+  };
+};
+
+export const gameOverAction = () => {
   return {
     type: ActionTypes.GAME_OVER,
   };
 };
 
-export const GameRetryAction = () => {
+export const gameRetryAction = () => {
   return {
     type: ActionTypes.GAME_RETRY,
+  };
+};
+
+export const startTimeAction = () => {
+  return {
+    type: ActionTypes.START_TIME,
   };
 };
 

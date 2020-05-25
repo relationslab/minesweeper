@@ -14,7 +14,7 @@ const isInsideBoard = (
   }
 };
 
-const initialBoard = (
+export const initialBoard = (
   width: number,
   height: number,
   cells?: CellState[][]
@@ -64,7 +64,10 @@ export const initializeBoard = (
         for (let rows = -1; rows <= 1; rows++) {
           const surroundingX = randomX + cols;
           const surroundingY = randomY + rows;
-          if (isInsideBoard(surroundingX, surroundingY, width, height)) {
+          if (
+            isInsideBoard(surroundingX, surroundingY, width, height) &&
+            !newCells[surroundingX][surroundingY].hasMine
+          ) {
             newCells[surroundingX][surroundingY].surroundingMines++;
           }
         }
@@ -78,10 +81,28 @@ export const openCell = (
   cells: CellState[][],
   width: number,
   height: number,
+  mines: number,
   currentX: number,
-  currentY: number
+  currentY: number,
+  isFirst?: boolean
 ): CellState[][] => {
   const currentCells = initialBoard(width, height, cells);
+
+  if (
+    (isFirst && currentCells[currentX][currentY].hasMine) ||
+    (isFirst && currentCells[currentX][currentY].surroundingMines !== 0)
+  ) {
+    const newCells = initializeBoard(width, height, mines);
+    return openCell(
+      newCells,
+      width,
+      height,
+      mines,
+      currentX,
+      currentY,
+      isFirst
+    );
+  }
 
   if (
     currentCells[currentX][currentY].isOpened === false &&
@@ -91,6 +112,7 @@ export const openCell = (
     currentCells[currentX][currentY].isFlagged = false;
   }
 
+  //隣接したマスも空マスだったら開く
   if (
     currentCells[currentX][currentY].surroundingMines === 0 &&
     currentCells[currentX][currentY].hasMine === false
@@ -110,12 +132,31 @@ export const openCell = (
             currentCells[surroundingX][surroundingY].surroundingMines === 0 &&
             currentCells[surroundingX][surroundingY].hasMine === false
           ) {
-            openCell(currentCells, width, height, surroundingX, surroundingY);
+            openCell(
+              currentCells,
+              width,
+              height,
+              mines,
+              surroundingX,
+              surroundingY
+            );
           }
         }
       }
     }
   }
+  //GameOver時にmineマスをすべてオープン
+  if (currentCells[currentX][currentY].hasMine) {
+    currentCells.forEach((cellArray) => {
+      cellArray.forEach((cell) => {
+        if (cell.hasMine) {
+          cell.isOpened = true;
+        }
+      });
+    });
+    return currentCells;
+  }
+
   return currentCells;
 };
 
