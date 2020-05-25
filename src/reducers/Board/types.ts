@@ -19,6 +19,7 @@ export type BoardState = {
   height: number;
   mines: number;
   flags: number;
+  isFirst: boolean;
 };
 
 export type LevelState = {
