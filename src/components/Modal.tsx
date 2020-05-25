@@ -31,13 +31,13 @@ const customStyles = {
   },
 };
 
-const ResultDisplay = styled.div<{ isClear?: boolean }>`
+const ResultDisplay = styled.div<{ game: GameState }>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 0.5fr;
   grid-column-gap: 30px;
   margin: 25px 36px 20px 36px;
-  ${({ isClear }) => (isClear ? "" : "letter-spacing: 5px;")}
+  ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : "")}
 `;
 
 type ModalProps = {
@@ -61,7 +61,7 @@ const ModalDialog: React.FC<ModalProps> = ({
       style={customStyles}
       ariaHideApp={false}
     >
-      <ResultDisplay isClear={game.isClearded}>
+      <ResultDisplay game={game}>
         <Timer isResult />
         <TimeHistory />
       </ResultDisplay>
