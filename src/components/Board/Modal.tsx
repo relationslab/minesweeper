@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import Timer from "../containers/Timer";
-import TimeHistory from "../components/TimeHistory";
-import RetryButton from "../components/RetryButton";
-import { GameState } from "../reducers/Game/types";
-import { BoardState } from "../reducers/Board/types";
+import Timer from "../../containers/Timer";
+import TimeHistory from "./TimeHistory";
+import RetryButton from "./RetryButton";
+import { GameState } from "../../reducers/Game/types";
+import { BoardState } from "../../reducers/Board/types";
 
 const customStyles = {
   content: {

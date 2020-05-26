@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { GameState } from "../reducers/Game/types";
+import { GameState } from "../../reducers/Game/types";
 
 const StyledButton = styled.button`
   border: none;

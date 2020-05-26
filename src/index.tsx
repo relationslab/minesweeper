@@ -7,7 +7,7 @@ import store from "./rootReducer";
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Ranking from "./components/Ranking";
-import PageHeader from "./components/PageHeader";
+import PageHeader from "./components/Header";
 
 const GlobalStyle = createGlobalStyle`
   body {

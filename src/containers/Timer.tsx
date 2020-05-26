@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Timer from "../components/Timer";
+import Timer from "../components/Board/Timer";
 import { RootState } from "../rootReducer";
 import { startTimeAction } from "../reducers/Game";
 

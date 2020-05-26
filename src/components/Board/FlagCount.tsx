@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BoardState } from "../reducers/Board/types";
+import { BoardState } from "../../reducers/Board/types";
 
 const StyledFlagCount = styled.div`
   display: grid;
