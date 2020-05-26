@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { RootState } from "../rootReducer";
+import { RootState } from "../../rootReducer";
 
 const StyledTimeHistory = styled.div`
   display: grid;

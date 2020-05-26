@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../rootReducer";
-import FlagCount from "../components/FlagCount";
+import FlagCount from "../components/Board/FlagCount";
 
 const ContainerFlagCount = () => {
   const board = useSelector((state: RootState) => state.board);

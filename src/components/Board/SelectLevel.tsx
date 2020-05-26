@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LevelKey } from "../reducers/Board/types";
+import { LevelKey } from "../../reducers/Board/types";
 
 const StyledSelectLevel = styled.select`
   appearance: none;

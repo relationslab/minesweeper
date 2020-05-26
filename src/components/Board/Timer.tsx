@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { GameState } from "../reducers/Game/types";
+import { GameState } from "../../reducers/Game/types";
 
 const StyledTimer = styled.div<{ isResult?: boolean }>`
   display: grid;

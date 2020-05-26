@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { BoardState } from "../reducers/Board/types";
+import { BoardState } from "../../reducers/Board/types";
 import Cell from "./Cell";
-import { cellSize } from "../config";
+import { cellSize } from "../../config";
 
 const StyledBoard = styled.span<{ width: number; height: number }>`
   display: grid;

@@ -26,10 +26,10 @@ const StyledLink = styled(Link)`
   justify-self: center;
   align-self: center;
   border: none;
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
+  line-height: 140px;
   text-align: center;
-  line-height: 150px;
   border-radius: 50%;
   background-color: salmon;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);

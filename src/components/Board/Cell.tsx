@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { CellState } from "../reducers/Board/types";
-import { RootState } from "../rootReducer";
-import { cellSize } from "../config";
+import { CellState } from "../../reducers/Board/types";
+import { RootState } from "../../rootReducer";
+import { cellSize } from "../../config";
 
 const StyledCell = styled.div<{
   boardWidth: number;
