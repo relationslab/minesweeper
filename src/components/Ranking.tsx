@@ -65,6 +65,18 @@ const StyledDisplay = styled.div`
   margin: 60px;
 `;
 
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-rows: 50px 1fr 20px;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: rgb(77, 193, 249);
+  background-image: url("/images/gameClear.png");
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+`;
+
 const Header = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 1fr;
@@ -73,13 +85,6 @@ const Header = styled.div`
     width: 50px;
     height: 50px;
   }
-`;
-const StyledDiv = styled.div`
-  background-color: rgb(77, 193, 249);
-  border-radius: 10px;
-  padding: 1rem;
-  display: grid;
-  grid-template-rows: 50px 1fr 20px;
 `;
 
 const StyledLink = styled(Link)`

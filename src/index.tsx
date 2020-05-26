@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 import store from "./rootReducer";
-import Home from "./components/Home";
 import Game from "./components/Game";
 import Ranking from "./components/Ranking";
 import PageHeader from "./components/Header";
@@ -39,8 +38,7 @@ ReactDOM.render(
     <Router>
       <Grid>
         <PageHeader />
-        <Route exact path="/" component={Home} />
-        <Route path="/play" component={Game} />
+        <Route exact path="/" component={Game} />
         <Route path="/ranking" component={Ranking} />
       </Grid>
     </Router>
