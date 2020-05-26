@@ -27,11 +27,12 @@ const StyledLink = styled(Link)`
   align-self: center;
   border: none;
   width: 150px;
-  height: 50px;
+  height: 150px;
   text-align: center;
-  line-height: 50px;
-  border-radius: 10px;
-  background-color: blue;
+  line-height: 150px;
+  border-radius: 50%;
+  background-color: salmon;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   font-size: 1.5rem;
   font-weight: bold;
 `;
