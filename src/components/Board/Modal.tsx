@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 import Timer from "../../containers/Timer";
 import TimeHistory from "./TimeHistory";
 import RetryButton from "./RetryButton";
 import { GameState } from "../../reducers/Game/types";
-import { BoardState } from "../../reducers/Board/types";
+import { UserState } from "../../reducers/User/types";
+
+import InputForm from "../InputForm";
 
 const customStyles = {
   content: {
     width: "300px",
     height: "225px",
-    top: "25%",
+    top: "35%",
     left: "50%",
     right: "auto",
     bottom: "auto",
@@ -27,7 +29,8 @@ const customStyles = {
     backgroundRepeat: "no-repeat",
   },
   overlay: {
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    zIndex: 1000,
   },
 };
 
@@ -37,41 +40,63 @@ const ResultDisplay = styled.div<{ game: GameState }>`
   grid-template-rows: 1fr 0.5fr;
   grid-column-gap: 30px;
   margin: 25px 36px 20px 36px;
-  ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : "")}
+  ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : null)}
 `;
 
 type ModalProps = {
   game: GameState;
-  board: BoardState;
-  handleCreateBoard: (width: number, height: number, mines: number) => void;
+  user: UserState;
+  handleSetName: (name: string) => void;
+  handleCreateBoard: () => void;
+  isStart?: boolean;
 };
 
 const ModalDialog: React.FC<ModalProps> = ({
   game,
-  board,
+  user,
+  handleSetName,
   handleCreateBoard,
 }) => {
+  const [name, setName] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
   if (game.isEnded) {
     customStyles.content.backgroundImage = "url('/images/gameOver.png')";
   }
 
   return (
-    <Modal
-      isOpen={game.isEnded || game.isClearded}
-      style={customStyles}
-      ariaHideApp={false}
-    >
-      <ResultDisplay game={game}>
-        <Timer isResult />
-        <TimeHistory />
-      </ResultDisplay>
-      <RetryButton
-        game={game}
-        onClick={() =>
-          handleCreateBoard(board.width, board.height, board.mines)
-        }
-      />
-    </Modal>
+    <>
+      <Modal
+        isOpen={user.name === "" && user.isStart}
+        style={customStyles}
+        ariaHideApp={false}
+      >
+        <InputForm
+          value={name}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+          onClick={() => handleSetName(name)}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={game.isEnded || game.isClearded}
+        style={customStyles}
+        ariaHideApp={false}
+      >
+        <ResultDisplay game={game}>
+          <Timer isResult />
+          <TimeHistory />
+        </ResultDisplay>
+        <RetryButton
+          retry={game.isEnded}
+          text={game?.isClearded ? "もう一度プレイ" : "再チャレンジ"}
+          onClick={() => handleCreateBoard()}
+        />
+      </Modal>
+    </>
   );
 };
 

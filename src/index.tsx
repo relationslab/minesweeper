@@ -21,9 +21,14 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-
   li {
     list-style:none;
+  }
+  input {
+    appearance: none;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
   }
 `;
 
