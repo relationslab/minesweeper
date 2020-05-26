@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./Board/GameHeader";
-import Board from "../containers/Board";
-import Modal from "../containers/Modal";
+import GameHeader from "./GameHeader";
+import Board from "../../containers/Board";
+import Modal from "../../containers/Modal";
 
 const StyledGame = styled.div`
   min-width: 540px;
@@ -16,7 +16,7 @@ const Game = () => {
   return (
     <>
       <StyledGame>
-        <Header />
+        <GameHeader />
         <Board />
       </StyledGame>
       <Modal />
