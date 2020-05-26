@@ -8,6 +8,7 @@ const StyledGame = styled.div`
   min-width: 540px;
   min-height: 420px;
   display: grid;
+  grid-template-rows: 60px 1fr;
   justify-content: center;
   margin: 60px;
 `;

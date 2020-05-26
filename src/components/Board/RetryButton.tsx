@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { GameState } from "../../reducers/Game/types";
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ isStart?: boolean }>`
   border: none;
   width: 300px;
   height: 64px;
-  background: #4a752c;
+  background-color: ${({ isStart }) => (isStart ? "salmon" : "#4a752c")};
   border-radius: 8px;
   margin-top: 12px;
   cursor: pointer;
   span {
     color: #fff;
     font-size: 21px;
-    margin-left: 20px;
+    ${({ isStart }) => (isStart ? null : "margin-left: 20px")};
   }
 `;
 
@@ -23,16 +22,24 @@ const StyledImg = styled.img`
   position: absolute;
   left: 50px;
 `;
+
 type RetryButtonProps = {
-  game: GameState;
+  text: string;
+  retry?: boolean;
   onClick: () => void;
+  isStart?: boolean;
 };
 
-const RetryButton: React.FC<RetryButtonProps> = ({ game, onClick }) => {
+const RetryButton: React.FC<RetryButtonProps> = ({
+  text,
+  retry,
+  onClick,
+  isStart,
+}) => {
   return (
-    <StyledButton onClick={onClick}>
-      <StyledImg src="/images/retry.png" alt="retry" />
-      <span>{game.isClearded ? "もう一度プレイ" : "再チャレンジ"}</span>
+    <StyledButton onClick={onClick} isStart={isStart}>
+      {retry ? <StyledImg src="/images/retry.png" alt="retry" /> : null}
+      <span>{text}</span>
     </StyledButton>
   );
 };

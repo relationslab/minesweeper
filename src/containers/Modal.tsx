@@ -4,18 +4,24 @@ import { RootState } from "../rootReducer";
 import Modal from "../components/Board/Modal";
 import { createBoardAction } from "../reducers/Board";
 import { gameRetryAction } from "../reducers/Game";
+import { userSetNameAction } from "../reducers/User";
 
 const ContainerModal = () => {
   const dispatch = useDispatch();
   const game = useSelector((state: RootState) => state.game);
   const board = useSelector((state: RootState) => state.board);
+  const user = useSelector((state: RootState) => state.user);
 
-  const handleCreateBoard = (width: number, height: number, mines: number) => {
+  const handleCreateBoard = () => {
     dispatch(gameRetryAction());
-    dispatch(createBoardAction(width, height, mines));
+    dispatch(createBoardAction(board.width, board.height, board.mines));
   };
 
-  const _props = { game, board, handleCreateBoard };
+  const handleSetName = (name: string) => {
+    dispatch(userSetNameAction(name));
+  };
+
+  const _props = { game, user, handleSetName, handleCreateBoard };
 
   return <Modal {..._props} />;
 };

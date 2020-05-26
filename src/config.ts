@@ -1,5 +1,11 @@
 import { GameState } from "./reducers/Game/types";
 import { Level } from "./reducers/Board/types";
+import { UserState } from "./reducers/User/types";
+
+export const initialUserState: UserState = {
+  name: "",
+  isStart: false,
+};
 
 export const initialGameState: GameState = {
   isStarted: false,
