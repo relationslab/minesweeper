@@ -4,9 +4,10 @@ import styled from "styled-components";
 import SelectLevel from "../../containers/SelectLevel";
 import FlagCount from "../../containers/FlagCount";
 import Timer from "../../containers/Timer";
+import SoundButton from "./SoundButton";
+import RankingButton from "./RankingButton";
 import { RootState } from "../../rootReducer";
 import { cellSize } from "../../config";
-import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header<{ boardWidth: number }>`
   width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
@@ -17,28 +18,6 @@ const StyledHeader = styled.header<{ boardWidth: number }>`
   justify-content: center;
 `;
 
-const StyledImg = styled.img<{ right?: boolean }>`
-  width: 25px;
-  height: 25px;
-  align-self: center;
-  justify-self: ${({ right }) => (right ? "right" : "center")};
-  z-index: 999;
-`;
-
-const StyledLink = StyledImg.withComponent(Link);
-
-const CloseButton = () => {
-  return (
-    <StyledLink to="/ranking">
-      <StyledImg src="/images/trophy.png" alt="ranking" />
-    </StyledLink>
-  );
-};
-
-const SoundButton = () => {
-  return <StyledImg right src="/images/sound.png" alt="sound" />;
-};
-
 const Header: React.FC = () => {
   const board = useSelector((state: RootState) => state.board);
   return (
@@ -47,7 +26,7 @@ const Header: React.FC = () => {
       <FlagCount />
       <Timer />
       <SoundButton />
-      <CloseButton />
+      <RankingButton />
     </StyledHeader>
   );
 };
