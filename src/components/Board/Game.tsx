@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import GameHeader from "./GameHeader";
 import Board from "../../containers/Board";
 import Modal from "../../containers/Modal";
+import Overlay from "../Overlay";
 
 const StyledGame = styled.div`
   min-width: 540px;
@@ -14,14 +15,17 @@ const StyledGame = styled.div`
 `;
 
 const Game = () => {
+  const [isStart, setIsStart] = useState(false);
+  const handleClick = () => {
+    setIsStart(true);
+  };
+
   return (
-    <>
-      <StyledGame>
-        <GameHeader />
-        <Board />
-      </StyledGame>
-      <Modal />
-    </>
+    <StyledGame>
+      <GameHeader />
+      {isStart ? <Modal /> : <Overlay onClick={handleClick} />}
+      <Board />
+    </StyledGame>
   );
 };
 

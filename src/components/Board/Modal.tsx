@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import Timer from "../../containers/Timer";
 import TimeHistory from "./TimeHistory";
-import RetryButton from "./RetryButton";
+import Button from "./Button";
 import { GameState } from "../../reducers/Game/types";
 import { UserState } from "../../reducers/User/types";
 
@@ -69,11 +69,7 @@ const ModalDialog: React.FC<ModalProps> = ({
 
   return (
     <>
-      <Modal
-        isOpen={user.name === "" && user.isStart}
-        style={customStyles}
-        ariaHideApp={false}
-      >
+      <Modal isOpen={user.name === ""} style={customStyles} ariaHideApp={false}>
         <InputForm
           value={name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
@@ -90,7 +86,7 @@ const ModalDialog: React.FC<ModalProps> = ({
           <Timer isResult />
           <TimeHistory />
         </ResultDisplay>
-        <RetryButton
+        <Button
           retry={game.isEnded}
           text={game?.isClearded ? "もう一度プレイ" : "再チャレンジ"}
           onClick={() => handleCreateBoard()}

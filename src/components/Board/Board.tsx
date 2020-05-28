@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { BoardState } from "../../reducers/Board/types";
 import Cell from "./Cell";
 import { cellSize } from "../../config";
-import Overlay from "../Overlay";
 
 const StyledBoard = styled.div<{ width: number; height: number }>`
   display: grid;
@@ -31,24 +30,22 @@ const Board: React.FC<BoardProps> = ({
   handleToggleFlag,
 }) => {
   return (
-    <>
-      <Overlay />
-      <StyledBoard width={board.width} height={board.height}>
-        {board.cells.map((cols, x) =>
-          cols.map((cell, y) => (
-            <Cell
-              key={y}
-              colorNumber={y % 2 === 0 ? y + x : y - x}
-              cell={cell}
-              x={x}
-              y={y}
-              onClick={(e) => handleOpenCell(e, x, y)}
-              onContextMenu={(e) => handleToggleFlag(e, x, y)}
-            />
-          ))
-        )}
-      </StyledBoard>
-    </>
+    <StyledBoard width={board.width} height={board.height}>
+      {board.cells.map((cols, x) =>
+        cols.map((cell, y) => (
+          <Cell
+            key={y}
+            colorNumber={y % 2 === 0 ? y + x : y - x}
+            cell={cell}
+            x={x}
+            y={y}
+            onClick={(e) => handleOpenCell(e, x, y)}
+            onContextMenu={(e) => handleToggleFlag(e, x, y)}
+          />
+        ))
+      )}
+    </StyledBoard>
   );
 };
+
 export default Board;
