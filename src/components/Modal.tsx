@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import Timer from "../../containers/Timer";
-import TimeHistory from "./TimeHistory";
+import Timer from "../containers/Timer";
+import TimeHistory from "./Board/TimeHistory";
 import Button from "./Button";
-import { GameState } from "../../reducers/Game/types";
-import { UserState } from "../../reducers/User/types";
-
-import InputForm from "../InputForm";
+import InputForm from "./InputForm";
+import { GameState } from "../reducers/Game/types";
+import { UserState } from "../reducers/User/types";
 
 const customStyles = {
   content: {
