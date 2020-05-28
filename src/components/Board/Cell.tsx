@@ -62,6 +62,7 @@ const Batsu = () => {
 
 type CellProps = {
   cell: CellState;
+  boardWidth: number;
   colorNumber: number;
   x: number;
   y: number;
@@ -71,19 +72,19 @@ type CellProps = {
 
 const Cell: React.FC<CellProps> = ({
   cell,
+  boardWidth,
   colorNumber,
   onClick,
   onContextMenu,
 }) => {
   const game = useSelector((state: RootState) => state.game);
-  const board = useSelector((state: RootState) => state.board);
   return (
     <StyledCell
       onClick={(e) => onClick(e)}
       onContextMenu={(e) => onContextMenu(e)}
       styleIsOpened={cell.isOpened}
       cellColor={colorNumber}
-      boardWidth={board.width}
+      boardWidth={boardWidth}
     >
       {cell.isOpened ? (
         cell.hasMine ? (

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../rootReducer";
-import Modal from "../components/Board/Modal";
+import Modal from "../components/Modal";
 import { createBoardAction } from "../reducers/Board";
 import { gameRetryAction } from "../reducers/Game";
 import { userSetNameAction } from "../reducers/User";
@@ -18,7 +18,11 @@ const ContainerModal = () => {
   };
 
   const handleSetName = (name: string) => {
-    dispatch(userSetNameAction(name));
+    if (name.length <= 8) {
+      dispatch(userSetNameAction(name));
+    } else {
+      return;
+    }
   };
 
   const _props = { game, user, handleSetName, handleCreateBoard };

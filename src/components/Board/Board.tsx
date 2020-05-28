@@ -35,8 +35,9 @@ const Board: React.FC<BoardProps> = ({
         cols.map((cell, y) => (
           <Cell
             key={y}
-            colorNumber={y % 2 === 0 ? y + x : y - x}
             cell={cell}
+            boardWidth={board.width}
+            colorNumber={y % 2 === 0 ? y + x : y - x}
             x={x}
             y={y}
             onClick={(e) => handleOpenCell(e, x, y)}
