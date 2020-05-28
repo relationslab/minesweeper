@@ -4,7 +4,6 @@ import { UserState } from "./reducers/User/types";
 
 export const initialUserState: UserState = {
   name: "",
-  isStart: false,
 };
 
 export const initialGameState: GameState = {

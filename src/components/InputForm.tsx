@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import RetryButton from "../components/Board/RetryButton";
+import Button from "./Board/Button";
 
 const StyledInput = styled.input`
   border-radius: 10px;
@@ -35,11 +35,7 @@ const InputForm: React.FC<Props> = ({ value, onChange, onClick }) => {
         <StyledInput type="text" value={value} onChange={onChange} />
       </Div>
 
-      <RetryButton
-        text="スタート"
-        onClick={() => onClick(value)}
-        isStart={true}
-      />
+      <Button text="スタート" onClick={() => onClick(value)} isStart={true} />
     </>
   );
 };

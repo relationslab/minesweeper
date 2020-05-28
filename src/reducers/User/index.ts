@@ -10,11 +10,6 @@ const reducer = (state = initialState, action: UserActionTypes) => {
         ...state,
         name: action.payload.name,
       };
-    case ActionTypes.SET_IS_START:
-      return {
-        ...state,
-        isStart: true,
-      };
     default:
       return state;
   }
@@ -26,12 +21,6 @@ export const userSetNameAction = (name: string) => {
     payload: {
       name,
     },
-  };
-};
-
-export const userSetIsStartAction = () => {
-  return {
-    type: ActionTypes.SET_IS_START,
   };
 };
 

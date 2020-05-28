@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-
-import { userSetIsStartAction } from "../reducers/User/index";
 
 const StyledOverlay = styled.div`
   position: absolute;
@@ -24,30 +21,26 @@ const StyledOverlay = styled.div`
   z-index: 999;
 `;
 
-const Overlay: React.FC = () => {
+type OverlayProps = {
+  onClick: () => void;
+};
+
+const Overlay: React.FC<OverlayProps> = ({ onClick }) => {
   const [isDig, setIsDig] = useState(true);
-  const [isClicked, setisClicked] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    setisClicked(true);
-    dispatch(userSetIsStartAction());
-  };
 
   useEffect(() => {
     let interval: number = 0;
     interval = setInterval(() => {
       setIsDig(!isDig);
-    }, 3000);
+    }, 2000);
 
     return () => {
       clearInterval(interval);
     };
   });
 
-  return isClicked ? null : (
-    <StyledOverlay onClick={handleClick}>
+  return (
+    <StyledOverlay onClick={onClick}>
       <img
         src={isDig ? "/images/tutorial_dig.png" : "/images/tutorial_flag.png"}
         alt="dig"
@@ -57,5 +50,3 @@ const Overlay: React.FC = () => {
 };
 
 export default Overlay;
-
-//containerにわける
