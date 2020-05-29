@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../rootReducer";
 import Modal from "../components/Modal";
@@ -13,6 +13,16 @@ const ContainerModal = () => {
   const board = useSelector((state: RootState) => state.board);
   const user = useSelector((state: RootState) => state.user);
 
+  useEffect(() => {
+    if (game.isClearded) {
+      db.collection("records").add({
+        name: user.name,
+        level: board.level,
+        time: game.timeHistory,
+      });
+    }
+  }, [game.isClearded, user.name, board.level, game.timeHistory]);
+
   const handleCreateBoard = () => {
     dispatch(gameRetryAction());
     dispatch(createBoardAction(board.width, board.height, board.mines));
@@ -25,14 +35,6 @@ const ContainerModal = () => {
       return;
     }
   };
-
-  if (game.isClearded) {
-    db.collection("records").add({
-      name: user.name,
-      level: board.level,
-      time: game.timeHistory,
-    });
-  }
 
   const _props = { game, user, handleSetName, handleCreateBoard };
 
