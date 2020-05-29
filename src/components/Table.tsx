@@ -1,40 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useTable, Column } from "react-table";
-
-type Data = {
-  rank: number;
-  name: string;
-  time: number;
-};
-
-const columns: Column<Data>[] = [
-  {
-    Header: "順位",
-    accessor: "rank",
-  },
-  {
-    Header: "名前",
-    accessor: "name",
-  },
-  {
-    Header: "記録",
-    accessor: "time",
-  },
-];
-
-const data: Data[] = [
-  {
-    rank: 1,
-    name: "John",
-    time: 23,
-  },
-  {
-    rank: 2,
-    name: "Jane",
-    time: 26,
-  },
-];
+import { Record } from "../config";
 
 const StyledTable = styled.div`
   table {
@@ -55,14 +22,33 @@ const StyledTable = styled.div`
   }
 `;
 
-const Table = () => {
+const columns: Column<Record>[] = [
+  {
+    Header: "順位",
+    accessor: "rank",
+  },
+  {
+    Header: "名前",
+    accessor: "name",
+  },
+  {
+    Header: "記録",
+    accessor: "time",
+  },
+];
+
+type TableProps = {
+  data: Record[];
+};
+
+const Table: React.FC<TableProps> = ({ data }) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable<Data>({ columns, data });
+  } = useTable<Record>({ columns, data });
   return (
     <StyledTable>
       <table {...getTableProps()}>
@@ -81,7 +67,9 @@ const Table = () => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  return (
+                  return !cell.value ? (
+                    <td {...cell.getCellProps()}>{i + 1}</td>
+                  ) : (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}

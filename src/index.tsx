@@ -5,7 +5,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 import store from "./rootReducer";
 import Game from "./components/Board/Game";
-import Ranking from "./components/Ranking";
+import Ranking from "./containers/Ranking";
 import PageHeader from "./components/Header";
 
 const GlobalStyle = createGlobalStyle`

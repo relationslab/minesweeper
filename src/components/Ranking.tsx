@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Table from "./Table";
+import { Record } from "../config";
 
 const StyledDisplay = styled.div`
   min-width: 540px;
@@ -50,23 +51,25 @@ const StyledPaging = styled.div`
   margin: 0 auto;
 `;
 
-const Ranking: React.FC = () => {
+type RankingProps = {
+  data: Record[];
+};
+
+const Ranking: React.FC<RankingProps> = ({ data }) => {
   return (
-    <>
-      <StyledDisplay>
-        <StyledDiv>
-          <StyledHeader>
-            <StyledLink to="/">⬅</StyledLink>
-            <img src="/images/trophy.png" alt="trophy" />
-          </StyledHeader>
-          <Table />
-          <StyledPaging>
-            <button>←</button>
-            <button>→</button>
-          </StyledPaging>
-        </StyledDiv>
-      </StyledDisplay>
-    </>
+    <StyledDisplay>
+      <StyledDiv>
+        <StyledHeader>
+          <StyledLink to="/">⬅</StyledLink>
+          <img src="/images/trophy.png" alt="trophy" />
+        </StyledHeader>
+        <Table data={data} />
+        <StyledPaging>
+          <button>←</button>
+          <button>→</button>
+        </StyledPaging>
+      </StyledDiv>
+    </StyledDisplay>
   );
 };
 
