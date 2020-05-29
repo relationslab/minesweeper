@@ -16,12 +16,12 @@ const StyledSelectLevel = styled.select`
   cursor: pointer;
 `;
 
-const SelectArrow = styled.span`
+const SelectArrow = styled.span<{ isRanking?: boolean }>`
   position: relative;
   ::after {
     position: absolute;
     content: "";
-    top: 1.8em;
+    top: ${({ isRanking }) => (isRanking ? "0.5em" : "1.8em")};
     right: 1.2em;
     width: 0;
     height: 0;
@@ -34,9 +34,13 @@ const SelectArrow = styled.span`
 
 type SelectLevelProps = {
   handleSelectLevel: (level: LevelKey) => void;
+  isRanking?: boolean;
 };
 
-const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
+const SelectLevel: React.FC<SelectLevelProps> = ({
+  handleSelectLevel,
+  isRanking,
+}) => {
   const [level, setLevel] = useState<LevelKey>("medium");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,11 +49,11 @@ const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
   };
 
   return (
-    <SelectArrow>
+    <SelectArrow isRanking={isRanking}>
       <StyledSelectLevel value={level} onChange={handleOnChange}>
-        <option value="easy">難易度:低</option>
-        <option value="medium">難易度:中</option>
-        <option value="hard">難易度:高</option>
+        <option value="easy">easy</option>
+        <option value="medium">medium</option>
+        <option value="hard">hard</option>
       </StyledSelectLevel>
     </SelectArrow>
   );

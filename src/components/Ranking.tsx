@@ -15,7 +15,7 @@ const StyledDisplay = styled.div`
 
 const StyledDiv = styled.div`
   display: grid;
-  grid-template-rows: 50px 1fr 20px;
+  grid-template-rows: 50px 1fr 40px;
   border-radius: 10px;
   padding: 1rem;
   background-color: rgb(77, 193, 249);

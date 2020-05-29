@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useTable, Column, usePagination } from "react-table";
 import { Record } from "../config";
+import SelectLevel from "../containers/SelectLevel";
 
 const StyledTable = styled.div`
   table {
@@ -23,21 +24,21 @@ const StyledTable = styled.div`
   }
 `;
 
-const StyledButton = styled.div`
+const StyledPagination = styled.div`
   margin: 0 auto;
 `;
 
 const columns: Column<Record>[] = [
   {
-    Header: "順位",
+    Header: "Rank",
     accessor: "rank",
   },
   {
-    Header: "名前",
+    Header: "Name",
     accessor: "name",
   },
   {
-    Header: "記録",
+    Header: "Time",
     accessor: "time",
   },
 ];
@@ -93,14 +94,15 @@ const Table: React.FC<TableProps> = ({ data }) => {
           </tbody>
         </table>
       </StyledTable>
-      <StyledButton>
+      <StyledPagination>
+        <SelectLevel isRanking />
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           ←
         </button>
         <button onClick={() => nextPage()} disabled={!canNextPage}>
           →
         </button>
-      </StyledButton>
+      </StyledPagination>
     </>
   );
 };

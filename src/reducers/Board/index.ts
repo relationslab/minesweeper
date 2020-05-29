@@ -6,6 +6,7 @@ const { width, height, mines } = level.medium;
 
 const initialState: BoardState = {
   cells: initializeBoard(width, height, mines),
+  level: "medium",
   width,
   height,
   mines,
@@ -19,6 +20,7 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
       const { width, height, mines } = level[action.payload.level];
       return {
         cells: initializeBoard(width, height, mines),
+        level: action.payload.level,
         width,
         height,
         mines,
@@ -59,6 +61,11 @@ const reducer = (state = initialState, action: BoardActionTypes) => {
       return {
         ...state,
         flags: countFlag(state.cells),
+      };
+    case ActionTypes.FILTER_LEVEL:
+      return {
+        ...state,
+        level: action.payload.level,
       };
     default:
       return state;
@@ -112,6 +119,15 @@ export const toggleFlagAction = (x: number, y: number): BoardActionTypes => {
 export const countFlagAction = (): BoardActionTypes => {
   return {
     type: ActionTypes.COUNT_FLAG,
+  };
+};
+
+export const filterLevelAction = (level: LevelKey): BoardActionTypes => {
+  return {
+    type: ActionTypes.FILTER_LEVEL,
+    payload: {
+      level,
+    },
   };
 };
 

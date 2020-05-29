@@ -4,6 +4,7 @@ export const ActionTypes = {
   COUNT_FLAG: "minesweeper/board/COUNT_FLAG",
   CREATE_BOARD: "minesweeper/board/CREATE_BOARD",
   SELECT_LEVEL: "minesweeper/board/SELECT_LEVEL",
+  FILTER_LEVEL: "minesweeper/board/FILTER_LEVEL",
 } as const;
 
 export type CellState = {
@@ -15,6 +16,7 @@ export type CellState = {
 
 export type BoardState = {
   cells: CellState[][];
+  level: string;
   width: number;
   height: number;
   mines: number;
@@ -72,9 +74,17 @@ export type SelectLevelAction = {
   };
 };
 
+export type FilterLevelAction = {
+  type: typeof ActionTypes.FILTER_LEVEL;
+  payload: {
+    level: LevelKey;
+  };
+};
+
 export type BoardActionTypes =
   | OpenCellAction
   | ToggleFlagAction
   | CountFlagAction
   | CreateBoardAction
-  | SelectLevelAction;
+  | SelectLevelAction
+  | FilterLevelAction;
