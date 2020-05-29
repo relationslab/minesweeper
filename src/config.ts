@@ -14,6 +14,11 @@ export const initialGameState: GameState = {
   timeHistory: 0,
 };
 
+export type Record = {
+  name: string;
+  time: number;
+};
+
 export const level: Level = {
   easy: {
     width: 10,
