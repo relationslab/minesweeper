@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, Column } from "react-table";
+import { useTable, Column, usePagination } from "react-table";
 import { Record } from "../config";
 
 const StyledTable = styled.div`
@@ -18,8 +18,13 @@ const StyledTable = styled.div`
   td {
     text-align: center;
     width: 25%;
-    padding: 10px 0;
+    padding: 13px 0;
+    font-weight: bold;
   }
+`;
+
+const StyledButton = styled.div`
+  margin: 0 auto;
 `;
 
 const columns: Column<Record>[] = [
@@ -46,39 +51,57 @@ const Table: React.FC<TableProps> = ({ data }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
-  } = useTable<Record>({ columns, data });
+    previousPage,
+    nextPage,
+    canPreviousPage,
+    canNextPage,
+  } = useTable<Record>(
+    { columns, data, initialState: { pageIndex: 1, pageSize: 6 } },
+    usePagination
+  );
+
   return (
-    <StyledTable>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return !cell.value ? (
-                    <td {...cell.getCellProps()}>{i + 1}</td>
-                  ) : (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+    <>
+      <StyledTable>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </StyledTable>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </StyledTable>
+      <StyledButton>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          ←
+        </button>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          →
+        </button>
+      </StyledButton>
+    </>
   );
 };
 

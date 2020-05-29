@@ -9,16 +9,17 @@ const ContainerRanking = () => {
   useEffect(() => {
     db.collection("records")
       .orderBy("time", "asc")
+
       .get()
       .then((querySnapshot) => {
-        const data: Record[] = [];
-        querySnapshot.forEach((doc) => {
-          data.push(doc.data() as Record);
+        const data: Record[] = querySnapshot.docs.map((doc, i) => {
+          return { ...(doc.data() as Record), rank: i + 1 };
         });
         setRecords(data);
       });
   }, []);
 
+  console.log(records);
   return <Ranking data={records} />;
 };
 

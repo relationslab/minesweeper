@@ -15,6 +15,7 @@ export const initialGameState: GameState = {
 };
 
 export type Record = {
+  rank?: number;
   name: string;
   time: number;
 };

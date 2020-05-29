@@ -47,10 +47,6 @@ const StyledLink = styled(Link)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
-const StyledPaging = styled.div`
-  margin: 0 auto;
-`;
-
 type RankingProps = {
   data: Record[];
 };
@@ -64,10 +60,6 @@ const Ranking: React.FC<RankingProps> = ({ data }) => {
           <img src="/images/trophy.png" alt="trophy" />
         </StyledHeader>
         <Table data={data} />
-        <StyledPaging>
-          <button>←</button>
-          <button>→</button>
-        </StyledPaging>
       </StyledDiv>
     </StyledDisplay>
   );
