@@ -14,7 +14,7 @@ const StyledHeader = styled.header<{ boardWidth: number }>`
   background-color: #4a752c;
   display: grid;
   grid-template-rows: 60px;
-  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr 0px 1fr;
   justify-content: center;
 `;
 
