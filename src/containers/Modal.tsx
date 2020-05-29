@@ -5,6 +5,7 @@ import Modal from "../components/Modal";
 import { createBoardAction } from "../reducers/Board";
 import { gameRetryAction } from "../reducers/Game";
 import { userSetNameAction } from "../reducers/User";
+import { db } from "../firebase";
 
 const ContainerModal = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,14 @@ const ContainerModal = () => {
       return;
     }
   };
+
+  if (game.isClearded) {
+    db.collection("records").add({
+      name: user.name,
+      level: board.level,
+      time: game.timeHistory,
+    });
+  }
 
   const _props = { game, user, handleSetName, handleCreateBoard };
 

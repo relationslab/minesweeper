@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { db } from "../firebase";
 import Ranking from "../components/Ranking";
 import { Record } from "../config";
+import { RootState } from "../rootReducer";
 
 const ContainerRanking = () => {
   const [records, setRecords] = useState<Record[]>([]);
+  const board = useSelector((state: RootState) => state.board);
 
   useEffect(() => {
     db.collection("records")
+      .where("level", "==", board.level)
       .orderBy("time", "asc")
-
       .get()
       .then((querySnapshot) => {
         const data: Record[] = querySnapshot.docs.map((doc, i) => {
@@ -17,9 +20,8 @@ const ContainerRanking = () => {
         });
         setRecords(data);
       });
-  }, []);
+  }, [board.level]);
 
-  console.log(records);
   return <Ranking data={records} />;
 };
 

@@ -7,7 +7,7 @@ const StyledImg = styled.img<{ right?: boolean }>`
   height: 40px;
   align-self: center;
   justify-self: ${({ right }) => (right ? "right" : "center")};
-  z-index: 999;
+  z-index: 1111;
 `;
 
 const StyledLink = StyledImg.withComponent(Link);
