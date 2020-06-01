@@ -43,7 +43,12 @@ const InputForm: React.FC<Props> = ({ value, onChange, onClick }) => {
         )}
       </Div>
 
-      <Button text="スタート" onClick={() => onClick(value)} isStart={true} />
+      <Button
+        text="スタート"
+        onClick={() => onClick(value)}
+        isStart={true}
+        disabled={value.length === 0 || 8 <= value.length}
+      />
     </>
   );
 };

@@ -14,6 +14,10 @@ const StyledButton = styled.button<{ isStart?: boolean }>`
     font-size: 21px;
     ${({ isStart }) => (isStart ? null : "margin-left: 20px")};
   }
+
+  :disabled {
+    background-color: gray;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -28,6 +32,7 @@ type RetryButtonProps = {
   retry?: boolean;
   onClick: () => void;
   isStart?: boolean;
+  disabled?: boolean;
 };
 
 const RetryButton: React.FC<RetryButtonProps> = ({
@@ -35,9 +40,10 @@ const RetryButton: React.FC<RetryButtonProps> = ({
   retry,
   onClick,
   isStart,
+  disabled,
 }) => {
   return (
-    <StyledButton onClick={onClick} isStart={isStart}>
+    <StyledButton onClick={onClick} isStart={isStart} disabled={disabled}>
       {retry ? <StyledImg src="/images/retry.png" alt="retry" /> : null}
       <span>{text}</span>
     </StyledButton>
