@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const StyledOverlay = styled.div`
   position: absolute;
-  width: 540px;
-  height: 424px;
+  width: 65%;
+  height: 65%;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);

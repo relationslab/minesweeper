@@ -9,7 +9,7 @@ const StyledImg = styled.img<{ right?: boolean }>`
   height: 25px;
   align-self: center;
   justify-self: ${({ right }) => (right ? "right" : "center")};
-  z-index: 999;
+  z-index: 1111;
   cursor: pointer;
 `;
 

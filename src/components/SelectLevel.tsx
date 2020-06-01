@@ -30,6 +30,7 @@ const SelectArrow = styled.span<{ isRanking?: boolean }>`
     border-right: 4px solid transparent;
     border-top: 4px solid #000000;
   }
+  z-index: 1000;
 `;
 
 type SelectLevelProps = {
