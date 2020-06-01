@@ -29,6 +29,7 @@ const ContainerBoard = () => {
         }
       });
     });
+    console.log(openCells);
     return openCells;
   };
 
@@ -50,7 +51,10 @@ const ContainerBoard = () => {
       dispatch(gameOverAction());
     }
 
-    if (openCellCount() === board.width * board.height - board.mines) {
+    if (
+      !board.cells[x][y].hasMine &&
+      openCellCount() === board.width * board.height - board.mines
+    ) {
       dispatch(gameClearAction());
     }
   };
