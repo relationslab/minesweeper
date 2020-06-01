@@ -16,7 +16,7 @@ export type CellState = {
 
 export type BoardState = {
   cells: CellState[][];
-  level: string;
+  level: LevelKey;
   width: number;
   height: number;
   mines: number;

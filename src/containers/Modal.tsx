@@ -18,10 +18,10 @@ const ContainerModal = () => {
       db.collection("records").add({
         name: user.name,
         level: board.level,
-        time: game.timeHistory,
+        time: game.time,
       });
     }
-  }, [game.isClearded, user.name, board.level, game.timeHistory]);
+  }, [game.isClearded, user.name, board.level, game.time]);
 
   const handleCreateBoard = () => {
     dispatch(gameRetryAction());

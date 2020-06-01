@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LevelKey } from "../../reducers/Board/types";
+import { BoardState, LevelKey } from "../reducers/Board/types";
 
 const StyledSelectLevel = styled.select`
   appearance: none;
@@ -33,15 +33,17 @@ const SelectArrow = styled.span<{ isRanking?: boolean }>`
 `;
 
 type SelectLevelProps = {
+  board: BoardState;
   handleSelectLevel: (level: LevelKey) => void;
   isRanking?: boolean;
 };
 
 const SelectLevel: React.FC<SelectLevelProps> = ({
+  board,
   handleSelectLevel,
   isRanking,
 }) => {
-  const [level, setLevel] = useState<LevelKey>("medium");
+  const [level, setLevel] = useState<LevelKey>(board.level);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLevel(e.target.value as LevelKey);
