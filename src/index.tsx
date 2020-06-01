@@ -7,6 +7,7 @@ import store from "./rootReducer";
 import Game from "./containers/Game";
 import Ranking from "./containers/Ranking";
 import PageHeader from "./components/Header";
+import Sound from "./components/Sound";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -40,6 +41,7 @@ const Grid = styled.div`
 ReactDOM.render(
   <Provider store={store}>
     <GlobalStyle />
+    <Sound />
     <Router>
       <Grid>
         <PageHeader />

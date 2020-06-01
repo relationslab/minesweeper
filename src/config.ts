@@ -17,6 +17,7 @@ export const initialGameState: GameState = {
   isStarted: false,
   isClearded: false,
   isEnded: false,
+  isSounded: true,
   time: 0,
   timeHistory: 0,
 };

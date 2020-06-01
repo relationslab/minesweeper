@@ -4,12 +4,14 @@ export const ActionTypes = {
   GAME_OVER: "minesweeper/game/GAME_OVER",
   GAME_RETRY: "minesweeper/game/GAME_RETRY",
   START_TIME: "minesweeper/game/START_TIME",
+  TOGGLE_SOUND: "minesweeper/game/TOGGLE_SOUND",
 } as const;
 
 export type GameState = {
   isStarted: boolean;
   isClearded: boolean;
   isEnded: boolean;
+  isSounded: boolean;
   time: number;
   timeHistory: number;
 };
@@ -34,9 +36,14 @@ type StartTimeAction = {
   type: typeof ActionTypes.START_TIME;
 };
 
+type ToggleSoundAction = {
+  type: typeof ActionTypes.TOGGLE_SOUND;
+};
+
 export type GameActionTypes =
   | GameStartAction
   | GameClearAction
   | GameOverAction
   | GameRetryAction
-  | StartTimeAction;
+  | StartTimeAction
+  | ToggleSoundAction;

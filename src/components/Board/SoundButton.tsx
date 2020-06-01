@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import styled from "styled-components";
-import ReactPlayer from "react-player";
-import { RootState } from "../../rootReducer";
+import { GameState } from "src/reducers/Game/types";
 
 const StyledImg = styled.img<{ right?: boolean }>`
   width: 25px;
@@ -13,30 +11,24 @@ const StyledImg = styled.img<{ right?: boolean }>`
   cursor: pointer;
 `;
 
-const SoundButton = () => {
-  const [playing, setPlaying] = useState(true);
-  const user = useSelector((state: RootState) => state.user);
-  const handleOnclick = () => {
-    setPlaying(!playing);
-  };
+type SoundButtonProps = {
+  playing: boolean;
+  game: GameState;
+  handleOnClick: () => void;
+};
 
+const SoundButton: React.FC<SoundButtonProps> = ({
+  playing,
+  game,
+  handleOnClick,
+}) => {
   return (
-    <>
-      <StyledImg
-        right
-        src={playing ? "/images/sound.png" : "/images/soundOff.png"}
-        alt="sound"
-        onClick={handleOnclick}
-      />
-      <ReactPlayer
-        url={`${process.env.PUBLIC_URL}/pastelHouse.mp3`}
-        playing={playing && user.name !== ""}
-        loop
-        volume={0.5}
-        width="0"
-        height="0"
-      />
-    </>
+    <StyledImg
+      right
+      src={game.isSounded ? "/images/sound.png" : "/images/soundOff.png"}
+      alt="sound"
+      onClick={() => handleOnClick()}
+    />
   );
 };
 

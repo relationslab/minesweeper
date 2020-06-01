@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SelectLevel from "../../containers/SelectLevel";
 import FlagCount from "../../containers/FlagCount";
 import Timer from "../../containers/Timer";
-import SoundButton from "./SoundButton";
+import SoundButton from "../../containers/SoundButton";
 import RankingButton from "./RankingButton";
 import { RootState } from "../../rootReducer";
 import { cellSize } from "../../config";
@@ -14,7 +14,7 @@ const StyledHeader = styled.header<{ boardWidth: number }>`
   background-color: #4a752c;
   display: grid;
   grid-template-rows: 60px;
-  grid-template-columns: 1fr 2fr 2fr 1fr 0px 1fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
   justify-content: center;
 `;
 
