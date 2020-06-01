@@ -59,7 +59,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
     canPreviousPage,
     canNextPage,
   } = useTable<Record>(
-    { columns, data, initialState: { pageIndex: 1, pageSize: 6 } },
+    { columns, data, initialState: { pageIndex: 0, pageSize: 6 } },
     usePagination
   );
 
