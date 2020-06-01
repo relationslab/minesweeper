@@ -44,7 +44,9 @@ const SelectLevel: React.FC<SelectLevelProps> = ({
   handleSelectLevel,
   isRanking,
 }) => {
-  const [level, setLevel] = useState<LevelKey>(board.level);
+  const levelName =
+    board.mines === 10 ? "easy" : board.mines === 40 ? "medium" : "hard";
+  const [level, setLevel] = useState<LevelKey>(levelName);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLevel(e.target.value as LevelKey);

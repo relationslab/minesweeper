@@ -8,7 +8,7 @@ const Sound = () => {
   const user = useSelector((state: RootState) => state.user);
 
   //gameOver,gameClearの音楽は金曜までに探します。
-  const stop = game.isEnded;
+  const stop = game.isEnded || !game.isStarted;
   return (
     <ReactPlayer
       url={stop ? "" : `${process.env.PUBLIC_URL}/pastelHouse.mp3`}

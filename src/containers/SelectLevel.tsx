@@ -15,10 +15,12 @@ const ContainerSelectLevel: React.FC<props> = ({ isRanking }) => {
   const board = useSelector((state: RootState) => state.board);
 
   const handleSelectLevel = (level: LevelKey) => {
-    dispatch(filterLevelAction(level));
-
-    dispatch(gameRetryAction());
-    dispatch(SelectLevelAction(level));
+    if (isRanking) {
+      dispatch(filterLevelAction(level));
+    } else {
+      dispatch(gameRetryAction());
+      dispatch(SelectLevelAction(level));
+    }
   };
 
   const _props = { board, handleSelectLevel, isRanking };
