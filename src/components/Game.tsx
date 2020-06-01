@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import GameHeader from "./GameHeader";
-import Board from "../../containers/Board";
-import Modal from "../../containers/Modal";
-import Overlay from "../Overlay";
+import GameHeader from "./Board/GameHeader";
+import Board from "../containers/Board";
+import Modal from "../containers/Modal";
+import Overlay from "./Overlay";
+import { UserState } from "src/reducers/User/types";
 
 const StyledGame = styled.div`
   min-width: 540px;
@@ -14,7 +15,11 @@ const StyledGame = styled.div`
   margin: 60px;
 `;
 
-const Game = () => {
+type GameProps = {
+  user: UserState;
+};
+
+const Game: React.FC<GameProps> = ({ user }) => {
   const [isStart, setIsStart] = useState(false);
   const handleClick = () => {
     setIsStart(true);
@@ -23,7 +28,11 @@ const Game = () => {
   return (
     <StyledGame>
       <GameHeader />
-      {isStart ? <Modal /> : <Overlay onClick={handleClick} />}
+      {!isStart && !user.name.length ? (
+        <Overlay onClick={handleClick} />
+      ) : (
+        <Modal />
+      )}
       <Board />
     </StyledGame>
   );

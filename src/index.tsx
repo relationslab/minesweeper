@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 import store from "./rootReducer";
-import Game from "./components/Board/Game";
+import Game from "./containers/Game";
 import Ranking from "./containers/Ranking";
 import PageHeader from "./components/Header";
 
