@@ -3,7 +3,7 @@ import { Level } from "./reducers/Board/types";
 import { UserState } from "./reducers/User/types";
 
 export type Record = {
-  rank?: number;
+  rank: number;
   level: string;
   name: string;
   time: number;

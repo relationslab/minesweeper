@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Table from "./Table";
+import Pagination from "./Pagination";
 import { Record } from "../config";
 
 const StyledDisplay = styled.div`
@@ -49,9 +50,21 @@ const StyledLink = styled(Link)`
 
 type RankingProps = {
   data: Record[];
+  lastRecord: any;
+  handleClickPrev: () => void;
+  handleClickNext: (last: any) => void;
+  nextDisabled: boolean;
+  prevDisabled: boolean;
 };
 
-const Ranking: React.FC<RankingProps> = ({ data }) => {
+const Ranking: React.FC<RankingProps> = ({
+  data,
+  lastRecord,
+  handleClickPrev,
+  handleClickNext,
+  nextDisabled,
+  prevDisabled,
+}) => {
   return (
     <StyledDisplay>
       <StyledDiv>
@@ -59,7 +72,13 @@ const Ranking: React.FC<RankingProps> = ({ data }) => {
           <StyledLink to="/">⬅</StyledLink>
           <img src="/images/trophy.png" alt="trophy" />
         </StyledHeader>
-        <Table data={data} />
+        <Table data={data} handleClick={() => handleClickNext(lastRecord)} />
+        <Pagination
+          handleClickPrev={() => handleClickPrev()}
+          handleClickNext={() => handleClickNext(lastRecord)}
+          nextDisabled={nextDisabled}
+          prevDisabled={prevDisabled}
+        />
       </StyledDiv>
     </StyledDisplay>
   );
