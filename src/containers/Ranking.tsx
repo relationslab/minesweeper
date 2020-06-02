@@ -5,6 +5,7 @@ import Ranking from "../components/Ranking";
 import { Record } from "../config";
 import { RootState } from "../rootReducer";
 import dayjs from "dayjs";
+import firebase from "../firebase";
 
 type State = {
   records: Record[];
@@ -29,6 +30,11 @@ const ContainerRanking = () => {
 
   const prevDisabled = currentPage === 1;
   const nextDisabled = currentRecords.length <= 5 || !lastRecord;
+
+  const nextDay = dayjs().add(1, "day").format("YYYY MM DD");
+  const start = firebase.firestore.Timestamp.now();
+  const end = firebase.firestore.Timestamp.fromDate(new Date(nextDay));
+
   const ref = db
     .collection("records")
     .where("level", "==", board.level)
@@ -51,11 +57,15 @@ const ContainerRanking = () => {
   useEffect(() => {
     db.collection("records")
       .where("level", "==", board.level)
+      .where("createdAt", ">", start)
+      .where("createdAt", "<", end)
+      .orderBy("createdAt")
       .orderBy("time", "asc")
       .limit(limit)
       .get()
       .then(async (querySnapshot) => {
         const data: Record[] = await querySnapshot.docs.map((doc, i) => {
+          console.log(doc.get("createdAt"));
           const timestamp = doc.get("createdAt").toDate();
           return {
             ...(doc.data() as Record),
