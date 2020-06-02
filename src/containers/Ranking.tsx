@@ -28,6 +28,19 @@ const ContainerRanking = () => {
   const prevDisabled = currentPage === 1;
   const nextDisabled = currentRecords.length <= 5 || !lastRecord;
 
+  //同率の検索
+  const formatData = (data: Record[]) => {
+    const formatData: Record[] = [...data];
+    console.log(formatData.length);
+    for (let i = 0; i < formatData.length; i++) {
+      const j = i + 1 === formatData.length ? i : i + 1;
+      if (formatData[i].time === formatData[j].time) {
+        formatData[j].rank = formatData[i].rank;
+      }
+    }
+    return formatData;
+  };
+
   //初期データの取得
   useEffect(() => {
     db.collection("records")
@@ -35,15 +48,16 @@ const ContainerRanking = () => {
       .orderBy("time", "asc")
       .limit(limit)
       .get()
-      .then((querySnapshot) => {
-        const data: Record[] = querySnapshot.docs.map((doc, i) => {
+      .then(async (querySnapshot) => {
+        const data: Record[] = await querySnapshot.docs.map((doc, i) => {
           return { ...(doc.data() as Record), rank: i + 1 };
         });
+        const newData: Record[] = formatData(data);
         const lastRecord: any =
           querySnapshot.docs[querySnapshot.docs.length - 1];
         setState({
-          records: data,
-          currentRecords: data,
+          records: newData,
+          currentRecords: newData,
           lastRecord: lastRecord,
           history: limit,
           currentPage: 1,
@@ -76,7 +90,7 @@ const ContainerRanking = () => {
           const data: Record[] = querySnapshot.docs.map((doc, i) => {
             return { ...(doc.data() as Record), rank: history + 1 + i };
           });
-          const newData = [...records, ...data];
+          const newData = formatData([...records, ...data]);
           const lastRecord: any =
             querySnapshot.docs[querySnapshot.docs.length - 1];
 

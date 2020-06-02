@@ -13,7 +13,7 @@ const ContainerModal = () => {
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    if (game.isClearded) {
+    if (game.isClearded && game.time !== 0) {
       db.collection("records").add({
         uid: user.uid,
         name: user.name,
