@@ -17,9 +17,13 @@ const StyledTable = styled.div`
   th,
   td {
     text-align: center;
-    width: 25%;
     padding: 13px 0;
     font-weight: bold;
+  }
+  td {
+    :nth-last-child(1) {
+      font-size: 10px;
+    }
   }
 `;
 
@@ -35,6 +39,10 @@ const columns: Column<Record>[] = [
   {
     Header: "Time",
     accessor: "time",
+  },
+  {
+    Header: "Date",
+    accessor: "createdAt",
   },
 ];
 

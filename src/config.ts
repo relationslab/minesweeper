@@ -7,6 +7,7 @@ export type Record = {
   level: string;
   name: string;
   time: number;
+  createdAt: string;
 };
 
 export const initialUserState: UserState = {

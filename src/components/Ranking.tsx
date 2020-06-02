@@ -28,7 +28,7 @@ const StyledDiv = styled.div`
 
 const StyledHeader = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr;
+  grid-template-columns: 50px 1fr 1fr 1fr;
   img {
     justify-self: right;
     width: 50px;
@@ -71,6 +71,8 @@ const Ranking: React.FC<RankingProps> = ({
         <StyledHeader>
           <StyledLink to="/">⬅</StyledLink>
           <img src="/images/trophy.png" alt="trophy" />
+          <button>all</button>
+          <button>my</button>
         </StyledHeader>
         <Table data={data} handleClick={() => handleClickNext(lastRecord)} />
         <Pagination
