@@ -4,14 +4,24 @@ import { db } from "../firebase";
 import Ranking from "../components/Ranking";
 import { Record } from "../config";
 import { RootState } from "../rootReducer";
+type State = {
+  records: Record[];
+  currentRecords: Record[];
+  lastRecord: any;
+  history: number;
+  currentPage: number;
+};
 
 const ContainerRanking = () => {
   const limit = 6;
-  const [records, setRecords] = useState<Record[]>([]);
-  const [currentRecords, setCurrentRecords] = useState<Record[]>([]);
-  const [lastRecord, setLastRecord] = useState();
-  const [history, setHistory] = useState(limit);
-  const [currentPage, setPage] = useState(1);
+  const [state, setState] = useState<State>({
+    records: [],
+    currentRecords: [],
+    lastRecord: null,
+    history: limit,
+    currentPage: 1,
+  });
+  const { records, currentRecords, lastRecord, history, currentPage } = state;
 
   const board = useSelector((state: RootState) => state.board);
 
@@ -23,7 +33,7 @@ const ContainerRanking = () => {
     db.collection("records")
       .where("level", "==", board.level)
       .orderBy("time", "asc")
-      .limit(12)
+      .limit(limit)
       .get()
       .then((querySnapshot) => {
         const data: Record[] = querySnapshot.docs.map((doc, i) => {
@@ -31,18 +41,23 @@ const ContainerRanking = () => {
         });
         const lastRecord: any =
           querySnapshot.docs[querySnapshot.docs.length - 1];
-        setLastRecord(lastRecord);
-        setRecords(data);
-        setCurrentRecords(data);
-        setHistory(12);
-        setPage(1);
+        setState({
+          records: data,
+          currentRecords: data,
+          lastRecord: lastRecord,
+          history: limit,
+          currentPage: 1,
+        });
       });
   }, [board]);
 
   const handleClickPrev = () => {
     const offset = (currentPage - 2) * limit;
-    setCurrentRecords(records.slice(offset, offset + limit));
-    setPage(currentPage - 1);
+    setState({
+      ...state,
+      currentRecords: records.slice(offset, offset + limit),
+      currentPage: currentPage - 1,
+    });
   };
 
   const handleClickNext = async (lastRecord: any) => {
@@ -62,19 +77,24 @@ const ContainerRanking = () => {
             return { ...(doc.data() as Record), rank: history + 1 + i };
           });
           const newData = [...records, ...data];
-          setRecords(newData);
-          setCurrentRecords(newData.slice(offset, offset + limit));
           const lastRecord: any =
             querySnapshot.docs[querySnapshot.docs.length - 1];
-          querySnapshot.docs.length <= 0
-            ? setLastRecord(undefined)
-            : setLastRecord(lastRecord);
-          setHistory(history + limit);
-          setPage(currentPage + 1);
+
+          setState({
+            ...state,
+            records: newData,
+            currentRecords: newData.slice(offset, offset + limit),
+            lastRecord: querySnapshot.docs.length <= 0 ? undefined : lastRecord,
+            history: history + limit,
+            currentPage: currentPage + 1,
+          });
         });
     } else {
-      await setCurrentRecords(records.slice(offset, offset + limit));
-      setPage(currentPage + 1);
+      await setState({
+        ...state,
+        currentRecords: records.slice(offset, offset + limit),
+        currentPage: currentPage + 1,
+      });
     }
   };
 
