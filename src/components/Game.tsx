@@ -28,11 +28,7 @@ const Game: React.FC<GameProps> = ({ user }) => {
   return (
     <StyledGame>
       <GameHeader />
-      {!isStart && !user.name.length ? (
-        <Overlay onClick={handleClick} />
-      ) : (
-        <Modal />
-      )}
+      {!isStart && !user.uid ? <Overlay onClick={handleClick} /> : <Modal />}
       <Board />
     </StyledGame>
   );

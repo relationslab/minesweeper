@@ -3,12 +3,14 @@ export const ActionTypes = {
 } as const;
 
 export type UserState = {
-  name: string;
+  uid: string;
+  name: string | null;
 };
 
 type SetUserName = {
   type: typeof ActionTypes.SET_USER_NAME;
   payload: {
+    uid: string;
     name: string;
   };
 };

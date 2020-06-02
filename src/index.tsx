@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin:0;
     color:white;
+    box-sizing:border-box;
   }
   a {
     color:white;

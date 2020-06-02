@@ -4,8 +4,7 @@ import { RootState } from "../rootReducer";
 import Modal from "../components/Modal";
 import { createBoardAction } from "../reducers/Board";
 import { gameRetryAction } from "../reducers/Game";
-import { userSetNameAction } from "../reducers/User";
-import { db } from "../firebase";
+import firebase, { db } from "../firebase";
 
 const ContainerModal = () => {
   const dispatch = useDispatch();
@@ -16,27 +15,21 @@ const ContainerModal = () => {
   useEffect(() => {
     if (game.isClearded) {
       db.collection("records").add({
+        uid: user.uid,
         name: user.name,
         level: board.level,
         time: game.time,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       });
     }
-  }, [game.isClearded, user.name, board.level, game.time]);
+  }, [game.isClearded, user, board.level, game.time]);
 
   const handleCreateBoard = () => {
     dispatch(gameRetryAction());
     dispatch(createBoardAction(board.width, board.height, board.mines));
   };
 
-  const handleSetName = (name: string) => {
-    if (name.length <= 8) {
-      dispatch(userSetNameAction(name));
-    } else {
-      return;
-    }
-  };
-
-  const _props = { game, user, handleSetName, handleCreateBoard };
+  const _props = { game, user, handleCreateBoard };
 
   return <Modal {..._props} />;
 };

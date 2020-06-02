@@ -8,6 +8,7 @@ const reducer = (state = initialState, action: UserActionTypes) => {
     case ActionTypes.SET_USER_NAME:
       return {
         ...state,
+        uid: action.payload.uid,
         name: action.payload.name,
       };
     default:
@@ -15,10 +16,11 @@ const reducer = (state = initialState, action: UserActionTypes) => {
   }
 };
 
-export const userSetNameAction = (name: string) => {
+export const userSetNameAction = (uid: string, name: string | null) => {
   return {
     type: ActionTypes.SET_USER_NAME,
     payload: {
+      uid,
       name,
     },
   };

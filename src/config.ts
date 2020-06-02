@@ -10,6 +10,7 @@ export type Record = {
 };
 
 export const initialUserState: UserState = {
+  uid: "",
   name: "",
 };
 

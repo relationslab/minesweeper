@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 import Timer from "../containers/Timer";
 import TimeHistory from "./Board/TimeHistory";
 import Button from "./Button";
-import InputForm from "./InputForm";
 import { GameState } from "../reducers/Game/types";
 import { UserState } from "../reducers/User/types";
+import GoogleLogin from "./GoogleLogin";
 
 const customStyles = {
   content: {
@@ -42,10 +42,17 @@ const ResultDisplay = styled.div<{ game: GameState }>`
   ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : null)}
 `;
 
+const LoginDisplay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+`;
+
 type ModalProps = {
   game: GameState;
   user: UserState;
-  handleSetName: (name: string) => void;
   handleCreateBoard: () => void;
   isStart?: boolean;
 };
@@ -53,15 +60,8 @@ type ModalProps = {
 const ModalDialog: React.FC<ModalProps> = ({
   game,
   user,
-  handleSetName,
   handleCreateBoard,
 }) => {
-  const [name, setName] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-
   if (game.isEnded) {
     customStyles.content.backgroundImage = "url('/images/gameOver.png')";
   }
@@ -69,11 +69,9 @@ const ModalDialog: React.FC<ModalProps> = ({
   return (
     <>
       <Modal isOpen={user.name === ""} style={customStyles} ariaHideApp={false}>
-        <InputForm
-          value={name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-          onClick={() => handleSetName(name)}
-        />
+        <LoginDisplay>
+          <GoogleLogin />
+        </LoginDisplay>
       </Modal>
 
       <Modal
