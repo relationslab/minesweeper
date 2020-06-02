@@ -31,7 +31,6 @@ const ContainerRanking = () => {
   //同率の検索
   const formatData = (data: Record[]) => {
     const formatData: Record[] = [...data];
-    console.log(formatData.length);
     for (let i = 0; i < formatData.length; i++) {
       const j = i + 1 === formatData.length ? i : i + 1;
       if (formatData[i].time === formatData[j].time) {
