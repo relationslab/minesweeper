@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { db } from "../firebase";
 import Ranking from "../components/Ranking";
@@ -29,47 +29,78 @@ const ContainerRanking = () => {
   const board = useSelector((state: RootState) => state.board);
 
   const prevDisabled = currentPage === 1;
-  const nextDisabled = currentRecords.length <= 5 || !lastRecord;
+  const nextDisabled =
+    currentRecords.length <= 5 ||
+    (!lastRecord && currentPage === Math.ceil(records.length / limit));
 
-  const nextDay = dayjs().add(1, "day").format("YYYY MM DD");
-  const start = firebase.firestore.Timestamp.now();
-  const end = firebase.firestore.Timestamp.fromDate(new Date(nextDay));
+  //firestoreではdb.collection("records").where("level", "==", board.level).orderBy("createdAt").orderBy("time")...のように複数条件で絞るとエラーがでるためreact側でsortを行う
+  const sortByTime = (data: Record[]): Record[] => {
+    data.sort((a: Record, b: Record) => {
+      if (a.time < b.time) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    return data;
+  };
 
-  const ref = db
-    .collection("records")
-    .where("level", "==", board.level)
-    .orderBy("time", "asc")
-    .limit(limit);
+  const rankData = (data: Record[]): Record[] => {
+    return data.map((d, i) => {
+      return {
+        ...d,
+        rank: i + 1,
+      };
+    });
+  };
+  const formatData = useCallback((data: Record[]) => {
+    const sortByTimeData: Record[] = sortByTime(data);
+    const formatData: Record[] = rankData(sortByTimeData);
 
-  //同率の検索
-  const formatData = (data: Record[]) => {
-    const formatData: Record[] = [...data];
+    //同率の検索
     for (let i = 0; i < formatData.length; i++) {
       const j = i + 1 === formatData.length ? i : i + 1;
       if (formatData[i].time === formatData[j].time) {
         formatData[j].rank = formatData[i].rank;
+      } else {
+        formatData[j].rank = formatData[i].rank + 1;
       }
     }
     return formatData;
-  };
+  }, []);
+
+  const nextDay = useMemo(() => {
+    return dayjs().add(1, "day").format("YYYY MM DD");
+  }, []);
+  const start = useMemo(() => {
+    return firebase.firestore.Timestamp.now();
+  }, []);
+  const end = useMemo(() => {
+    return firebase.firestore.Timestamp.fromDate(new Date(nextDay));
+  }, [nextDay]);
+
+  const ref = db
+    .collection("records")
+    .where("level", "==", board.level)
+    .orderBy("createdAt")
+    .startAt(start)
+    .endAt(end)
+    .limit(limit);
 
   //初期データの取得
   useEffect(() => {
     db.collection("records")
       .where("level", "==", board.level)
-      .where("createdAt", ">", start)
-      .where("createdAt", "<", end)
       .orderBy("createdAt")
-      .orderBy("time", "asc")
+      .startAt(start)
+      .endAt(end)
       .limit(limit)
       .get()
       .then(async (querySnapshot) => {
         const data: Record[] = await querySnapshot.docs.map((doc, i) => {
-          console.log(doc.get("createdAt"));
           const timestamp = doc.get("createdAt").toDate();
           return {
             ...(doc.data() as Record),
-            rank: i + 1,
             createdAt: dayjs(timestamp).format("YYYY-MM-DD"),
           };
         });
@@ -84,7 +115,7 @@ const ContainerRanking = () => {
           currentPage: 1,
         });
       });
-  }, [board]);
+  }, [board, start, end, formatData]);
 
   const handleClickPrev = () => {
     const offset = (currentPage - 2) * limit;
@@ -108,13 +139,15 @@ const ContainerRanking = () => {
             const timestamp = doc.get("createdAt").toDate();
             return {
               ...(doc.data() as Record),
-              rank: history + 1 + i,
               createdAt: dayjs(timestamp).format("YYYY-MM-DD"),
             };
           });
-          const newData = formatData([...records, ...data]);
+
+          const newData: Record[] = formatData([...records, ...data]);
+          console.log(newData);
           const lastRecord: any =
             querySnapshot.docs[querySnapshot.docs.length - 1];
+
           const nextRecord = await ref
             .startAfter(lastRecord)
             .get()
