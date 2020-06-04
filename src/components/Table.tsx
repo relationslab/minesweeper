@@ -50,7 +50,10 @@ const Table: React.FC<TableProps> = ({ data, user, match }) => {
       </thead>
       <tbody>
         {data.map((d, i) => (
-          <Tr key={i} currentUser={d.uid === user.uid}>
+          <Tr
+            key={i}
+            currentUser={d.uid === user.uid && match.params.category !== "my"}
+          >
             <td>{d.rank}</td>
             <td>{d.name}</td>
             <td>{d.time}</td>
