@@ -9,8 +9,9 @@ const StyledDiv = styled.div`
 const StyledButton = styled.button`
   border: none;
   background: transparent;
-  background-image: url("/images/btn_google_signin_light_normal_web.png");
+  background-image: url("/images/btn_google_signin_light_normal_web@2x.png");
   background-repeat: no-repeat;
+  background-size: cover;
   width: 195px;
   height: 45px;
 `;

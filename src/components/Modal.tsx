@@ -46,8 +46,17 @@ const LoginDisplay = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
+  grid-template-rows: 1fr 0.6fr;
   justify-content: center;
-  align-content: center;
+  align-content: end;
+  div {
+    align-self: end;
+  }
+  p {
+    text-align: center;
+    margin: 57px 0 0 0;
+    font-weight: bold;
+  }
 `;
 
 type ModalProps = {
@@ -71,6 +80,7 @@ const ModalDialog: React.FC<ModalProps> = ({
       <Modal isOpen={user.name === ""} style={customStyles} ariaHideApp={false}>
         <LoginDisplay>
           <GoogleLogin />
+          <p>※音が流れます</p>
         </LoginDisplay>
       </Modal>
 

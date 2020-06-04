@@ -11,10 +11,10 @@ const ContainerGame = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        return;
+      if (user) {
+        firebase.auth().signOut();
       } else {
-        dispatch(userSetNameAction(user.uid, user.displayName));
+        // dispatch(userSetNameAction(user.uid, user.displayName));
       }
     });
   }, [dispatch]);
