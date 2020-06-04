@@ -106,7 +106,7 @@ const Ranking: React.FC<RankingProps> = ({
             </Link>
           </ButtonGroup>
         </StyledHeader>
-        <Table data={data} handleClick={() => handleClickNext(lastRecord)} />
+        <Table data={data} />
         <Pagination
           handleClickPrev={() => handleClickPrev()}
           handleClickNext={() => handleClickNext(lastRecord)}

@@ -19,7 +19,7 @@ const Sound = () => {
       url={stop ? "" : bgm}
       playing={game.isSounded && user.name !== ""}
       volume={0.3}
-      loop
+      loop={bgm === `${process.env.PUBLIC_URL}/gameover.mp3` ? false : true}
       width="0"
       height="0"
     />

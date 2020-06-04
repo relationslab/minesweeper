@@ -51,10 +51,9 @@ const columns: Column<Record>[] = [
 
 type TableProps = {
   data: Record[];
-  handleClick: () => void;
 };
 
-const Table: React.FC<TableProps> = ({ data, handleClick }) => {
+const Table: React.FC<TableProps> = ({ data }) => {
   const {
     getTableProps,
     getTableBodyProps,

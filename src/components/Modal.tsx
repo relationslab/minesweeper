@@ -88,6 +88,7 @@ const ModalDialog: React.FC<ModalProps> = ({
         isOpen={game.isEnded || game.isClearded}
         style={customStyles}
         ariaHideApp={false}
+        onRequestClose={handleCreateBoard}
       >
         <ResultDisplay game={game}>
           <Timer isResult />
