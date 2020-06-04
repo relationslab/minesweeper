@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "paths": {
-      "react-table": ["./src/types/react-table/"]
-    }
-  }
-}

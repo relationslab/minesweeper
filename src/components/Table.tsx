@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, Column, usePagination } from "react-table";
+import { useTable, Column } from "react-table";
 import { Record } from "../config";
 
 const StyledTable = styled.div`
@@ -59,12 +59,12 @@ const Table: React.FC<TableProps> = ({ data, handleClick }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
+    rows,
     prepareRow,
-  } = useTable<Record>(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 6 } },
-    usePagination
-  );
+  } = useTable<Record>({
+    columns,
+    data,
+  });
 
   return (
     <StyledTable>
@@ -79,7 +79,7 @@ const Table: React.FC<TableProps> = ({ data, handleClick }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
+          {rows.map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
