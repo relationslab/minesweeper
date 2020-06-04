@@ -7,12 +7,11 @@ import { Record } from "../config";
 import { UserState } from "src/reducers/User/types";
 
 const StyledDisplay = styled.div`
-  min-width: 540px;
   min-height: 480px;
   display: grid;
   grid-template-columns: 540px;
   justify-content: center;
-  margin: 60px;
+  margin: 60px 0;
 `;
 
 const StyledDiv = styled.div`

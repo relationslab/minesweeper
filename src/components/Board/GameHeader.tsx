@@ -13,7 +13,6 @@ const StyledHeader = styled.header<{ boardWidth: number }>`
   width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
   background-color: #4a752c;
   display: grid;
-  grid-template-rows: 60px;
   grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
   justify-content: center;
 `;

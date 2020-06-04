@@ -11,7 +11,6 @@ const StyledHeader = styled.header`
   align-items: center;
   width: 100%;
   background-color: #66bb6a;
-
   a {
     justify-self: center;
     margin-left: 150px;
