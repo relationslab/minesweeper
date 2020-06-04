@@ -29,7 +29,6 @@ const ContainerBoard = () => {
         }
       });
     });
-    console.log(openCells);
     return openCells;
   };
 
