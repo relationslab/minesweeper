@@ -7,11 +7,16 @@ const Sound = () => {
   const game = useSelector((state: RootState) => state.game);
   const user = useSelector((state: RootState) => state.user);
 
-  //gameOver,gameClearの音楽は金曜までに探します。
-  const stop = game.isEnded || !game.isStarted;
+  const stop = !game.isStarted;
+
+  const bgm = game.isClearded
+    ? `${process.env.PUBLIC_URL}/clear.mp3`
+    : game.isEnded
+    ? `${process.env.PUBLIC_URL}/gameover.mp3`
+    : `${process.env.PUBLIC_URL}/play.mp3`;
   return (
     <ReactPlayer
-      url={stop ? "" : `${process.env.PUBLIC_URL}/pastelHouse.mp3`}
+      url={stop ? "" : bgm}
       playing={game.isSounded && user.name !== ""}
       volume={0.3}
       loop
