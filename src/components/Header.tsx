@@ -9,6 +9,7 @@ const StyledHeader = styled.header`
   grid-template-columns: 1fr 150px;
   justify-content: center;
   align-items: center;
+  min-width: 600px;
   width: 100%;
   background-color: #66bb6a;
   a {

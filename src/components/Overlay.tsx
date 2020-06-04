@@ -4,6 +4,7 @@ import styled from "styled-components";
 const StyledOverlay = styled.div`
   position: absolute;
   width: 100%;
+  min-width: 800px;
   height: 65%;
   top: 40%;
   left: 50%;
