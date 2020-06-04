@@ -7,15 +7,12 @@ const StyledDiv = styled.div`
 `;
 
 const StyledButton = styled.button`
-  appearance: none;
-  padding: 0;
   border: none;
   background: transparent;
   background-image: url("/images/btn_google_signin_light_normal_web.png");
   background-repeat: no-repeat;
   width: 195px;
   height: 45px;
-  cursor: pointer;
 `;
 
 const GoogleLogin = () => {

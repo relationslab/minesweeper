@@ -19,6 +19,9 @@ const StyledTable = styled.div`
     text-align: center;
     padding: 13px 0;
     font-weight: bold;
+    :nth-child(2) {
+      width: 35%;
+    }
   }
   td {
     :nth-last-child(1) {

@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
   display: grid;
   grid-template-rows: 50px 1fr 40px;
   border-radius: 10px;
-  padding: 1rem;
+  padding: 15px;
   background-color: rgb(77, 193, 249);
   background-image: url("/images/gameClear.png");
   background-size: contain;
@@ -28,7 +28,7 @@ const StyledDiv = styled.div`
 
 const StyledHeader = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 1fr;
+  grid-template-columns: 50px 1fr 1fr;
   img {
     justify-self: right;
     width: 50px;
@@ -46,6 +46,29 @@ const StyledLink = styled(Link)`
   border-radius: 50%;
   background-color: salmon;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+`;
+
+const ButtonGroup = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: right;
+`;
+
+const StyledButton = styled.button`
+  width: 60px;
+  background-color: white;
+  color: #4dc1f9;
+  line-height: 1;
+  padding: 5px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  transition: 0.2s;
+  :hover {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+      0 3px 1px -1px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 type RankingProps = {
@@ -70,11 +93,18 @@ const Ranking: React.FC<RankingProps> = ({
       <StyledDiv>
         <StyledHeader>
           <StyledLink to="/">⬅</StyledLink>
-          <Link to="/ranking/daily">
-            <img src="/images/trophy.png" alt="trophy" />
-          </Link>
-          <Link to="/ranking/all">all</Link>
-          <Link to="/ranking/my">my</Link>
+          <img src="/images/trophy.png" alt="trophy" />
+          <ButtonGroup>
+            <Link to="/ranking/daily">
+              <StyledButton>DAILY</StyledButton>
+            </Link>
+            <Link to="/ranking/all">
+              <StyledButton>ALL</StyledButton>
+            </Link>
+            <Link to="/ranking/my">
+              <StyledButton>MY</StyledButton>
+            </Link>
+          </ButtonGroup>
         </StyledHeader>
         <Table data={data} handleClick={() => handleClickNext(lastRecord)} />
         <Pagination

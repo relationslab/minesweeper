@@ -32,6 +32,15 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
   }
+
+  button {
+    background-color:transparent;
+    appearance: none;
+    border:none;
+    outline:none;
+    padding: 0;
+    cursor: pointer;
+  }
 `;
 
 const Grid = styled.div`
