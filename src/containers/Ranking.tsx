@@ -15,6 +15,7 @@ type State = {
 };
 
 const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
+  history,
   match,
 }) => {
   const category = match.params.category;
@@ -87,6 +88,10 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
 
   //初期データの取得
   useEffect(() => {
+    let unMounted = false;
+    if (!user.name) {
+      history.push("/");
+    }
     ref.get().then(async (querySnapshot) => {
       const data: Record[] = await querySnapshot.docs.map((doc, i) => {
         const timestamp = doc.get("createdAt").toDate();
@@ -97,14 +102,20 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
       });
       const newData: Record[] = formatData(data);
       const lastRecord: any = querySnapshot.docs[querySnapshot.docs.length - 1];
-      setState({
-        records: newData,
-        currentRecords: newData,
-        lastRecord: lastRecord,
-        currentPage: 1,
-      });
+      if (!unMounted) {
+        setState({
+          records: newData,
+          currentRecords: newData,
+          lastRecord: lastRecord,
+          currentPage: 1,
+        });
+      }
     });
-  }, [ref, formatData]);
+
+    return () => {
+      unMounted = true;
+    };
+  }, [ref, formatData, user.name, history]);
 
   const handleClickPrev = () => {
     const offset = (currentPage - 2) * limit;
