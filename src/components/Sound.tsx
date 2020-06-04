@@ -13,7 +13,7 @@ const Sound = () => {
     <ReactPlayer
       url={stop ? "" : `${process.env.PUBLIC_URL}/pastelHouse.mp3`}
       playing={game.isSounded && user.name !== ""}
-      volume={0.5}
+      volume={0.3}
       loop
       width="0"
       height="0"
