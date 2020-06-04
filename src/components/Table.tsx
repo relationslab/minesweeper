@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, Column } from "react-table";
 import { Record } from "../config";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const StyledTable = styled.div`
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-  }
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
 
   tr {
     border-bottom: solid 1px #eee;
@@ -23,77 +21,39 @@ const StyledTable = styled.div`
       width: 35%;
     }
   }
-  td {
-    :nth-last-child(1) {
-      font-size: 10px;
-    }
-  }
 `;
-
-const columns: Column<Record>[] = [
-  {
-    Header: "Rank",
-    accessor: "rank",
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-  },
-  {
-    Header: "Time",
-    accessor: "time",
-  },
-  {
-    Header: "Date",
-    accessor: "createdAt",
-  },
-];
 
 type TableProps = {
   data: Record[];
-};
+} & RouteComponentProps<{ category: string }>;
 
-const Table: React.FC<TableProps> = ({ data }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable<Record>({
-    columns,
-    data,
-  });
+const Table: React.FC<TableProps> = ({ data, match }) => {
+  const header = ["Rank", "Name", "Time"];
+  if (match.params.category !== "daily") {
+    header.push("Date");
+  }
 
   return (
     <StyledTable>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
+      <thead>
+        <tr>
+          {header.map((h) => (
+            <td>{h}</td>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((d) => (
+          <tr>
+            <td>{d.rank}</td>
+            <td>{d.name}</td>
+            <td>{d.time}</td>
+            {match.params.category === "daily" ? null : <td>{d.createdAt}</td>}
+          </tr>
+        ))}
+      </tbody>
     </StyledTable>
   );
 };
 
-export default Table;
+export default withRouter(Table);
