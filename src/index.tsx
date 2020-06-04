@@ -47,7 +47,7 @@ ReactDOM.render(
       <Grid>
         <PageHeader />
         <Route exact path="/" component={Game} />
-        <Route path="/ranking" component={Ranking} />
+        <Route path="/ranking/:category" component={Ranking} />
       </Grid>
     </Router>
   </Provider>,

@@ -70,9 +70,11 @@ const Ranking: React.FC<RankingProps> = ({
       <StyledDiv>
         <StyledHeader>
           <StyledLink to="/">⬅</StyledLink>
-          <img src="/images/trophy.png" alt="trophy" />
-          <button>all</button>
-          <button>my</button>
+          <Link to="/ranking/daily">
+            <img src="/images/trophy.png" alt="trophy" />
+          </Link>
+          <Link to="/ranking/all">all</Link>
+          <Link to="/ranking/my">my</Link>
         </StyledHeader>
         <Table data={data} handleClick={() => handleClickNext(lastRecord)} />
         <Pagination

@@ -14,7 +14,7 @@ const StyledLink = StyledImg.withComponent(Link);
 
 const RankingButton = () => {
   return (
-    <StyledLink to="/ranking">
+    <StyledLink to="/ranking/daily">
       <StyledImg src="/images/trophy.png" alt="ranking" />
     </StyledLink>
   );
