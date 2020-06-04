@@ -174,6 +174,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
   };
 
   const _props = {
+    user,
     lastRecord,
     handleClickPrev,
     handleClickNext,

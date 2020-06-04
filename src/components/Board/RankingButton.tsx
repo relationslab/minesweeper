@@ -1,26 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../rootReducer";
 
-const StyledButton = styled.button<{ right?: boolean }>`
+const StyledImg = styled.img`
   width: 40px;
   height: 40px;
-  background-image: url("images/trophy.png");
-  background-size: cover;
+`;
+
+const StyledLink = styled(Link)`
+  width: 40px;
+  height: 40px;
   align-self: center;
-  justify-self: ${({ right }) => (right ? "right" : "center")};
+  justify-self: center;
   z-index: 999;
 `;
 
-const StyledLink = StyledButton.withComponent(Link);
-
 const RankingButton = () => {
-  const user = useSelector((state: RootState) => state.user);
   return (
     <StyledLink to="/ranking/daily">
-      <StyledButton disabled={user.name === ""} />
+      <StyledImg src="/images/trophy.png" alt="trophy" />
     </StyledLink>
   );
 };

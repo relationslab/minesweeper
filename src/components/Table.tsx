@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Record } from "../config";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { UserState } from "src/reducers/User/types";
 
 const StyledTable = styled.table`
   border-collapse: collapse;
@@ -23,11 +24,16 @@ const StyledTable = styled.table`
   }
 `;
 
+const Tr = styled.tr<{ currentUser?: boolean }>`
+  color: ${({ currentUser }) => (currentUser ? "#FDC108" : "white")};
+`;
+
 type TableProps = {
   data: Record[];
+  user: UserState;
 } & RouteComponentProps<{ category: string }>;
 
-const Table: React.FC<TableProps> = ({ data, match }) => {
+const Table: React.FC<TableProps> = ({ data, user, match }) => {
   const header = ["Rank", "Name", "Time"];
   if (match.params.category !== "daily") {
     header.push("Date");
@@ -37,19 +43,19 @@ const Table: React.FC<TableProps> = ({ data, match }) => {
     <StyledTable>
       <thead>
         <tr>
-          {header.map((h) => (
-            <td>{h}</td>
+          {header.map((h, i) => (
+            <td key={i}>{h}</td>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.map((d) => (
-          <tr>
+        {data.map((d, i) => (
+          <Tr key={i} currentUser={d.uid === user.uid}>
             <td>{d.rank}</td>
             <td>{d.name}</td>
             <td>{d.time}</td>
             {match.params.category === "daily" ? null : <td>{d.createdAt}</td>}
-          </tr>
+          </Tr>
         ))}
       </tbody>
     </StyledTable>

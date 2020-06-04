@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Table from "./Table";
 import Pagination from "./Pagination";
 import { Record } from "../config";
+import { UserState } from "src/reducers/User/types";
 
 const StyledDisplay = styled.div`
   min-width: 540px;
@@ -73,6 +74,7 @@ const StyledButton = styled.button`
 
 type RankingProps = {
   data: Record[];
+  user: UserState;
   lastRecord: any;
   handleClickPrev: () => void;
   handleClickNext: (last: any) => void;
@@ -82,6 +84,7 @@ type RankingProps = {
 
 const Ranking: React.FC<RankingProps> = ({
   data,
+  user,
   lastRecord,
   handleClickPrev,
   handleClickNext,
@@ -106,7 +109,7 @@ const Ranking: React.FC<RankingProps> = ({
             </Link>
           </ButtonGroup>
         </StyledHeader>
-        <Table data={data} />
+        <Table data={data} user={user} />
         <Pagination
           handleClickPrev={() => handleClickPrev()}
           handleClickNext={() => handleClickNext(lastRecord)}
