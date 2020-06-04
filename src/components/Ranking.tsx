@@ -44,7 +44,7 @@ const StyledLink = styled(Link)`
   text-align: center;
   line-height: 35px;
   border-radius: 50%;
-  background-color: salmon;
+  background-color: #ffc107;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 

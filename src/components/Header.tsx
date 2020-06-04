@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: salmon;
+  background-color: #66bb6a;
 
   a {
     justify-self: center;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledButton = styled.button<{ isStart?: boolean }>`
   width: 300px;
   height: 64px;
-  background-color: ${({ isStart }) => (isStart ? "salmon" : "#4a752c")};
+  background-color: ${({ isStart }) => (isStart ? "#FFC107" : "#4a752c")};
   border-radius: 8px;
   margin-top: 12px;
   span {
