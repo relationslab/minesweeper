@@ -122,7 +122,6 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
         });
       }
     });
-    console.log("hoge");
     return () => {
       unMounted = true;
     };
