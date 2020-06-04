@@ -55,10 +55,10 @@ const ButtonGroup = styled.div`
   justify-items: right;
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ category?: boolean }>`
   width: 60px;
-  background-color: white;
-  color: #4dc1f9;
+  background-color: ${({ category }) => (category ? "#4DC1F9" : "white")};
+  color: ${({ category }) => (category ? "white" : "#4DC1F9")};
   line-height: 1;
   padding: 5px 15px;
   border-radius: 10px;
@@ -75,6 +75,7 @@ const StyledButton = styled.button`
 type RankingProps = {
   data: Record[];
   user: UserState;
+  category: string;
   lastRecord: any;
   handleClickPrev: () => void;
   handleClickNext: (last: any) => void;
@@ -85,6 +86,7 @@ type RankingProps = {
 const Ranking: React.FC<RankingProps> = ({
   data,
   user,
+  category,
   lastRecord,
   handleClickPrev,
   handleClickNext,
@@ -99,13 +101,13 @@ const Ranking: React.FC<RankingProps> = ({
           <img src="/images/trophy.png" alt="trophy" />
           <ButtonGroup>
             <Link to="/ranking/daily">
-              <StyledButton>DAILY</StyledButton>
+              <StyledButton category={category === "daily"}>DAILY</StyledButton>
             </Link>
             <Link to="/ranking/all">
-              <StyledButton>ALL</StyledButton>
+              <StyledButton category={category === "all"}>ALL</StyledButton>
             </Link>
             <Link to="/ranking/my">
-              <StyledButton>MY</StyledButton>
+              <StyledButton category={category === "my"}>MY</StyledButton>
             </Link>
           </ButtonGroup>
         </StyledHeader>

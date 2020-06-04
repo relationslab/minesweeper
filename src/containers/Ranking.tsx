@@ -86,6 +86,15 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
           .limit(limit);
   }, [board.level, category, user.uid]);
 
+  useEffect(() => {
+    setState({
+      records: [],
+      currentRecords: [],
+      lastRecord: null,
+      currentPage: 1,
+    });
+  }, [category]);
+
   //初期データの取得
   useEffect(() => {
     let unMounted = false;
@@ -100,8 +109,10 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
           createdAt: dayjs(timestamp).format("YYYY-MM-DD"),
         };
       });
-      const newData: Record[] = formatData(data);
-      const lastRecord: any = querySnapshot.docs[querySnapshot.docs.length - 1];
+      const newData: Record[] = await formatData(data);
+      const lastRecord: any = await querySnapshot.docs[
+        querySnapshot.docs.length - 1
+      ];
       if (!unMounted) {
         setState({
           records: newData,
@@ -111,7 +122,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
         });
       }
     });
-
+    console.log("hoge");
     return () => {
       unMounted = true;
     };
@@ -175,6 +186,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
 
   const _props = {
     user,
+    category,
     lastRecord,
     handleClickPrev,
     handleClickNext,
