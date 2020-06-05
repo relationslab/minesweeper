@@ -23,7 +23,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
   const [state, setState] = useState<State>({
     records: [],
     currentRecords: [],
-    lastRecord: null,
+    lastRecord: undefined,
     currentPage: 1,
   });
   const { records, currentRecords, lastRecord, currentPage } = state;
@@ -35,6 +35,8 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
   const nextDisabled: boolean =
     currentRecords.length <= 5 ||
     (!lastRecord && currentPage === Math.ceil(records.length / limit));
+
+  console.log(lastRecord, currentPage === Math.ceil(records.length / limit));
 
   //firestoreではdb.collection("records").where("level", "==", board.level).orderBy("createdAt").orderBy("time")...のように複数条件で絞ると無効になってしまうためreact側で日付のfilterを行う
   const rankData = (data: Record[]): Record[] => {
@@ -90,7 +92,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
     setState({
       records: [],
       currentRecords: [],
-      lastRecord: null,
+      lastRecord: undefined,
       currentPage: 1,
     });
   }, [category]);
@@ -113,11 +115,21 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
       const lastRecord: any = await querySnapshot.docs[
         querySnapshot.docs.length - 1
       ];
+
+      const nextRecord = (await lastRecord)
+        ? ref
+            .startAfter(lastRecord)
+            .get()
+            .then((d) => {
+              return d.docs.length;
+            })
+        : 0;
+
       if (!unMounted) {
         setState({
           records: newData,
           currentRecords: newData,
-          lastRecord: lastRecord,
+          lastRecord: nextRecord === 0 ? undefined : lastRecord,
           currentPage: 1,
         });
       }
@@ -145,7 +157,7 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
         .startAfter(lastRecord)
         .get()
         .then(async (querySnapshot) => {
-          const data: Record[] = querySnapshot.docs.map((doc, i) => {
+          const data: Record[] = await querySnapshot.docs.map((doc, i) => {
             const timestamp = doc.get("createdAt").toDate();
             return {
               ...(doc.data() as Record),
@@ -153,10 +165,11 @@ const ContainerRanking: React.FC<RouteComponentProps<{ category: string }>> = ({
             };
           });
 
-          const newData: Record[] = formatData([...records, ...data]);
+          const newData: Record[] = await formatData([...records, ...data]);
 
-          const lastRecord: any =
-            querySnapshot.docs[querySnapshot.docs.length - 1];
+          const lastRecord: any = await querySnapshot.docs[
+            querySnapshot.docs.length - 1
+          ];
 
           const nextRecord = await ref
             .startAfter(lastRecord)
