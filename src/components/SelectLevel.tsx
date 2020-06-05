@@ -7,11 +7,12 @@ const StyledSelectLevel = styled.select`
     margin: 4px 6px 4px 2px;
     font-size: 12px;
     padding-left: 4px;
+    width: 80px;
   }
   appearance: none;
   outline: none;
   border: none;
-  width: 100px;
+  width: 150px;
   margin: 15px 10px;
   padding: 0 0 0 10px;
   font-size: 15px;
