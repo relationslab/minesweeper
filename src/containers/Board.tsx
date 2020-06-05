@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Board from "../components/Board/Board";
 import { RootState } from "../rootReducer";
@@ -19,6 +19,24 @@ const ContainerBoard = () => {
   const board = useSelector((state: RootState) => state.board);
 
   const game = useSelector((state: RootState) => state.game);
+
+  const [count, setCount] = useState(0);
+  const [touched, setTouched] = useState(false);
+
+  useEffect(() => {
+    let interval: number = 0;
+    if (touched) {
+      interval = setInterval(() => {
+        setCount((count) => count + 1);
+      }, 100);
+    } else {
+      clearInterval(interval);
+      setCount(0);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [touched]);
 
   const openCellCount = () => {
     let openCells: number = 0;
@@ -69,7 +87,29 @@ const ContainerBoard = () => {
     dispatch(countFlagAction());
   };
 
-  const _props = { board, handleOpenCell, handleToggleFlag };
+  const touchStartToggleFlag = (e: React.TouchEvent, x: number, y: number) => {
+    if (!game.isStarted || game.isEnded) {
+      return;
+    }
+    setTouched(true);
+  };
+
+  const touchEndToggleFlag = (e: React.TouchEvent, x: number, y: number) => {
+    if (count > 1) {
+      dispatch(toggleFlagAction(x, y));
+      dispatch(countFlagAction());
+      e.preventDefault();
+    }
+    setTouched(false);
+  };
+  console.log(count);
+  const _props = {
+    board,
+    handleOpenCell,
+    handleToggleFlag,
+    touchStartToggleFlag,
+    touchEndToggleFlag,
+  };
 
   return <Board {..._props} />;
 };

@@ -20,14 +20,18 @@ const StyledBoard = styled.div<{ width: number; height: number }>`
 
 type BoardProps = {
   board: BoardState;
-  handleOpenCell: (e: React.MouseEvent, x: number, height: number) => void;
-  handleToggleFlag: (e: React.MouseEvent, x: number, height: number) => void;
+  handleOpenCell: (e: React.MouseEvent, x: number, y: number) => void;
+  handleToggleFlag: (e: React.MouseEvent, x: number, y: number) => void;
+  touchStartToggleFlag: (e: React.TouchEvent, x: number, y: number) => void;
+  touchEndToggleFlag: (e: React.TouchEvent, x: number, y: number) => void;
 };
 
 const Board: React.FC<BoardProps> = ({
   board,
   handleOpenCell,
   handleToggleFlag,
+  touchStartToggleFlag,
+  touchEndToggleFlag,
 }) => {
   return (
     <StyledBoard width={board.width} height={board.height}>
@@ -42,6 +46,8 @@ const Board: React.FC<BoardProps> = ({
             y={y}
             onClick={(e) => handleOpenCell(e, x, y)}
             onContextMenu={(e) => handleToggleFlag(e, x, y)}
+            onTouchStart={(e) => touchStartToggleFlag(e, x, y)}
+            onTouchEnd={(e) => touchEndToggleFlag(e, x, y)}
           />
         ))
       )}

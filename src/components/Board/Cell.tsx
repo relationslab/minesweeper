@@ -14,6 +14,7 @@ const StyledCell = styled.div<{
   height: ${({ boardWidth }) => cellSize(boardWidth)}px;
   line-height: ${({ boardWidth }) => cellSize(boardWidth)}px;
   text-align: center;
+  user-select: none;
   background: ${(props) =>
     props.styleIsOpened
       ? props.styleIsOpened && props.cellColor % 2 === 0
@@ -68,6 +69,8 @@ type CellProps = {
   y: number;
   onClick: (e: React.MouseEvent) => void;
   onContextMenu: (e: React.MouseEvent) => void;
+  onTouchStart: (e: React.TouchEvent) => void;
+  onTouchEnd: (e: React.TouchEvent) => void;
 };
 
 const Cell: React.FC<CellProps> = ({
@@ -76,12 +79,16 @@ const Cell: React.FC<CellProps> = ({
   colorNumber,
   onClick,
   onContextMenu,
+  onTouchStart,
+  onTouchEnd,
 }) => {
   const game = useSelector((state: RootState) => state.game);
   return (
     <StyledCell
       onClick={(e) => onClick(e)}
       onContextMenu={(e) => onContextMenu(e)}
+      onTouchStart={(e) => onTouchStart(e)}
+      onTouchEnd={(e) => onTouchEnd(e)}
       styleIsOpened={cell.isOpened}
       cellColor={colorNumber}
       boardWidth={boardWidth}
