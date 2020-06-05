@@ -102,7 +102,6 @@ const ContainerBoard = () => {
     }
     setTouched(false);
   };
-  console.log(count);
   const _props = {
     board,
     handleOpenCell,
