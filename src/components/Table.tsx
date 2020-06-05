@@ -24,7 +24,7 @@ const StyledTable = styled.table`
   }
 `;
 
-const Tr = styled.tr<{ currentUser?: boolean }>`
+const Td = styled.td<{ currentUser?: boolean }>`
   color: ${({ currentUser }) => (currentUser ? "#FDC108" : "white")};
 `;
 
@@ -50,15 +50,16 @@ const Table: React.FC<TableProps> = ({ data, user, match }) => {
       </thead>
       <tbody>
         {data.map((d, i) => (
-          <Tr
-            key={i}
-            currentUser={d.uid === user.uid && match.params.category !== "my"}
-          >
-            <td>{d.rank}</td>
-            <td>{d.name}</td>
-            <td>{d.time}</td>
+          <tr key={i}>
+            <Td
+              currentUser={d.uid === user.uid && match.params.category !== "my"}
+            >
+              {d.rank}
+            </Td>
+            <Td>{d.name}</Td>
+            <Td>{d.time}</Td>
             {match.params.category === "daily" ? null : <td>{d.createdAt}</td>}
-          </Tr>
+          </tr>
         ))}
       </tbody>
     </StyledTable>
