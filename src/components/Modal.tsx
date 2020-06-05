@@ -86,7 +86,7 @@ const ModalDialog: React.FC<ModalProps> = ({
         </ResultDisplay>
         <Button
           retry={game.isEnded}
-          text={game?.isClearded ? "もう一度プレイ" : "再チャレンジ"}
+          text={game?.isClearded ? "Clear!" : "再チャレンジ"}
           onClick={() => handleCreateBoard()}
         />
       </Modal>

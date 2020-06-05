@@ -3,7 +3,6 @@ import styled from "styled-components";
 import SelectLevel from "../containers/SelectLevel";
 
 const StyledPagination = styled.div`
-  /* margin: 0 137px; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;

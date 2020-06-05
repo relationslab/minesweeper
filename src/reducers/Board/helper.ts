@@ -123,14 +123,15 @@ export const openCell = (
         const surroundingY = currentY + rows;
         if (
           isInsideBoard(surroundingX, surroundingY, width, height) &&
-          currentCells[surroundingX][surroundingY].isOpened === false
+          currentCells[surroundingX][surroundingY].isOpened === false &&
+          currentCells[surroundingX][surroundingY].isFlagged === false
         ) {
           currentCells[surroundingX][surroundingY].isOpened = true;
-          currentCells[surroundingX][surroundingY].isFlagged = false;
 
           if (
             currentCells[surroundingX][surroundingY].surroundingMines === 0 &&
-            currentCells[surroundingX][surroundingY].hasMine === false
+            currentCells[surroundingX][surroundingY].hasMine === false &&
+            currentCells[surroundingX][surroundingY].isFlagged === false
           ) {
             openCell(
               currentCells,
