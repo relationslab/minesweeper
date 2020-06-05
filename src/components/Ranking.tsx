@@ -55,7 +55,7 @@ const ButtonGroup = styled.div`
 `;
 
 const StyledButton = styled.button<{ category?: boolean }>`
-  width: 60px;
+  width: 70px;
   background-color: ${({ category }) => (category ? "#4DC1F9" : "white")};
   color: ${({ category }) => (category ? "white" : "#4DC1F9")};
   line-height: 1;
