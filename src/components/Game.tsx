@@ -7,7 +7,6 @@ import Overlay from "./Overlay";
 import { UserState } from "src/reducers/User/types";
 
 const StyledGame = styled.div`
-  min-width: 600px;
   display: grid;
   justify-content: center;
   margin: 60px 0;

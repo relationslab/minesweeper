@@ -7,10 +7,15 @@ import { Record } from "../config";
 import { UserState } from "src/reducers/User/types";
 
 const StyledDisplay = styled.div`
+  @media screen and (max-width: 500px) {
+    padding: 15px;
+    grid-template-columns: none;
+  }
   min-height: 480px;
   display: grid;
   grid-template-columns: 540px;
   justify-content: center;
+
   margin: 60px 0;
 `;
 
@@ -18,7 +23,7 @@ const StyledDiv = styled.div`
   display: grid;
   grid-template-rows: 50px 1fr 40px;
   border-radius: 10px;
-  padding: 15px;
+  padding: 15px 15px 0 15px;
   background-color: rgb(77, 193, 249);
   background-image: url("/images/gameClear.png");
   background-size: contain;

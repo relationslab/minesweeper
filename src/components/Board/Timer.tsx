@@ -31,6 +31,9 @@ const StyledTimer = styled.div<{ isResult?: boolean }>`
             height: 40px;
           }
           span {
+            @media screen and (max-width: 425px) {
+              font-size: 16px;
+            }
             font-size: 20px;
           }
         `}

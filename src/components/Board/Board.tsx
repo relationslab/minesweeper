@@ -7,6 +7,16 @@ import { cellSize } from "../../config";
 const StyledBoard = styled.div<{ width: number; height: number }>`
   display: grid;
   grid-auto-flow: column;
+  @media screen and (max-width: 425px) {
+    grid-template-columns: repeat(
+      ${(props) => props.width},
+      ${(props) => cellSize(props.width) - 10}px
+    );
+    grid-template-rows: repeat(
+      ${(props) => props.height},
+      ${(props) => cellSize(props.width) - 10}px
+    );
+  }
   grid-template-columns: repeat(
     ${(props) => props.width},
     ${(props) => cellSize(props.width)}px
@@ -15,7 +25,6 @@ const StyledBoard = styled.div<{ width: number; height: number }>`
     ${(props) => props.height},
     ${(props) => cellSize(props.width)}px
   );
-  background-image: url("/images/gameClear.png");
 `;
 
 type BoardProps = {

@@ -14,7 +14,7 @@ const ContainerGame = () => {
       if (!user) {
         return;
       } else {
-        // dispatch(userSetNameAction(user.uid, user.displayName));
+        dispatch(userSetNameAction(user.uid, user.displayName));
       }
     });
   }, [dispatch]);

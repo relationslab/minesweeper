@@ -9,12 +9,11 @@ const StyledHeader = styled.header`
   grid-template-columns: 1fr 150px;
   justify-content: center;
   align-items: center;
-  min-width: 600px;
   width: 100%;
   background-color: #66bb6a;
   a {
     justify-self: center;
-    margin-left: 150px;
+    margin-left: 175px;
     h1 {
       margin: 0;
     }
@@ -25,7 +24,11 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Span = styled.span``;
+const Span = styled.span`
+  @media screen and (max-width: 425px) {
+    display: none;
+  }
+`;
 
 const Header = () => {
   const user = useSelector((state: RootState) => state.user);

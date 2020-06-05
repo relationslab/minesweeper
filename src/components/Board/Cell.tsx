@@ -10,6 +10,11 @@ const StyledCell = styled.div<{
   styleIsOpened: boolean;
   cellColor: number;
 }>`
+  @media screen and (max-width: 425px) {
+    width: ${({ boardWidth }) => cellSize(boardWidth) - 10}px;
+    height: ${({ boardWidth }) => cellSize(boardWidth) - 10}px;
+    line-height: ${({ boardWidth }) => cellSize(boardWidth) - 10}px;
+  }
   width: ${({ boardWidth }) => cellSize(boardWidth)}px;
   height: ${({ boardWidth }) => cellSize(boardWidth)}px;
   line-height: ${({ boardWidth }) => cellSize(boardWidth)}px;
@@ -28,6 +33,9 @@ const StyledCell = styled.div<{
 const StyledNumber = styled.span<{
   number: number;
 }>`
+  @media screen and (max-width: 425px) {
+    font-size: 16px;
+  }
   font-weight: bold;
   font-size: 20px;
   color: ${({ number }) =>

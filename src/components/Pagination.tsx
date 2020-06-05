@@ -3,7 +3,18 @@ import styled from "styled-components";
 import SelectLevel from "../containers/SelectLevel";
 
 const StyledPagination = styled.div`
-  margin: 0 137px;
+  /* margin: 0 137px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+  span {
+    justify-self: right;
+  }
+  div {
+    justify-self: left;
+    align-self: center;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -13,6 +24,7 @@ const StyledButton = styled.button`
   font-size: 16px;
   padding: 0 5px;
   margin: 0 2px;
+  align-self: center;
 `;
 
 type PaginationProps = {
@@ -31,12 +43,14 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <StyledPagination>
       <SelectLevel isRanking />
-      <StyledButton onClick={handleClickPrev} disabled={prevDisabled}>
-        ←
-      </StyledButton>
-      <StyledButton onClick={handleClickNext} disabled={nextDisabled}>
-        →
-      </StyledButton>
+      <div>
+        <StyledButton onClick={handleClickPrev} disabled={prevDisabled}>
+          ←
+        </StyledButton>
+        <StyledButton onClick={handleClickNext} disabled={nextDisabled}>
+          →
+        </StyledButton>
+      </div>
     </StyledPagination>
   );
 };

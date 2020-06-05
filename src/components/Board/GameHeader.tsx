@@ -10,10 +10,13 @@ import { RootState } from "../../rootReducer";
 import { cellSize } from "../../config";
 
 const StyledHeader = styled.header<{ boardWidth: number }>`
+  @media screen and (max-width: 425px) {
+    width: ${(props) => (cellSize(props.boardWidth) - 10) * props.boardWidth}px;
+  }
   width: ${(props) => cellSize(props.boardWidth) * props.boardWidth}px;
   background-color: #4a752c;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
   justify-content: center;
 `;
 

@@ -11,6 +11,9 @@ const StyledFlagCount = styled.div`
 `;
 
 const StyledSpan = styled.span`
+  @media screen and (max-width: 425px) {
+    font-size: 16px;
+  }
   font-size: 20px;
   color: white;
   justify-self: left;
