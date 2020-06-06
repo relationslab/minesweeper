@@ -1,10 +1,26 @@
 import { GameState } from "./reducers/Game/types";
 import { Level } from "./reducers/Board/types";
+import { UserState } from "./reducers/User/types";
+
+export type Record = {
+  uid: string;
+  rank: number;
+  level: string;
+  name: string;
+  time: number;
+  createdAt: string;
+};
+
+export const initialUserState: UserState = {
+  uid: "",
+  name: "",
+};
 
 export const initialGameState: GameState = {
   isStarted: false,
   isClearded: false,
   isEnded: false,
+  isSounded: false,
   time: 0,
   timeHistory: 0,
 };

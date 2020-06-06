@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Board from "../components/Board";
+import Board from "../components/Board/Board";
 import { RootState } from "../rootReducer";
 import {
   openCellAction,
@@ -20,6 +20,24 @@ const ContainerBoard = () => {
 
   const game = useSelector((state: RootState) => state.game);
 
+  const [count, setCount] = useState(0);
+  const [touched, setTouched] = useState(false);
+
+  useEffect(() => {
+    let interval: number = 0;
+    if (touched) {
+      interval = setInterval(() => {
+        setCount((count) => count + 1);
+      }, 100);
+    } else {
+      clearInterval(interval);
+      setCount(0);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [touched]);
+
   const openCellCount = () => {
     let openCells: number = 0;
     board.cells.forEach((cellArray) => {
@@ -35,7 +53,7 @@ const ContainerBoard = () => {
   const handleOpenCell = (e: React.MouseEvent, x: number, y: number) => {
     e.preventDefault();
 
-    if (game.isEnded) {
+    if (!!board.cells[x][y].isFlagged || game.isEnded) {
       return;
     }
 
@@ -50,7 +68,10 @@ const ContainerBoard = () => {
       dispatch(gameOverAction());
     }
 
-    if (openCellCount() === board.width * board.height - board.mines) {
+    if (
+      !board.cells[x][y].hasMine &&
+      openCellCount() === board.width * board.height - board.mines
+    ) {
       dispatch(gameClearAction());
     }
   };
@@ -66,7 +87,28 @@ const ContainerBoard = () => {
     dispatch(countFlagAction());
   };
 
-  const _props = { board, handleOpenCell, handleToggleFlag };
+  const touchStartToggleFlag = (e: React.TouchEvent, x: number, y: number) => {
+    if (!game.isStarted || game.isEnded) {
+      return;
+    }
+    setTouched(true);
+  };
+
+  const touchEndToggleFlag = (e: React.TouchEvent, x: number, y: number) => {
+    if (count > 1) {
+      dispatch(toggleFlagAction(x, y));
+      dispatch(countFlagAction());
+      e.preventDefault();
+    }
+    setTouched(false);
+  };
+  const _props = {
+    board,
+    handleOpenCell,
+    handleToggleFlag,
+    touchStartToggleFlag,
+    touchEndToggleFlag,
+  };
 
   return <Board {..._props} />;
 };

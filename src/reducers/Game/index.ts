@@ -28,12 +28,19 @@ const reducer = (state = initialState, action: GameActionTypes) => {
     case ActionTypes.GAME_RETRY:
       return {
         ...initialState,
+        isSounded: state.isSounded,
         timeHistory: state.timeHistory,
       };
     case ActionTypes.START_TIME:
       return {
         ...state,
         time: state.time + 1,
+      };
+
+    case ActionTypes.TOGGLE_SOUND:
+      return {
+        ...state,
+        isSounded: !state.isSounded,
       };
     default:
       return state;
@@ -70,4 +77,9 @@ export const startTimeAction = () => {
   };
 };
 
+export const toggleSoundAction = () => {
+  return {
+    type: ActionTypes.TOGGLE_SOUND,
+  };
+};
 export default reducer;

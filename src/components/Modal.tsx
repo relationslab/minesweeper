@@ -2,16 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 import Timer from "../containers/Timer";
-import TimeHistory from "../components/TimeHistory";
-import RetryButton from "../components/RetryButton";
+import TimeHistory from "./Board/TimeHistory";
+import Button from "./Button";
 import { GameState } from "../reducers/Game/types";
-import { BoardState } from "../reducers/Board/types";
+import { UserState } from "../reducers/User/types";
+import GoogleLogin from "./GoogleLogin";
 
 const customStyles = {
   content: {
     width: "300px",
     height: "225px",
-    top: "25%",
+    top: "35%",
     left: "50%",
     right: "auto",
     bottom: "auto",
@@ -27,7 +28,8 @@ const customStyles = {
     backgroundRepeat: "no-repeat",
   },
   overlay: {
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    zIndex: 1000,
   },
 };
 
@@ -37,18 +39,27 @@ const ResultDisplay = styled.div<{ game: GameState }>`
   grid-template-rows: 1fr 0.5fr;
   grid-column-gap: 30px;
   margin: 25px 36px 20px 36px;
-  ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : "")}
+  ${({ game }) => (game.timeHistory === 0 ? "letter-spacing: 5px;" : null)}
+`;
+
+const LoginDisplay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 `;
 
 type ModalProps = {
   game: GameState;
-  board: BoardState;
-  handleCreateBoard: (width: number, height: number, mines: number) => void;
+  user: UserState;
+  handleCreateBoard: () => void;
+  isStart?: boolean;
 };
 
 const ModalDialog: React.FC<ModalProps> = ({
   game,
-  board,
+  user,
   handleCreateBoard,
 }) => {
   if (game.isEnded) {
@@ -56,22 +67,31 @@ const ModalDialog: React.FC<ModalProps> = ({
   }
 
   return (
-    <Modal
-      isOpen={game.isEnded || game.isClearded}
-      style={customStyles}
-      ariaHideApp={false}
-    >
-      <ResultDisplay game={game}>
-        <Timer isResult />
-        <TimeHistory />
-      </ResultDisplay>
-      <RetryButton
-        game={game}
-        onClick={() =>
-          handleCreateBoard(board.width, board.height, board.mines)
-        }
-      />
-    </Modal>
+    <>
+      <Modal isOpen={user.name === ""} style={customStyles} ariaHideApp={false}>
+        <LoginDisplay>
+          <GoogleLogin />
+        </LoginDisplay>
+      </Modal>
+
+      <Modal
+        isOpen={game.isEnded || game.isClearded}
+        style={customStyles}
+        ariaHideApp={false}
+        onRequestClose={handleCreateBoard}
+      >
+        <ResultDisplay game={game}>
+          <Timer isResult />
+          <TimeHistory />
+        </ResultDisplay>
+        <Button
+          retry={game.isEnded}
+          isClearded={game.isClearded}
+          text={game?.isClearded ? "Clear!" : "再チャレンジ"}
+          onClick={() => handleCreateBoard()}
+        />
+      </Modal>
+    </>
   );
 };
 

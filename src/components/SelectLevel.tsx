@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LevelKey } from "../reducers/Board/types";
+import { BoardState, LevelKey } from "../reducers/Board/types";
 
 const StyledSelectLevel = styled.select`
+  @media screen and (max-width: 425px) {
+    margin: 4px 6px 4px 2px;
+    font-size: 12px;
+    padding-left: 4px;
+    width: 80px;
+  }
   appearance: none;
   outline: none;
   border: none;
-  width: 100px;
+  width: 150px;
   margin: 15px 10px;
   padding: 0 0 0 10px;
   font-size: 15px;
@@ -16,13 +22,17 @@ const StyledSelectLevel = styled.select`
   cursor: pointer;
 `;
 
-const SelectArrow = styled.span`
+const SelectArrow = styled.span<{ isRanking?: boolean }>`
   position: relative;
   ::after {
+    @media screen and (max-width: 425px) {
+      top: 1.1em;
+      right: 1em;
+    }
     position: absolute;
     content: "";
-    top: 1.8em;
-    right: 1.2em;
+    top: ${({ isRanking }) => (isRanking ? "1.8em" : "1.8em")};
+    right: 1.8em;
     width: 0;
     height: 0;
     padding: 0;
@@ -30,14 +40,23 @@ const SelectArrow = styled.span`
     border-right: 4px solid transparent;
     border-top: 4px solid #000000;
   }
+  z-index: 1000;
 `;
 
 type SelectLevelProps = {
+  board: BoardState;
   handleSelectLevel: (level: LevelKey) => void;
+  isRanking?: boolean;
 };
 
-const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
-  const [level, setLevel] = useState<LevelKey>("medium");
+const SelectLevel: React.FC<SelectLevelProps> = ({
+  board,
+  handleSelectLevel,
+  isRanking,
+}) => {
+  const levelName =
+    board.mines === 10 ? "easy" : board.mines === 40 ? "medium" : "hard";
+  const [level, setLevel] = useState<LevelKey>(levelName);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLevel(e.target.value as LevelKey);
@@ -45,11 +64,11 @@ const SelectLevel: React.FC<SelectLevelProps> = ({ handleSelectLevel }) => {
   };
 
   return (
-    <SelectArrow>
+    <SelectArrow isRanking={isRanking}>
       <StyledSelectLevel value={level} onChange={handleOnChange}>
-        <option value="easy">難易度:低</option>
-        <option value="medium">難易度:中</option>
-        <option value="hard">難易度:高</option>
+        <option value="easy">easy</option>
+        <option value="medium">medium</option>
+        <option value="hard">hard</option>
       </StyledSelectLevel>
     </SelectArrow>
   );
